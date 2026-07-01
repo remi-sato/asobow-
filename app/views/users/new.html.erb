@@ -1,0 +1,26 @@
+<h2>ユーザー新規登録画面</h2>
+
+<%= form_with model: @user do |f| %>
+  <div>
+    <%= f.label :name, "名前" %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :email_address, "メールアドレス" %>
+    <%= f.email_field :email_address %>
+  </div>
+
+  <div>
+    <%= f.label :password, "パスワード" %>
+    <%= f.password_field :password, placeholder: "6文字以上で入力してください" %>
+  </div>
+
+  <div>
+    <%= f.label :password_confirmation, "パスワード確認" %>
+    <%= f.password_field :password_confirmation, placeholder: "6文字以上で入力してください" %>
+  </div>
+
+  <%= f.submit "登録" %>
+
+<% end %>
