@@ -37,6 +37,12 @@
     <%= f.text_area :body %> 
   </div>
 
+  <div id="map" style="height: 400px;"></div>
+  
+  <%= f.hidden_field :latitude, id: "post_latitude" %>
+  <%= f.hidden_field :longitude, id: "post_longitude" %>
+
+
   <%= f.submit submit_text %>
 
 <% end %>

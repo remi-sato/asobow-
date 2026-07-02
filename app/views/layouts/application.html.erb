@@ -40,6 +40,10 @@
     <main>
       <%= yield %>
     </main>
+
+    <script async defer data-turbo="false"
+  src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["Maps_API_Key"] %>&callback=initMap">
+</script>
    
     <footer>
     </footer>
