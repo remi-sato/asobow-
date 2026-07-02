@@ -1,0 +1,44 @@
+<% if post.errors.any? %>
+  <ul>
+    <% post.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with model: post do |f| %>
+  <div>
+    <%= f.label :image, "画像" %>
+    <%= f.file_field :images, multiple: true %>
+  </div>
+
+  <div>
+    <%= f.label :title, "タイトル" %>
+    <%= f.text_field :title %>
+  </div>
+
+   <div>
+    <%= f.label :rating, "評価" %>
+    <%= f.select :rating, 1..5 %>
+  </div>
+
+  <div>
+    <%= f.label :place_name, "場所名" %>
+    <%= f.text_field :place_name %>
+  </div>
+
+  <div>
+    <%= f.label :address, "住所" %>
+    <%= f.text_field :address %>
+  </div>
+
+  <div>
+    <%= f.label :body, "本文" %>
+    <%= f.text_area :body %> 
+  </div>
+
+  <%= f.submit submit_text %>
+
+<% end %>
+
+ 

@@ -1,0 +1,15 @@
+ja:
+  errors:
+    messages:
+      blank: "を入力してください"
+
+  activerecord:
+    models:
+      post: 投稿
+    attributes:
+      post:
+        title: タイトル
+        body: 本文
+        place_name: 場所名
+        address: 住所
+        rating: 評価
