@@ -1,0 +1,14 @@
+<h2><%= @user.name %>さんのプロフィール</h2>
+
+<p>
+  自己紹介
+  <%= @user.introduction.present? ? @user.introduction : "自己紹介はまだありません" %>
+</p>
+
+<h3>投稿一覧</h3>
+
+<% if @posts.any? %>
+  <%= render partial: "posts/post", collection: @posts %>
+<% else %>
+  <p>まだ投稿はありません</p>
+<% end %>

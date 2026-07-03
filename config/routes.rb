@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   get "about" => "homes#about"
 
   resources :users, exect: [:index]
+  get "mypage" => "users#mypage"
+  
   resources :posts
 
   get "/login" => "sessions#new"
