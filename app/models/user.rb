@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
  # has_many :comments, dependent: :destroy
   #has_many :favorites, dependent: :destroy
-  #has_many :dogs, dependent: :destroy
+  has_many :dogs, dependent: :destroy
   #has_many :community_users, dependent: :destroy
   #has_many :communities, through: :community_users
 
