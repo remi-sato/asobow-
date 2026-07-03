@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get "sessions/new"
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -16,7 +16,10 @@ Rails.application.routes.draw do
   root "homes#top"
   get "about" => "homes#about"
 
-  resources :users, expect: [:index]
+  resources :users, exect: [:index]
+  get "mypage" => "users#mypage"
+  
+  resources :posts
 
   get "/login" => "sessions#new"
   post "/login" => "sessions#create"

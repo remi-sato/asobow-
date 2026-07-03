@@ -1,0 +1,26 @@
+<h2>マイページ</h2>
+
+<h4>プロフィール</h4>
+
+<table>
+  <tr>
+   <th>名前</th>
+   <td><%= @user.name %></td>
+  </tr>
+
+   <tr>
+   <th>メールアドレス</th>
+   <td><%= @user.email_address %></td>
+  </tr>
+</table>
+
+<%= link_to "プロフィール編集", edit_user_path(@user) %>
+<%= link_to "退会", user_path(@user), data: { turbo_method: :delete, turbo_confirm: "本当に退会しますか？" } %>
+
+<h4>投稿一覧</h4>
+
+<% if @posts.any? %>
+  <%= render partial: "posts/post", collection: @posts %>
+<% else %>
+  <p>まだ投稿はありません</p>
+<% end %>
