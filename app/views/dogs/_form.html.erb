@@ -1,4 +1,7 @@
 <%= form_with model: dog do |f| %>
+
+  <%= f.label :image, "写真" %>
+  <%= f. file_field :image %>
   
   <%= f.label :name, "名前" %>
   <%= f.text_field :name  %>
@@ -7,13 +10,13 @@
   <%= f.text_field :breed %>
 
   <%= f.label :size, "サイズ" %>
-  <%= f.select :size, Dog.sizes.keys.map { |k| [k, k]} %>
+  <%= f.select :size, Dog.sizes.keys.map { |size| [Dog.human_enum_name(:size, size), size] } %>
 
   <%= f.label :birthday, "誕生日" %>
   <%= f.date_field :birthday %>
 
   <%= f.label :gender, "性別" %>
-  <%= f.select :gender, Dog.genders.keys.map { |k| [k, k]} %>
+  <%= f.select :gender, Dog.genders.keys.map { |gender| [Dog.human_enum_name(:gender, gender), gender] } %>
 
   <%= f.submit submit_text %>
 

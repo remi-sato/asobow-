@@ -5,6 +5,14 @@
   <%= @user.introduction.present? ? @user.introduction : "自己紹介はまだありません" %>
 </p>
 
+<h3>愛犬情報</h3>
+ 
+  <% if @dogs.any? %>
+    <%= render partial: "dogs/dog", collection: @dogs %>
+  <% else %>
+    <p>まだ愛犬情報が登録されていません</p>
+  <% end %>
+
 <h3>投稿一覧</h3>
 
 <% if @posts.any? %>

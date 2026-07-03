@@ -1,5 +1,6 @@
 class Dog < ApplicationRecord
   belongs_to :user
+  has_one_attached :image
 
   enum :size, {
     small: 0,
@@ -17,5 +18,13 @@ class Dog < ApplicationRecord
   validates :size, presence: true
   validates :birthday, presence: true
   validates :gender, presence: true
+
+  def size_i18n
+    I18n.t("enums.dog.size.#{size}")
+  end
+
+  def gender_i18n
+    I18n.t("enums.dog.gender.#{gender}")
+  end
 
 end
