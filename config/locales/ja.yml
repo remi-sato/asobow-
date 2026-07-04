@@ -13,3 +13,13 @@ ja:
         place_name: 場所名
         address: 住所
         rating: 評価
+
+  enums:
+    dog:
+      size:
+        small: "小型犬"
+        medium: "中型犬"
+        large: "大型犬"
+      gender:
+        male: "男の子"
+        female: "女の子"

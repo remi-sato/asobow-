@@ -17,6 +17,15 @@
 <%= link_to "プロフィール編集", edit_user_path(@user) %>
 <%= link_to "退会", user_path(@user), data: { turbo_method: :delete, turbo_confirm: "本当に退会しますか？" } %>
 
+<h4>愛犬情報</h4>
+
+<%= link_to "愛犬を登録する" %>
+
+<% if @dogs.any? %>
+  <%= render @dogs %>
+<% else %>
+  <% end %>
+
 <h4>投稿一覧</h4>
 
 <% if @posts.any? %>
