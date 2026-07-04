@@ -1,4 +1,14 @@
-// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 import "@hotwired/turbo-rails"
 import "controllers"
 import "map"
+
+document.addEventListener("turbo:load", () => {
+  const button = document.getElementById("menuButton");
+  const menu = document.getElementById("hamburgerMenu");
+
+  if (!button) return;
+
+  button.addEventListener("click", () => {
+    menu.classList.toggle("open");
+  });
+});

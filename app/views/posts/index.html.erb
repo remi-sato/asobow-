@@ -17,7 +17,7 @@
         <td><%= post.rating %></td>
         <td><%= post.place_name %></td>
         <td><%= post.user.name %></td>
-        <td><%= link_to "詳細", post_path(post) %></td>
+        <td><%= link_to "詳細", post_path(post), data: { turbo: false } %></td>
       </tr>
     <% end %>
   </tbody>

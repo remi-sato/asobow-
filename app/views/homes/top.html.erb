@@ -1,10 +1,16 @@
-<h2>愛犬との毎日をもっと楽しく</h2>
-
-<h2>遊び場を探す、犬友とつながる</h2>
+<h3>遊び場を探す</h3>
 
 <div id="map" 
-  data-posts='<%= raw @posts.to_json(only: [:id, :title, :place_name, :latitude, :longitude]) %>'
-  style="height: 400px;">
+  data-posts='<%= raw @posts.map { |post|
+  {
+    id: post.id,
+    title: post.title,
+    place_name: post.place_name,
+    latitude: post.latitude,
+    longitude: post.longitude,
+    rating: post.rating,
+    image_url: post.images.attached? ? url_for(post.images.first) : nil
+  }
+}.to_json %>'
+  style="height: 600px;">
 </div>
-
-<%= link_to "新しい遊び場を投稿する", new_post_path %>

@@ -6,7 +6,7 @@
   </ul>
 <% end %>
 
-<%= form_with model: post do |f| %>
+<%= form_with model: post, local: true do |f| %>
   <div>
     <%= f.label :image, "画像" %>
     <%= f.file_field :images, multiple: true %>
