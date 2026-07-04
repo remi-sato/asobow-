@@ -1,49 +1,53 @@
 <% if post.errors.any? %>
-  <ul>
-    <% post.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-  </ul>
+  <div class="alert alert-danger>
+    <ul class="mb-0">
+      <% post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
 <% end %>
 
 <%= form_with model: post, local: true do |f| %>
-  <div>
-    <%= f.label :image, "画像" %>
-    <%= f.file_field :images, multiple: true %>
+  <div class="mb-3">
+    <%= f.label :image, "画像",class: "form-label" %>
+    <%= f.file_field :images, multiple: true,class: "form-control" %>
   </div>
 
-  <div>
-    <%= f.label :title, "タイトル" %>
-    <%= f.text_field :title %>
+  <div class="mb-3">
+    <%= f.label :title, "タイトル",class: "form-label" %>
+    <%= f.text_field :title, class: "form-control", placeholder: "広くて走りやすい公園" %>
   </div>
 
-   <div>
-    <%= f.label :rating, "評価" %>
-    <%= f.select :rating, 1..5 %>
+   <div class="mb-3">
+    <%= f.label :rating, "評価",class: "form-label" %>
+    <%= f.select :rating, 1..5, {}, class: "form-select" %>
   </div>
 
-  <div>
-    <%= f.label :place_name, "場所名" %>
-    <%= f.text_field :place_name %>
+  <div class="mb-3">
+    <%= f.label :place_name, "場所名",class: "form-label" %>
+    <%= f.text_field :place_name, class: "form-control", placeholder: "例:○○公園" %>
   </div>
 
-  <div>
-    <%= f.label :address, "住所" %>
-    <%= f.text_field :address %>
+  <div class="mb-3">
+    <%= f.label :address, "住所",class: "form-label" %>
+    <%= f.text_field :address, class: "form-control", placeholder: "地図をクリックしてください" %>
   </div>
 
-  <div>
-    <%= f.label :body, "本文" %>
-    <%= f.text_area :body %> 
+  <div class="mb-3">
+    <%= f.label :body, "本文",class: "form-label" %>
+    <%= f.text_area :body, class: "form-control", rows: 5, placeholder: "犬連れで行った感想や注意点を書いてください" %> 
   </div>
 
-  <div id="map" style="height: 400px;"></div>
+  <div class="mb-4">
+    <label class="form-label"></label>
+      <div id="map" class="rounded-4" style="height: 400px;"></div>
+  </div>
   
   <%= f.hidden_field :latitude, id: "post_latitude" %>
   <%= f.hidden_field :longitude, id: "post_longitude" %>
 
 
-  <%= f.submit submit_text %>
+  <%= f.submit submit_text, class:  "btn btn-asobow w-100 rounded-pill fw-bold" %>
 
 <% end %>
 

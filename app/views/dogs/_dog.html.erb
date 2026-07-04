@@ -1,14 +1,45 @@
-<% if dog.image.attached? %>
-  <%= image_tag dog.image, style: "width: 150px; height: 150px; object-fit: cover;" %>
-<% end %>
+<div class="card shadow-sm border-0 rounded-4 mb-3">
+  <div class="card-body">
 
-<p>名前：<%= dog.name %></p>
-<p>犬種：<%= dog.breed %></p>
-<p>サイズ：<%= dog.size_i18n %></p>
-<p>誕生日：<%= dog.birthday %></p>
-<p>性別：<%= dog.gender_i18n %></p>
+    <div class="row align-items-center">
 
-<% if dog.user == current_user %>
-  <%= link_to "編集", edit_dog_path(dog) %>
-  <%= link_to "削除", dog_path(dog), data: { turbo_method: :delete, turbo_confirm: "方法に削除しますか？" } %>
-<% end %>
+      <div class="col-md-3 text-center">
+        <% if dog.image.attached? %>
+          <%= image_tag dog.image,
+              class: "rounded-circle",
+              style: "width: 150px; height: 150px; object-fit: cover;" %>
+        <% else %>
+          <div class="bg-light rounded-circle d-flex justify-content-center align-items-center mx-auto"
+               style="width:150px; height:150px;">
+            No Image
+          </div>
+        <% end %>
+      </div>
+
+      <div class="col-md-7">
+        <h5 class="fw-bold"><%= dog.name %></h5>
+
+        <p class="mb-1"><strong>犬種：</strong><%= dog.breed %></p>
+        <p class="mb-1"><strong>サイズ：</strong><%= dog.size_i18n %></p>
+        <p class="mb-1"><strong>誕生日：</strong><%= dog.birthday %></p>
+        <p class="mb-0"><strong>性別：</strong><%= dog.gender_i18n %></p>
+      </div>
+
+      <div class="col-md-2 text-end">
+        <%= link_to "編集",
+            edit_dog_path(dog),
+            class: "btn btn-asobow btn-sm rounded-pill mb-2 w-100" %>
+
+        <%= link_to "削除",
+            dog_path(dog),
+            data: {
+              turbo_method: :delete,
+              turbo_confirm: "本当に削除しますか？"
+            },
+            class: "btn btn-outline-danger btn-sm rounded-pill w-100" %>
+      </div>
+
+    </div>
+
+  </div>
+</div>

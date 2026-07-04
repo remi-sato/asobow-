@@ -1,24 +1,77 @@
-  <h1>あそBOW!について</h1>
+<div class="about-page">
+  <section class="about-hero text-center">
+    <div class="container">
+      <h1 class="about-title">あそBOW!について</h1>
 
-  <%= image_tag "ピオ外.jpeg" %>
+      <%= image_tag "ピオ外.jpeg", class: "about-main-image" %>
 
-  <p>
-    あそBOW!は、犬と一緒に遊べる場所の情報や口コミを共有し、
-    飼い主同士が交流できるレビュー・コミュニティサイトです。
-  </p>
+      <p class="about-lead">
+        あそBOW!は、犬と一緒に遊べる場所の情報や口コミを共有し、<br class="d-none d-md-block">
+        飼い主同士が交流できるレビュー・コミュニティサイトです。
+      </p>
+    </div>
+  </section>
 
-  <h2>こんな悩みを解決します</h2>
+  <section class="container about-section">
+    <h2 class="section-title">
+      こんな悩みを解決します
+    </h2>
 
-  <ul>
-    <li>犬と行ける公園やドッグランを探したい</li>
-    <li>実際に行った人の口コミを知りたい</li>
-    <li>引越し先や旅行先で犬友を見つけたい</li>
-  </ul>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="about-card">
+          <i class="fa-solid fa-bone"></i>
+          <p>犬と行ける公園やドッグランを探したい</p>
+        </div>
+      </div>
 
-  <h2>できること</h2>
+      <div class="col-md-4">
+        <div class="about-card">
+          <i class="fa-solid fa-bone"></i>
+          <p>実際に行った人の口コミを知りたい</p>
+        </div>
+      </div>
 
-  <ul>
-    <li>犬と遊べる場所を投稿・レビュー</li>
-    <li>地図から遊び場を探す</li>
-    <li>コミュニティに参加して犬友と交流</li>
-  </ul>
+      <div class="col-md-4">
+        <div class="about-card">
+          <i class="fa-solid fa-bone"></i>
+          <p>引越し先や旅行先で犬友を見つけたい</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container about-section">
+    <h2 class="section-title">
+      できること
+    </h2>
+
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="about-card">
+          <i class="fa-solid fa-bone"></i>
+          <p>犬と遊べる場所を投稿・レビュー</p>
+        </div>
+      </div>
+
+  
+      <div class="col-md-4">
+        <div class="about-card">
+          <i class="fa-solid fa-bone"></i>
+          <p>地図から遊び場を探す</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="about-card">
+          <i class="fa-solid fa-bone"></i>
+          <p>コミュニティに参加して犬友と交流</p>
+        </div>
+      </div>
+    </section>  
+    
+    <div class="text-center mt-5 mb-5">
+      <%= link_to "遊び場を探してみる", root_path, class: "btn btn-asobow rounded-pill px-5 py-2 fw-bold" %>
+    </div>
+  
+</div>

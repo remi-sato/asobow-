@@ -34,8 +34,12 @@
         </button>
 
         <nav class="hamburger-menu" id="hamburgerMenu">
-          <%= link_to about_path do %> 
+          <%= link_to root_path do %> 
             <i class="fa-solid fa-house"></i>
+            トップ
+          <% end %>
+          <%= link_to about_path do %> 
+            <i class="fa-solid fa-dog"></i>
             このサイトについて
           <% end %>
 
@@ -43,6 +47,10 @@
             <%= link_to new_post_path,data: { turbo: false} do %>
               <i class="fa-solid fa-paw"></i>
               投稿はこちら
+            <% end %>
+            <%= link_to posts_path do %>
+              <i class="fa-solid fa-tree"></i>
+              投稿一覧
             <% end %>
             <%= link_to mypage_path do %>
               <i class="fa-solid fa-user"></i>
@@ -76,13 +84,17 @@
     </header>
    
     <main>
-      <% flash.each do |key, message| %>
-        <p><%= message %></p>
-      <% end %>
-      
-      <%= yield %>
+      <div class="container mt-3">
+        <% flash.each do |key, message| %>
+          <div class="alert <%= key == "notice" ? "alert-success" : "alert-danger" %>" role="alert">
+            <%= message %>
+          </div>
+        <% end %>
 
+        <%= yield %>
+      </div>
     </main>
+    
     <footer>
     </footer>
   </body>
