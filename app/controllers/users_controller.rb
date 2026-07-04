@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   def mypage
     @user = current_user
     @posts = @user.posts.order(created_at: :desc)
+    @dogs = current_user.dogs
   end
 
   def new
@@ -24,6 +25,7 @@ class UsersController < ApplicationController
 
   def show
     @posts = @user.posts.order(created_at: :desc)
+    @dogs = @user.dogs
   end
 
   def edit

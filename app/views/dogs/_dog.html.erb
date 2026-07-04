@@ -1,0 +1,14 @@
+<% if dog.image.attached? %>
+  <%= image_tag dog.image, style: "width: 150px; height: 150px; object-fit: cover;" %>
+<% end %>
+
+<p>名前：<%= dog.name %></p>
+<p>犬種：<%= dog.breed %></p>
+<p>サイズ：<%= dog.size_i18n %></p>
+<p>誕生日：<%= dog.birthday %></p>
+<p>性別：<%= dog.gender_i18n %></p>
+
+<% if dog.user == current_user %>
+  <%= link_to "編集", edit_dog_path(dog) %>
+  <%= link_to "削除", dog_path(dog), data: { turbo_method: :delete, turbo_confirm: "方法に削除しますか？" } %>
+<% end %>
