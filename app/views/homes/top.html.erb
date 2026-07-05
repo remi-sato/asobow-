@@ -1,10 +1,40 @@
-<h2>愛犬との毎日をもっと楽しく</h2>
+<div class="container py-4">
+  <div class="text-center mb-4">
+    <h2 class="fw-bold top-title mb-2">
+      <i class="fa-solid fa-dog"></i>
+      遊び場を探す
+    </h2>
 
-<h2>遊び場を探す、犬友とつながる</h2>
+    <p class="text-muted mb-3">
+      愛犬と行ける公園・ドッグラン・おでかけスポットを見つけよう
+    </p>
 
-<div id="map" 
-  data-posts='<%= raw @posts.to_json(only: [:id, :title, :place_name, :latitude, :longitude]) %>'
-  style="height: 400px;">
+    <% if logged_in? %>
+      <%= link_to new_post_path,
+          data: { turbo: false },
+          class: "btn btn-asobow rounded-pill px-4 fw-bold" do %>
+        <i class="fa-solid fa-paw"></i>
+        遊び場を投稿する
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
+    <div class="card-body p-0">
+      <div id="map"
+           data-posts='<%= raw @posts.map { |post|
+             {
+               id: post.id,
+               title: post.title,
+               place_name: post.place_name,
+               latitude: post.latitude,
+               longitude: post.longitude,
+               rating: post.rating,
+               image_url: post.images.attached? ? url_for(post.images.first) : nil
+             }
+           }.to_json %>'
+           style="height: 600px;">
+      </div>
+    </div>
+  </div>
 </div>
-
-<%= link_to "新しい遊び場を投稿する", new_post_path %>

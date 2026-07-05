@@ -1,17 +1,17 @@
-<h2>ログイン</h2>
+<%= render "shared/form_card", title: "ログイン", subtitle: "あそBOW!へようこそ" do %>
 
-<%= form_with url: login_path do |f| %>
+  <%= form_with url: login_path do |f| %>
+    <div class="mb-3">
+      <%= f.label :email_address, "メールアドレス", class: "form-label" %>
+      <%= f.email_field :email_address, class: "form-control", placeholder: "example@email.com" %>
+    </div>
 
-  <div>
-    <%= f.label :email_address, "メールアドレス" %>
-    <%= f.email_field :email_address %>
-  </div>
+    <div class="mb-4">
+      <%= f.label :password, "パスワード", class: "form-label" %>
+      <%= f.password_field :password, class: "form-control", placeholder: "パスワード" %>
+    </div>
 
-  <div>
-    <%= f.label :password, "パスワード" %>
-    <%= f.password_field :password %>
-  </div>
+    <%= f.submit "ログイン", class: "btn btn-asobow w-100 rounded-pill fw-bold" %>
+  <% end %>
 
-  <%= f.submit "ログイン" %>
-  
 <% end %>

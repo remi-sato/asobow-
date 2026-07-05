@@ -1,22 +1,53 @@
-<h2><%= @user.name %>さんのプロフィール</h2>
+<div class="container py-4">
 
-<p>
-  自己紹介
-  <%= @user.introduction.present? ? @user.introduction : "自己紹介はまだありません" %>
-</p>
+  <h2 class="fw-bold mb-4">
+    <i class="fa-solid fa-user"></i>
+    <%= @user.name %>さんのプロフィール
+  </h2>
 
-<h3>愛犬情報</h3>
- 
-  <% if @dogs.any? %>
-    <%= render partial: "dogs/dog", collection: @dogs %>
-  <% else %>
-    <p>まだ愛犬情報が登録されていません</p>
-  <% end %>
+  <div class="card shadow-sm border-0 rounded-4 mb-4">
+    <div class="card-body">
+      <h4 class="fw-bold mb-3">
+        <i class="fa-solid fa-user"></i>
+        プロフィール
+      </h4>
 
-<h3>投稿一覧</h3>
+      <p class="mb-0">
+        <%= @user.introduction.present? ? simple_format(@user.introduction) : "自己紹介はまだありません。" %>
+      </p>
+    </div>
+  </div>
 
-<% if @posts.any? %>
-  <%= render partial: "posts/post", collection: @posts %>
-<% else %>
-  <p>まだ投稿はありません</p>
-<% end %>
+  <div class="card shadow-sm border-0 rounded-4 mb-4">
+    <div class="card-body">
+      <h4 class="fw-bold mb-3">
+        <i class="fa-solid fa-dog"></i>
+        愛犬情報
+      </h4>
+
+      <% if @dogs.any? %>
+        <%= render partial: "dogs/dog", collection: @dogs, locals: {show_actions: false } %>
+      <% else %>
+        <p class="text-muted mb-0">まだ愛犬情報が登録されていません。</p>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="card shadow-sm border-0 rounded-4">
+    <div class="card-body">
+      <h4 class="fw-bold mb-3">
+        <i class="fa-solid fa-paw"></i>
+        <%= @user.name %>さんの投稿
+      </h4>
+
+      <% if @posts.any? %>
+        <div class="row g-4">
+          <%= render partial: "posts/post", collection: @posts %>
+        </div>
+      <% else %>
+        <p class="text-muted mb-0">まだ投稿はありません。</p>
+      <% end %>
+    </div>
+  </div>
+
+</div>

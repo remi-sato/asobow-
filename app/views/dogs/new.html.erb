@@ -1,3 +1,9 @@
-<h2>愛犬情報登録</h2>
+<%= render "shared/form_card", title: "愛犬情報登録" do %>
 
-<%= render "form", dog: @dog, submit_text: "登録" %>
+  <%= render "form", dog: @dog, submit_text: "登録" %>
+
+  <div class="text-center mt-4">
+    <%= link_to "マイページに戻る", mypage_path, class: "btn btn-outline-secondary rounded-pill" %>
+  </div>
+
+<% end %>

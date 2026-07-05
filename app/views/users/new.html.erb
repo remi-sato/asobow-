@@ -1,3 +1,12 @@
-<h2>ユーザー新規登録画面</h2>
+<%= render "shared/form_card", title: "新規登録", subtitle: "あそBOW!を始めよう" do %>
 
-<%= render "form", user:@user, submit_text: "登録" %>
+  <%= render "form", user:@user, submit_text: "登録" %>
+
+  <div class="text-center mt-4">
+    <small class="text-muted">
+    すでにアカウントをお持ちの方は
+      <%= link_to "ログイン", login_path, class: "text-decoration-none" %>
+    </small>
+  </div>
+
+<% end %>        

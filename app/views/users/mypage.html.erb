@@ -1,35 +1,62 @@
-<h2>マイページ</h2>
+<div class="container py-4">
 
-<h4>プロフィール</h4>
+  <h2 class="fw-bold mb-4">
+    <i class="fa-solid fa-user"></i>
+    <%= @user.name %>さんのプロフィール
+  </h2>
 
-<table>
-  <tr>
-   <th>名前</th>
-   <td><%= @user.name %></td>
-  </tr>
+  <div class="card shadow-sm border-0 rounded-4 mb-4">
+    <div class="card-body">
+      <div class="row align-items-center">
+        <div class="col-md-10">
+          <h4 class="fw-bold mb-3">
+            <i class="fa-solid fa-user"></i>
+            プロフィール
+          </h4>
 
-   <tr>
-   <th>メールアドレス</th>
-   <td><%= @user.email_address %></td>
-  </tr>
-</table>
+          <p class="mb-0">
+            <%= @user.introduction.present? ? simple_format(@user.introduction) : "自己紹介はまだありません。" %>
+          </p>
+        </div>
 
-<%= link_to "プロフィール編集", edit_user_path(@user) %>
-<%= link_to "退会", user_path(@user), data: { turbo_method: :delete, turbo_confirm: "本当に退会しますか？" } %>
+          <div class="col-md-2 text-end">
+            <%= link_to "プロフィールを編集", edit_user_path(@user), class: "btn btn-asobow rounded-pill mt-3" %>
+          </div>
+       
+      </div>
+    </div>
+  </div>
 
-<h4>愛犬情報</h4>
+  <div class="card shadow-sm border-0 rounded-4 mb-4">
+    <div class="card-body">
+      <h4 class="fw-bold mb-3">
+        <i class="fa-solid fa-dog"></i>
+        愛犬情報
+      </h4>
 
-<%= link_to "愛犬を登録する" %>
+      <% if @dogs.any? %>
+        <%= render partial: "dogs/dog", collection: @dogs, locals: { show_actions: true} %>
+      <% else %>
+        <p class="text-muted mb-0">まだ愛犬情報が登録されていません。</p>
+      <% end %>
+    </div>
+  </div>
 
-<% if @dogs.any? %>
-  <%= render @dogs %>
-<% else %>
-  <% end %>
+  <div class="card shadow-sm border-0 rounded-4">
+    <div class="card-body">
+      <h4 class="fw-bold mb-3">
+        <i class="fa-solid fa-paw"></i>
+        <%= @user.name %>さんの投稿
+      </h4>
 
-<h4>投稿一覧</h4>
+      <% if @posts.any? %>
+        <div class="row g-4">
+          <%= render partial: "posts/post", collection: @posts %>
+        </div>
+      <% else %>
+        <p class="text-muted mb-0">まだ投稿はありません。</p>
+      <% end %>
+    </div>
+  </div>
 
-<% if @posts.any? %>
-  <%= render partial: "posts/post", collection: @posts %>
-<% else %>
-  <p>まだ投稿はありません</p>
-<% end %>
+</div>

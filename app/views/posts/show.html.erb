@@ -1,34 +1,82 @@
-<h2>投稿詳細</h2>
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
 
-<p>
-  <% if @post.images.attached? %>
-    <% @post.images.each do |image| %>
-      <%= image_tag image, class: "post-image" %>
-    <% end %>
-  <% else %>
-    <p>no image</p>
-  <% end %>
-</p>
+      <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
+        <% if @post.images.attached? %>
+          <div class="d-flex overflow-auto">
+            <% @post.images.each do |image| %>
+              <%= image_tag image,
+                  class: "post-show-image",
+                  style: "height: 320px; min-width: 100%; object-fit: contain;" %>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="bg-light text-center py-5 text-muted">
+            no image
+          </div>
+        <% end %>
 
-<p>タイトル <%= @post.title %></p>
+        <div class="card-body p-4">
+          <h2 class="fw-bold mb-3">
+            <i class="fa-solid fa-location-dot"></i>
+            <%= @post.place_name %>
+          </h2>
 
-<p>評価 <%= @post.rating %></p>
+          <p class="text-muted mb-2">
+            <%= @post.title %>
+          </p>
 
-<p>場所名 <%= @post.place_name %></p>
+          <p class="text-warning fw-bold mb-2">
+            ★ <%= @post.rating %> / 5
+          </p>
 
-<p>住所 <%= @post.address %></p>
+          <p class="text-muted mb-4">
+            <%= @post.address %>
+          </p>
 
-<p>本文 <%= @post.body %></p>
+          <div class="mb-4">
+            <h5 class="fw-bold">遊び場について</h5>
+            <p class="mb-0"><%= simple_format(@post.body) %></p>
+          </div>
 
-<p>投稿者 <%= @post.user.name %></p>
+          <p class="text-muted small mb-4">
+            投稿者：
+            <%= link_to @post.user.name, user_path(@post.user) %>
+          </p>
 
-<div id="map"
-  data-lat="<%= @post.latitude %>"
-  data-lng="<%= @post.longitude %>"
-  style="height: 400px;">
+          <div id="map"
+               data-lat="<%= @post.latitude %>"
+               data-lng="<%= @post.longitude %>"
+               class="rounded-4 mb-4"
+               style="height: 350px;">
+          </div>
+
+          <div class="d-flex justify-content-between">
+            <%= link_to "一覧へ戻る",
+                posts_path,
+                class: "btn btn-outline-secondary rounded-pill" %>
+
+            <% if @post.user == current_user %>
+              <div>
+                <%= link_to "編集",
+                    edit_post_path(@post),
+                    data: { turbo: false },
+                    class: "btn btn-asobow rounded-pill me-2" %>
+
+                <%= link_to "削除",
+                    post_path(@post),
+                    data: {
+                      turbo_method: :delete,
+                      turbo_confirm: "本当に削除しますか？"
+                    },
+                    class: "btn btn-outline-danger rounded-pill" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
-
-<% if @post.user == current_user %>
-  <%= link_to "編集", edit_post_path(@post) %>
-  <%= link_to "削除", post_path(@post), data:{ turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
-<% end %>

@@ -1,26 +1,44 @@
+<% if user.errors.any? %>
+  <div class="alert alert-danger">
+    <ul class="mb-0">
+      <% user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_with model: user do |f| %>
-  <div>
-    <%= f.label :name, "名前" %>
-    <%= f.text_field :name %>
+
+  <div class="mb-3">
+    <%= f.label :name, "名前", class: "form-label" %>
+    <%= f.text_field :name, class: "form-control", placeholder: "ニックネーム" %>
   </div>
 
-  <div>
-    <%= f.label :email_address, "メールアドレス" %>
-    <%= f.email_field :email_address %>
+  <div class="mb-3">
+    <%= f.label :email_address, "メールアドレス", class: "form-label" %>
+    <%= f.email_field :email_address, class: "form-control", placeholder: "example@email.com" %>
   </div>
 
+  <div class="mb-3">
+  <%= f.label :introduction, "自己紹介", class: "form-label" %>
+  <%= f.text_area :introduction,
+      class: "form-control",
+      rows: 4,
+      placeholder: "愛犬のことや好きなお出かけ先を書いてみましょう" %>
+  </div>
   <% if user.new_record? %>
-    <div>
-      <%= f.label :password, "パスワード" %>
-      <%= f.password_field :password, placeholder: "6文字以上で入力してください" %>
+    <div class="mb-3">
+      <%= f.label :password, "パスワード", class: "form-label" %>
+      <%= f.password_field :password,class: "form-control", placeholder: "6文字以上で入力してください" %>
     </div>
 
-    <div>
-      <%= f.label :password_confirmation, "パスワード確認" %>
-      <%= f.password_field :password_confirmation, placeholder: "6文字以上で入力してください" %>
+     <div class="mb-3">
+      <%= f.label :password_confirmation, "パスワード確認", class: "form-label" %>
+      <%= f.password_field :password_confirmation, class: "form-control", placeholder: "6文字以上で入力してください" %>
     </div>
   <% end %>
 
-  <%= f.submit submit_text %>
+  <%= f.submit submit_text, class: "btn btn-asobow w-100 rounded-pill fw-bold" %>
 
 <% end %>
