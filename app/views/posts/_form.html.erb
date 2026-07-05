@@ -1,13 +1,19 @@
 <% if post.errors.any? %>
-  <div class="alert alert-danger>
+  <div class="alert alert-danger rounded-4 mb-4">
+    <h5 class="fw-bold mb-3">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      入力内容を確認してください
+    </h5>
+
     <ul class="mb-0">
       <% post.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
     </ul>
+  </div>
 <% end %>
 
-<%= form_with model: post, local: true do |f| %>
+<%= form_with model: post, local: true,data: { turbo: false } do |f| %>
   <div class="mb-3">
     <%= f.label :image, "画像",class: "form-label" %>
     <%= f.file_field :images, multiple: true,class: "form-control" %>

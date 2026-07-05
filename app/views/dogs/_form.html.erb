@@ -1,23 +1,50 @@
+<% if post.errors.any? %>
+  <div class="alert alert-danger rounded-4 mb-4">
+    <h5 class="fw-bold mb-3">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      入力内容を確認してください
+    </h5>
+
+    <ul class="mb-0">
+      <% post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_with model: dog do |f| %>
 
-  <%= f.label :image, "写真" %>
-  <%= f. file_field :image %>
+  <div class="mb-3">
+    <%= f.label :image, "写真", class: "form-label" %>
+    <%= f. file_field :image, class: "form-control" %>
+  </div>
   
-  <%= f.label :name, "名前" %>
-  <%= f.text_field :name  %>
+  <div class="mb-3">
+    <%= f.label :name, "名前", class: "form-label" %>
+    <%= f.text_field :name, class: "form-control"  %>
+  </div>
 
-  <%= f.label :breed, "犬種" %>
-  <%= f.text_field :breed %>
+  <div class="mb-3">
+    <%= f.label :breed, "犬種", class: "form-label" %>
+    <%= f.text_field :breed, class: "form-control", placeholder: "例:ビーグル" %>
+  </div>
 
-  <%= f.label :size, "サイズ" %>
-  <%= f.select :size, Dog.sizes.keys.map { |size| [Dog.human_enum_name(:size, size), size] } %>
+  <div class="mb-3">
+    <%= f.label :size, "サイズ", class: "form-label" %>
+    <%= f.select :size, Dog.sizes.keys.map { |size| [I18n.t("enums.dog.size.#{size}"), size] }, {}, class: "form-select" %>
+  </div>
 
-  <%= f.label :birthday, "誕生日" %>
-  <%= f.date_field :birthday %>
+  <div class="mb-3">
+    <%= f.label :birthday, "誕生日", class: "form-label" %>
+    <%= f.date_field :birthday, class: "form-control" %>
+  </div>
 
-  <%= f.label :gender, "性別" %>
-  <%= f.select :gender, Dog.genders.keys.map { |gender| [Dog.human_enum_name(:gender, gender), gender] } %>
+  <div class="mb-3">
+    <%= f.label :gender, "性別", class: "form-label" %>
+    <%= f.select :gender, Dog.genders.keys.map  { |gender| [I18n.t("enums.dog.gender.#{gender}"), gender] }, {}, class: "form-select" %>
+  </div>
 
-  <%= f.submit submit_text %>
+  <%= f.submit submit_text, class: "btn btn-asobow w-100 rounded-pill fw-bold" %>
 
 <% end %>

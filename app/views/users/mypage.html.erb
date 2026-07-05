@@ -2,90 +2,60 @@
 
   <h2 class="fw-bold mb-4">
     <i class="fa-solid fa-user"></i>
-    <%= @user.name %>さんのマイページ
+    <%= @user.name %>さんのプロフィール
   </h2>
 
-  <!-- プロフィール -->
   <div class="card shadow-sm border-0 rounded-4 mb-4">
     <div class="card-body">
+      <div class="row align-items-center">
+        <div class="col-md-10">
+          <h4 class="fw-bold mb-3">
+            <i class="fa-solid fa-user"></i>
+            プロフィール
+          </h4>
 
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <h4 class="fw-bold mb-0">
-          <i class="fa-solid fa-user"></i>
-          プロフィール
-        </h4>
+          <p class="mb-0">
+            <%= @user.introduction.present? ? simple_format(@user.introduction) : "自己紹介はまだありません。" %>
+          </p>
+        </div>
 
-        <%= link_to "編集",
-            edit_user_path(@user),
-            class: "btn btn-asobow btn-sm rounded-pill" %>
+          <div class="col-md-2 text-end">
+            <%= link_to "プロフィールを編集", edit_user_path(@user), class: "btn btn-asobow rounded-pill mt-3" %>
+          </div>
+       
       </div>
-
-      <table class="table mb-0">
-        <tr>
-          <th style="width: 180px;">名前</th>
-          <td><%= @user.name %></td>
-        </tr>
-
-        <tr>
-          <th>メールアドレス</th>
-          <td><%= @user.email_address %></td>
-        </tr>
-      </table>
-
-      <div class="text-end mt-3">
-        <%= link_to "退会する",
-            user_path(@user),
-            data: {
-              turbo_method: :delete,
-              turbo_confirm: "本当に退会しますか？"
-            },
-            class: "btn btn-outline-danger btn-sm rounded-pill" %>
-      </div>
-
     </div>
   </div>
 
-  <!-- 愛犬情報 -->
   <div class="card shadow-sm border-0 rounded-4 mb-4">
     <div class="card-body">
-
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <h4 class="fw-bold mb-0">
-          <i class="fa-solid fa-dog"></i>
-          愛犬情報
-        </h4>
-
-        <%= link_to "登録する",
-            new_dog_path,
-            class: "btn btn-asobow btn-sm rounded-pill" %>
-      </div>
+      <h4 class="fw-bold mb-3">
+        <i class="fa-solid fa-dog"></i>
+        愛犬情報
+      </h4>
 
       <% if @dogs.any? %>
-        <%= render @dogs %>
+        <%= render partial: "dogs/dog", collection: @dogs, locals: { show_actions: true} %>
       <% else %>
-        <p class="text-muted mb-0">まだ愛犬が登録されていません。</p>
+        <p class="text-muted mb-0">まだ愛犬情報が登録されていません。</p>
       <% end %>
-
     </div>
   </div>
 
-  <!-- 投稿一覧 -->
   <div class="card shadow-sm border-0 rounded-4">
     <div class="card-body">
-
       <h4 class="fw-bold mb-3">
         <i class="fa-solid fa-paw"></i>
-        あなたの投稿
+        <%= @user.name %>さんの投稿
       </h4>
 
       <% if @posts.any? %>
-        <div class="row">
+        <div class="row g-4">
           <%= render partial: "posts/post", collection: @posts %>
         </div>
       <% else %>
         <p class="text-muted mb-0">まだ投稿はありません。</p>
       <% end %>
-
     </div>
   </div>
 

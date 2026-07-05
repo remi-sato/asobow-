@@ -41,7 +41,8 @@
           </div>
 
           <p class="text-muted small mb-4">
-            投稿者：<%= @post.user.name %>
+            投稿者：
+            <%= link_to @post.user.name, user_path(@post.user) %>
           </p>
 
           <div id="map"
