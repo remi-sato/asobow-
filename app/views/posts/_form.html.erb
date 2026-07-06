@@ -14,8 +14,20 @@
 <% end %>
 
 <%= form_with model: post, local: true,data: { turbo: false } do |f| %>
+  <% if post.images.attached? %>
+    <div class="mb-3">
+      <p class="form-label">現在の画像</p>
+
+      <div class="d-flex flex-wrap gap-2">
+        <% post.images.each do |image| %>
+          <%= image_tag image, class: "post-image rounded" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
   <div class="mb-3">
-    <%= f.label :image, "画像",class: "form-label" %>
+    <%= f.label :images, "画像",class: "form-label" %>
     <%= f.file_field :images, multiple: true,class: "form-control" %>
   </div>
 

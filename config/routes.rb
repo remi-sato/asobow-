@@ -16,11 +16,11 @@ Rails.application.routes.draw do
   root "homes#top"
   get "about" => "homes#about"
 
-  resources :users, exept: [:index]
+  resources :users, except: [:index]
   get "mypage" => "users#mypage"
   
   resources :posts
-  resources :dogs, exeot: [:index, :show] 
+  resources :dogs, excet: [:index, :show] 
 
   get "/login" => "sessions#new"
   post "/login" => "sessions#create"
