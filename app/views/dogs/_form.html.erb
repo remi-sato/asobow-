@@ -1,4 +1,4 @@
-<% if post.errors.any? %>
+<% if dog.errors.any? %>
   <div class="alert alert-danger rounded-4 mb-4">
     <h5 class="fw-bold mb-3">
       <i class="fa-solid fa-circle-exclamation"></i>
@@ -13,11 +13,18 @@
   </div>
 <% end %>
 
-<%= form_with model: dog do |f| %>
+<%= form_with model: dog, data: { turbo: false } do |f| %>
+
+  <% if dog.image.attached? %>
+    <div class="mb-3">
+      <p class="form-label">現在の写真</p>
+      <%= image_tag dog.image, class: "post-image mb-2" %>
+    </div>
+  <% end %>
 
   <div class="mb-3">
     <%= f.label :image, "写真", class: "form-label" %>
-    <%= f. file_field :image, class: "form-control" %>
+    <%= f.file_field :image, class: "form-control" %>
   </div>
   
   <div class="mb-3">

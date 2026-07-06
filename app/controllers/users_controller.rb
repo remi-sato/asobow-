@@ -29,7 +29,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    redirect_to mypage_pass unless @user == current_user
+    redirect_to mypage_path unless @user == current_user
   end
 
   def update

@@ -7,40 +7,42 @@
 
   <div class="card shadow-sm border-0 rounded-4 mb-4">
     <div class="card-body">
-      <div class="row align-items-center">
-        <div class="col-md-10">
-          <h4 class="fw-bold mb-3">
-            <i class="fa-solid fa-user"></i>
-            プロフィール
-          </h4>
 
-          <p class="mb-0">
-            <%= @user.introduction.present? ? simple_format(@user.introduction) : "自己紹介はまだありません。" %>
-          </p>
-        </div>
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="fw-bold mb-0">
+          <i class="fa-solid fa-user"></i>
+          プロフィール
+        </h4>
 
-          <div class="col-md-2 text-end">
-            <%= link_to "プロフィールを編集", edit_user_path(@user), class: "btn btn-asobow rounded-pill mt-3" %>
-          </div>
-       
+        <%= link_to "プロフィールを編集", edit_user_path(@user), class: "btn btn-asobow rounded-pill" %>
       </div>
+
+      <p class="mb-0">
+        <%= @user.introduction.present? ? simple_format(@user.introduction) : "自己紹介はまだありません。" %>
+      </p>
+
     </div>
   </div>
 
   <div class="card shadow-sm border-0 rounded-4 mb-4">
-    <div class="card-body">
-      <h4 class="fw-bold mb-3">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="fw-bold mb-0">
         <i class="fa-solid fa-dog"></i>
         愛犬情報
       </h4>
 
-      <% if @dogs.any? %>
-        <%= render partial: "dogs/dog", collection: @dogs, locals: { show_actions: true} %>
-      <% else %>
-        <p class="text-muted mb-0">まだ愛犬情報が登録されていません。</p>
-      <% end %>
+      <%= link_to "愛犬を登録", new_dog_path,
+          class: "btn btn-asobow rounded-pill" %>
     </div>
+
+    <% if @dogs.any? %>
+      <%= render partial: "dogs/dog", collection: @dogs, locals: { show_actions: true } %>
+    <% else %>
+      <p class="text-muted mb-0">まだ愛犬情報が登録されていません。</p>
+    <% end %>
   </div>
+</div>
 
   <div class="card shadow-sm border-0 rounded-4">
     <div class="card-body">
