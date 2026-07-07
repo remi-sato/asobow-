@@ -41,11 +41,12 @@
 
   <%= f.submit submit_text, class: "btn btn-asobow w-100 rounded-pill fw-bold" %>
 
+<% end %>
+  
   <% unless user.new_record? %>
   <div class="text-center mt-3">
     <%= link_to "退会する",
         user_path(user), data: { turbo_method: :delete, turbo_confirm: "本当に退会しますか？退会するとログインできなくなります。"}, class: "btn btn-outline-danger w-100 rounded-pill" %>
   </div>
-<% end %>
 
 <% end %>
