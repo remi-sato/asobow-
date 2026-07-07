@@ -2,11 +2,17 @@ ja:
   errors:
     messages:
       blank: "を入力してください"
+      too_short: "は%{count}文字以上で入力してください"
 
   activerecord:
     models:
+      user: ユーザー
       post: 投稿
     attributes:
+      user:
+        name: 名前
+        email: メールアドレス
+        password: パスワード
       post:
         title: タイトル
         body: 本文
