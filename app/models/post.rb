@@ -12,4 +12,17 @@ class Post < ApplicationRecord
   validates :place_name, presence: true
   validates :address, presence: true
   validates :rating, presence: true, inclusion: { in: 1..5}
+
+  def self.looks(search, word)
+    if search == "perfect_match"
+      where("place_name LIKE ? OR address LIKE ?", word, word)
+    elsif search == "forward_match"
+      where("place_name LIKE ? OR address LIKE ?", "#{word}%", "#{word}%")
+    elsif search == "backward_match"
+      where("place_name LIKE ? OR address LIKE ?", "%#{word}", "%#{word}")
+    else
+      where("place_name LIKE ? OR address LIKE ?", "%#{word}%", "%#{word}%")
+    end
+  end
+
 end
