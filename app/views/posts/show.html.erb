@@ -71,6 +71,41 @@
                style="height: 350px;">
           </div>
 
+          <div class="mt-4">
+            <h5 class="fw-bold">
+              コメント <%= @post.comments.count %>件
+            </h5>
+
+            <% if logged_in? %>
+              <%= form_with model: [@post, @comment], local: true do |f| %>
+                <div class="mb-3">
+                  <%= f.text_area :body, class: "form-control rounded-4", rows: 3, placeholder: "コメントを書く" %>
+                </div>
+                <%= f.submit "コメントする", class: "btn btn-asobow rounded-pill" %>
+              <% end %>
+            <% else %>
+              <p class="text-muted">コメントするにはログインしてください。</p>
+            <% end %>
+          </div>
+
+          <div class="mt-4 mb-4">
+            <% @comments.each do |comment| %>
+              <div class="border rounded-4 p-3 mb-3">
+                <p class="mb-1 fw-bold">
+                  <%= comment.user.name %>
+                </p>
+
+                <p class="mb-2">
+                  <%= simple_format(comment.body) %>
+                </p>
+
+                <% if logged_in? && comment.user == current_user %>
+                  <%= link_to "削除", post_comment_path(@post, comment), data: { turbo_method: :delete, turbo_confirm: "コメントを削除しますか？" }, class: "btn btn-outline-danger btn-sm rounded-pill" %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+
           <div class="d-flex justify-content-between">
             <%= link_to "一覧へ戻る",
                 posts_path,
