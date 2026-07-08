@@ -1,0 +1,35 @@
+<div class="card shadow-sm border-0 rounded-4">
+  <div class="card-body">
+
+    <h3 class="mb-4">会員詳細</h3>
+
+    <div class="row mb-3">
+      <div class="col-4 fw-bold">名前</div>
+      <div class="col-8"><%= @user.name %></div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-4 fw-bold">メールアドレス</div>
+      <div class="col-8"><%= @user.email_address %></div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-4 fw-bold">ステータス</div>
+      <div class="col-8">
+        <% if @user.is_active %>
+          <span class="badge bg-success">利用中</span>
+        <% else %>
+          <span class="badge bg-secondary">退会済</span>
+        <% end %>
+      </div>
+    </div>
+
+    <% if @user.is_active %>
+      <%= link_to "退会させる",
+                  withdraw_admin_user_path(@user),
+                  data: { turbo_method: :patch, turbo_confirm: "本当に退会させますか？" },
+                  class: "btn btn-outline-danger rounded-pill" %>
+    <% end %>
+
+  </div>
+</div>

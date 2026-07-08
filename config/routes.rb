@@ -32,4 +32,18 @@ Rails.application.routes.draw do
 
   get "/search" => "searches#search"
 
+  namespace :admin do
+    root "users#index"
+   
+    get "login" => "sessions#new"
+    post "login" => "sessions#create"
+    delete "logout" => "sessions#destroy"
+
+    resources :users, only: [:index, :show] do
+      member do
+        patch :withdraw
+      end
+    end
+  end
+
 end
