@@ -45,6 +45,25 @@
             <%= link_to @post.user.name, user_path(@post.user) %>
           </p>
 
+          <div class="mb-4">
+            <% if logged_in? %>
+              <% if @post.favorited_by?(current_user) %>
+                <%= link_to post_favorite_path(@post), data: { turbo_method: :delete }, class: "btn btn-outline-danger rounded-pill" do %>
+                  <i class="fa-solid fa-heart"></i>
+                  <%= @post.favorites.count %>
+                <% end %>
+              <% else %>
+                <%= link_to post_favorite_path(@post), data: { turbo_method: :post }, class: "btn btn-outline-secondary rounded-pill" do %>
+                  <i class="fa-regular fa-heart"></i>
+                  <%= @post.favorites.count %>
+                <% end %>
+              <% end %>
+            <% else %>
+              <i class="fa-solid fa-heart"></i>
+              <%= @post.favorites.count %>
+            <% end %>
+          </div>
+
           <div id="map"
                data-lat="<%= @post.latitude %>"
                data-lng="<%= @post.longitude %>"

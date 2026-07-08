@@ -1,6 +1,6 @@
 class Post < ApplicationRecord
   belongs_to :user
-  # has_many :favorites, dependent: :destroy
+  has_many :favorites, dependent: :destroy
   # has_many :comments, dependent: :destroy
   # has_many :post_tags, dependent: :destroy
   # has_many :tags, through: :post_tags
@@ -23,6 +23,10 @@ class Post < ApplicationRecord
     else
       where("place_name LIKE ? OR address LIKE ?", "%#{word}%", "%#{word}%")
     end
+  end
+
+  def favorited_by?(user)
+    favorites.exists?(user_id: user.id)
   end
 
 end
