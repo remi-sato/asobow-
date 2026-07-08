@@ -19,7 +19,10 @@ Rails.application.routes.draw do
   resources :users, except: [:index]
   get "mypage" => "users#mypage"
   
-  resources :posts
+  resources :posts do
+    resource :favorite, only: [:create, :destroy]
+  end
+  
   resources :dogs, excet: [:index, :show] 
 
   get "/login" => "sessions#new"
