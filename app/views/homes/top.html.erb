@@ -25,12 +25,13 @@
            data-posts='<%= raw @posts.map { |post|
              {
                id: post.id,
-               title: post.title,
                place_name: post.place_name,
                latitude: post.latitude,
                longitude: post.longitude,
                rating: post.rating,
-               image_url: post.images.attached? ? url_for(post.images.first) : nil
+               image_url: post.images.attached? ? url_for(post.images.first) : nil,
+               favorites_count: post.favorites.count,
+               comments_count: post.comments.count
              }
            }.to_json %>'
            style="height: 600px;">
