@@ -12,4 +12,16 @@ class User < ApplicationRecord
   validates :email_address, presence: true, uniqueness: true
   validates :password, presence: true, length: {minimum: 6}, on: :create
 
+  def self.looks(search, word)
+    if search == "perfect_match"
+      where("name LIKE ?", word)
+    elsif search == "forward_match"
+      where("name LIKE ?", "#{word}%")
+    elsif search == "backward_match"
+      where("name LIKE ?", "%#{word}")
+    else
+      where("name LIKE ?", "%#{word}%")
+    end
+  end
+
 end
