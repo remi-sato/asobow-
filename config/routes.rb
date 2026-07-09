@@ -33,7 +33,7 @@ Rails.application.routes.draw do
   get "/search" => "searches#search"
 
   namespace :admin do
-    root "users#index"
+    root "homes#index"
    
     get "login" => "sessions#new"
     post "login" => "sessions#create"

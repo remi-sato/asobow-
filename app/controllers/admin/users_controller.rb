@@ -1,4 +1,5 @@
 class Admin::UsersController < ApplicationController
+  layout "admin"
   before_action :require_admin_login
   before_action :set_user, only: [:show, :withdraw]
 
