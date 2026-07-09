@@ -55,7 +55,9 @@
                 <%= link_to "一覧へ戻る", admin_users_path, class: "btn btn-outline-secondary rounded-pill" %>
                 
                 <% if @user.is_active %>
-                  <%= link_to "退会させる", withdraw_admin_user_path(@user), data: { turbo_method: :patch, turbo_confirm: "本当に退会させますか？" }, class: "btn btn-outline-danger rounded-pill" %>
+                  <%= link_to "利用停止にする", withdraw_admin_user_path(@user), data: { turbo_method: :patch, turbo_confirm: "本当に退会させますか？" }, class: "btn btn-outline-danger rounded-pill" %>
+                <% else %>
+                  <%= link_to "利用再開する", reactive_admin_user_path(@user), data: { turbo_method: :patch, turbo_confirm: "利用を再開しますか？"}, class: "btn btn-outline-success rounded-pill" %>
                 <% end %>
               </div>
 

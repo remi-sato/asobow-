@@ -1,7 +1,7 @@
 class Admin::UsersController < ApplicationController
   layout "admin"
   before_action :require_admin_login
-  before_action :set_user, only: [:show, :withdraw]
+  before_action :set_user, only: [:show, :withdraw, :reactive]
 
   def index
     @users = User.includes(:posts, :dogs).order(created_at: :desc)
@@ -13,6 +13,11 @@ class Admin::UsersController < ApplicationController
   def withdraw
     @user.update(is_active: false)
     redirect_to admin_user_path(@user), notice: "退会処理を行いました"
+  end
+
+  def reactive
+    @user.update(is_active: true)
+    redirect_to admin_user_path(@user), notice: "利用を再開しました"
   end
 
   private
