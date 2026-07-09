@@ -1,0 +1,59 @@
+<div class="container py-5">
+  <div class="text-center mb-4">
+    <h2 class="fw-bold">会員一覧</h2>
+    <p class="text-muted">あそBOW! に登録しているユーザーを確認できます</p>
+  </div>
+
+  <div class="card shadow-sm border-0 rounded-4">
+    <div class="card-body p-4">
+
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light text-center">
+          <tr>
+            <th>名前</th>
+            <th>メールアドレス</th>
+            <th>投稿数</th>
+            <th>登録愛犬数</th>
+            <th>ステータス</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody class="text-center">
+          <% @users.each do |user| %>
+            <tr>
+              <td class="fw-semibold">
+                <%= user.name %>
+              </td>
+
+              <td>
+                <%= user.email_address %>
+              </td>
+
+              <td>
+                <%= user.posts.count %>
+              </td>
+
+              <td>
+                <%= user.dogs.count %>
+              </td>
+
+              <td>
+                <% if user.is_active %>
+                  <span class="badge rounded-pill bg-success">利用中</span>
+                <% else %>
+                  <span class="badge rounded-pill bg-secondary">退会済</span>
+                <% end %>
+              </td>
+
+              <td>
+                <%= link_to "詳細", admin_user_path(user), class: "btn btn-asobow btn-sm rounded-pill px-3" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>

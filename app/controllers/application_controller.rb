@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   allow_browser versions: :modern
 
   helper_method :current_user, :logged_in?
+  helper_method :current_admin, :admin_logged_in?
 
   private
 
@@ -23,6 +24,20 @@ class ApplicationController < ActionController::Base
   def require_login
     unless logged_in?
       redirect_to login_path, alert: "ログインしてください"
+    end
+  end
+
+  def current_admin
+    @current_admin ||= Admin.find_by(id: session[:admin_id])
+  end
+
+  def admin_logged_in?
+    current_admin.present?
+  end
+
+  def require_admin_login
+    unless admin_logged_in?
+      redirect_to admin_login_path, alert: "管理者としてログインしてください"
     end
   end
 

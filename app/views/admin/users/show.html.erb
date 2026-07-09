@@ -1,0 +1,67 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+       <div class="card shadow-sm border-0 rounded-4">
+          <div class="card-body p-4">
+
+            <h2 class="fw-bold text-center mb-4">会員詳細</h2>
+
+              <div class="row mb-3">
+                <div class="col-4 fw-bold">名前</div>
+                <div class="col-8"><%= @user.name %></div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-4 fw-bold">メールアドレス</div>
+                <div class="col-8"><%= @user.email_address %></div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-4 fw-bold">投稿数</div>
+                <div class="col-8"><%= @user.posts.count %>件</div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-4 fw-bold">登録愛犬数</div>
+                <div class="col-8"><%= @user.dogs.count %>匹</div>
+              </div>
+
+              <% if @user.dogs.any? %>
+                <% @user.dogs.each do |dog| %>
+                  <div class="card bg-light border-0 mb-2">
+                    <div class="card-body py-2">
+                      <strong><%= dog.name %></strong><br>
+                      犬種：<%= dog.breed %>
+                    </div>
+                  </div>
+                <% end %>
+              <% else %>
+                <p class="text-muted">登録されていません。</p>
+              <% end %>
+
+              <div class="row mb-4">
+                <div class="col-4 fw-bold">ステータス</div>
+                  <div class="col-8">
+                    <% if @user.is_active %>
+                      <span class="badge bg-success">利用中</span>
+                    <% else %>
+                      <span class="badge bg-secondary">退会済</span>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-center gap-3 mt-3">
+                <%= link_to "一覧へ戻る", admin_users_path, class: "btn btn-outline-secondary rounded-pill" %>
+                
+                <% if @user.is_active %>
+                  <%= link_to "退会させる", withdraw_admin_user_path(@user), data: { turbo_method: :patch, turbo_confirm: "本当に退会させますか？" }, class: "btn btn-outline-danger rounded-pill" %>
+                <% end %>
+              </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
