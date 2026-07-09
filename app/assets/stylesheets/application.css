@@ -15,10 +15,11 @@
  }
 
  .post-image{
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
   height: 200px;
   object-fit: contain;
- }
+}
 
  .header{
   height: 100px;
@@ -50,15 +51,13 @@
  }
 
  .logo{
-  margin-top: 20px;
-  height: 100px;
-  width: auto;
-  display: block;
- }
+  height: 80px;
+  margin-top: 10px;
+}
 
  .menu-button{
   font-size: 30px;
-  background-color: none;
+  background-color: transparent;
   border: none;
   cursor: pointer;
  }
@@ -155,4 +154,47 @@
 .alert {
   border: none;
   border-radius: 1rem;
+}
+
+@media screen and (max-width: 576px) {
+  .header{
+    height: 80px;
+    padding: 8px 12px;
+  }
+
+  .header-left{
+    width: 45px;
+  }
+
+  .header-right{
+    min-width: 45px;
+    gap: 4px;
+  }
+
+  .logo{
+    height: 70px;
+    margin-top: 5px;
+  }
+
+  .menu-button{
+    font-size: 26px;
+  }
+
+  .about-main-image {
+    width: 200px;
+    height: 200px;
+  }
+
+  .about-hero {
+    padding: 40px 15px;
+  }
+
+  .about-section {
+    padding: 35px 18px;
+    margin-top: 35px;
+  }
+
+  .about-lead {
+    font-size: 16px;
+  }
 }
