@@ -12,7 +12,7 @@ class Admin::UsersController < ApplicationController
 
   def withdraw
     @user.update(is_active: false)
-    redirect_to admin_user_path(@user), notice: "退会処理を行いました"
+    redirect_to admin_user_path(@user), notice: "利用を停止しました"
   end
 
   def reactive
