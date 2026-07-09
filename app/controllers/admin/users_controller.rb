@@ -3,7 +3,7 @@ class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:show, :withdraw]
 
   def index
-    @users = User.order(created_at: :desc)
+    @users = User.includes(:posts, :dogs).order(created_at: :desc)
   end
 
   def show
