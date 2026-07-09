@@ -14,4 +14,13 @@
     <%= f.submit "ログイン", class: "btn btn-asobow w-100 rounded-pill fw-bold" %>
   <% end %>
 
+  <div class="text-center mt-4">
+    <small class="text-muted">
+      アカウントをお持ちでない方は
+      <%= link_to "新規登録", new_user_path, class: "text-decoration-none" %>
+    </small>
+  </div>
+
 <% end %>
+
+
