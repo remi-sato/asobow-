@@ -44,6 +44,8 @@ Rails.application.routes.draw do
         patch :withdraw
       end
     end
+
+    resources :posts, only: [:index, :show, :destroy]
   end
 
 end
