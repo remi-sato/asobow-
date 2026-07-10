@@ -27,9 +27,9 @@
             <%= @post.title %>
           </p>
 
-          <p class="text-warning fw-bold mb-2">
-            ★ <%= @post.rating %> / 5
-          </p>
+          <div class="text-warning fw-bold mb-2">
+            <div class="raty-read-only" data-score="<%= @post.rating %>"></div>
+          </div>
 
           <p class="text-muted mb-4">
             <%= @post.address %>
