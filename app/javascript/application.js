@@ -1,6 +1,7 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import "map"
+import "raty"
 
 document.addEventListener("turbo:load", () => {
   const button = document.getElementById("menuButton");

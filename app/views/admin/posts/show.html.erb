@@ -31,7 +31,9 @@
 
               <div class="row mb-3">
                 <div class="col-4 fw-bold">評価</div>
-                <div class="col-8"><%= @post.rating %></div>
+                <div class="col-8 d-flex align-items-center">
+                  <div class="raty-read-only" data-score="<%= @post.rating %>"></div>
+                </div>
               </div>
 
               <div class="row mb-3">

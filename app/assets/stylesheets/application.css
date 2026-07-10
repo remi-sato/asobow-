@@ -156,6 +156,32 @@
   border-radius: 1rem;
 }
 
+#post-rating i,
+.raty-read-only i {
+  font-size: 30px;
+  font-style: normal;
+}
+
+#post-rating i {
+  cursor: pointer;
+}
+
+.raty-read-only i {
+  cursor: default;
+}
+
+#post-rating .star-off-png::before,
+.raty-read-only .star-off-png::before {
+  content: "☆";
+  color: #d3d3d3;
+}
+
+#post-rating .star-on-png::before,
+.raty-read-only .star-on-png::before {
+  content: "★";
+  color: #FFD43B;
+}
+
 @media screen and (max-width: 576px) {
   .header{
     height: 80px;

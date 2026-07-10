@@ -36,9 +36,15 @@
     <%= f.text_field :title, class: "form-control", placeholder: "広くて走りやすい公園" %>
   </div>
 
-   <div class="mb-3">
-    <%= f.label :rating, "評価",class: "form-label" %>
-    <%= f.select :rating, 1..5, {}, class: "form-select" %>
+  <div class="mb-3">
+    <%= f.label :rating, "評価", for: "post-rating", class: "form-label" %>
+
+    <% if post.new_record? %>
+      <div id="post-rating" data-score="<%= post.rating %>"></div>
+    <% else %>
+      <div class="raty-read-only" data-score="<%= post.rating %>"></div>
+    <% end %>
+
   </div>
 
   <div class="mb-3">
