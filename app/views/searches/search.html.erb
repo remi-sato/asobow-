@@ -23,7 +23,7 @@
       <p class="text-center">該当するユーザーはいません。</p>
     <% end %>
 
-  <% else %>
+  <% elsif @range == "Post" %>
     <h3 class="mb-3">投稿</h3>
 
     <% if @posts.present? %>
@@ -45,5 +45,25 @@
     <% else %>
       <p class="text-center">該当する投稿はありません。</p>
     <% end %>
+
+  <% elsif @range == "Tag" %>
+    <h3 class="mb-3">タグ</h3>
+
+    <% if @tags.present? %>
+      <% @tags.each do |tag| %>
+        <div class="card mb-3 shadow-sm rounded-4">
+          <div class="card-body">
+            <h5 class="card-title mb-0">
+              <i class="fa-solid fa-tags"></i>
+              <%= link_to "##{tag.name}",
+                    tag_path(tag),
+                    class: "text-decoration-none text-dark" %>
+            </h5>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="text-center">該当するタグはありません。</p>
+    <% end %>
   <% end %>
-</div>
+  </div>

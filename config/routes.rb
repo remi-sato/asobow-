@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "tags/index"
+  get "tags/show"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -25,6 +27,7 @@ Rails.application.routes.draw do
   end
   
   resources :dogs, excet: [:index, :show] 
+  resources :tags, only: [:index, :show]
 
   get "/login" => "sessions#new"
   post "/login" => "sessions#create"
