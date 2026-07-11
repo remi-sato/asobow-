@@ -68,6 +68,21 @@
                 <div class="col-8"><%= @post.comments.count %></div>
               </div>
 
+              <div class="row mb-3">
+                <div class="col-4 fw-bold">タグ</div>
+                <div class="col-8">
+                  <% if @post.tags.present? %>
+                    <% @post.tags.each do |tag| %>
+                      <span class="badge bg-success me-1">
+                        #<%= tag.name %>
+                      </span>
+                    <% end %>
+                  <% else %>
+                    <span class="text-muted">タグはありません</span>
+                  <% end %>
+                </div>
+              </div>
+
               <div class="d-flex justify-content-center gap-3 mt-3">
                 <%= link_to "一覧へ戻る", admin_posts_path, class: "btn btn-outline-secondary rounded-pill" %>
                 <%= link_to "投稿を削除", admin_post_path(@post), data:{turbo_method: :delete, turbo_confirm: "この投稿を削除しますか？"}, class: "btn btn-outline-danger rounded-pill" %>
