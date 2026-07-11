@@ -62,6 +62,19 @@
     <%= f.text_area :body, class: "form-control", rows: 5, placeholder: "犬連れで行った感想や注意点を書いてください" %> 
   </div>
 
+  <div class="mb-3">
+    <%= f.label :tag_names, "タグ", class: "form-label fw-bold" %>
+
+    <%= f.text_field :tag_names,
+        value: post.tags.pluck(:name).join(", "),
+        class: "form-control",
+        placeholder: "例：#ドッグラン #公園 #大型犬OK" %>
+
+      <div class="form-text">
+        複数のタグはスペース区切りで入力してください
+      </div>
+  </div>
+
   <div class="mb-4">
     <label class="form-label"></label>
       <div id="map" class="rounded-4" style="height: 400px;"></div>

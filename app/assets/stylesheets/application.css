@@ -182,6 +182,46 @@
   color: #FFD43B;
 }
 
+.tag-badge {
+  display: inline-block;
+  padding: 5px 11px;
+  background-color: #FFF3E8;
+  color: #9B5A36;
+  border: 1px solid #F3C39F;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.tag-badge:hover {
+  background-color: #F4A261;
+  color: #FFFFFF;
+}
+
+.tag-list-item {
+  background-color: #fffaf3;
+  color: #5c4033;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.tag-list-item:hover {
+  background-color: #fce8d5;
+  color: #5C4033;
+  transform: translateY(-2px);
+}
+
+.tag-list-item .tag-badge {
+  font-size: 1rem;
+}
+
+.tag-list-item:hover .tag-badge {
+  background-color: #F4A261;
+  color: #FFFFFF;
+}
+
 @media screen and (max-width: 576px) {
   .header{
     height: 80px;

@@ -36,8 +36,19 @@
           </p>
 
           <div class="mb-4">
-            <h5 class="fw-bold">遊び場について</h5>
             <p class="mb-0"><%= simple_format(@post.body) %></p>
+          </div>
+
+          <div class="row align-items-start mb-3">
+            <div class="col-9 col-md-10"> 
+              <% if @post.tags.present? %> 
+                <div class="d-flex flex-wrap gap-2"> 
+                  <% @post.tags.each do |tag| %> 
+                    <%= link_to "##{tag.name}", tag_path(tag), class: "tag-badge" %> 
+                  <% end %> 
+                </div> 
+              <% end %>        
+            </div> 
           </div>
 
           <p class="text-muted small mb-4">
