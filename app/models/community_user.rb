@@ -7,4 +7,6 @@ class CommunityUser < ApplicationRecord
     approved: 1,
     rejected: 2
   }
+
+   validates :user_id, uniqueness: { scope: :community_id }
 end

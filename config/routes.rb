@@ -30,6 +30,16 @@ Rails.application.routes.draw do
   resources :tags, only: [:index, :show]
   resources :communities do
     resources :community_users, only: [:create, :destroy]
+    member do
+      get :requests
+   end
+  end
+
+  resources :community_users, only: [] do
+    member do
+      patch :approve
+      patch :reject
+    end
   end
 
   get "/login" => "sessions#new"

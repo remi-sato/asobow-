@@ -1,6 +1,6 @@
 class CommunitiesController < ApplicationController
   before_action :require_login
-  before_action :set_community, only: [:show, :edit, :update, :destroy]
+  before_action :set_community, only: [:show, :edit, :update, :destroy, :requests]
 
   def index
     @communities = Community.all
@@ -37,6 +37,14 @@ class CommunitiesController < ApplicationController
   def destroy
     @community.destroy
     redirect_to communities_path, notice: "コミュニティを削除しました"
+  end
+
+  def requests
+    unless @community.user == current_user
+      redirect_to community_path(@community), alert: "参加申請を確認する権限がありません"
+      return 
+    end
+    @community_users = @community.community_users.pending.includes(:user)
   end
 
   private
