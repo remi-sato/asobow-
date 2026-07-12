@@ -1,0 +1,23 @@
+class Admin::CommunitiesController < ApplicationController
+  layout "admin"
+  before_action :require_admin_login
+  before_action :set_community, only: [:show, :destroy]
+
+  def index
+    @communities = Community.includes(:user, :community_users).order(created_at: :desc)
+  end
+
+  def show
+  end
+
+  def destroy
+    @community.destroy
+    redirect_to admin_communities_path, notice: "コミュニティを削除しました"
+  end
+
+  private
+
+  def set_community
+    @community = Community.find(params[:id])
+  end
+end

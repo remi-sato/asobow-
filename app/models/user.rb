@@ -5,8 +5,9 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :dogs, dependent: :destroy
-  #has_many :community_users, dependent: :destroy
-  #has_many :communities, through: :community_users
+  has_many :community_users, dependent: :destroy
+  has_many :owned_communities, class_name: "Community", foreign_key: :user_id, dependent: :destroy
+  has_many :joined_communities, through: :community_users, source: :community
 
   validates :name, presence: true
   validates :email_address, presence: true, uniqueness: true

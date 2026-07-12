@@ -1,0 +1,38 @@
+<div class="container py-5">
+  <h2 class="fw-bold text-center mb-4">コミュニティ一覧</h2>
+
+  <div class="card shadow-sm border-0 rounded-4">
+    <div class="card-body p-4">
+      <% if @communities.present? %>
+        <div class="table-responsive">
+          <table class="table align-middle">
+            <thead>
+              <tr>
+                <th>コミュニティ名</th>
+                <th>作成者</th>
+                <th>メンバー数</th>
+                <th>作成日</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @communities.each do |community| %>
+                <tr>
+                  <td><%= community.name %></td>
+                  <td><%= community.user.name %></td>
+                  <td><%= community.community_users.approved.count %>人</td>
+                  <td><%= community.created_at.strftime("%Y/%m/%d") %></td>
+                  <td><%= link_to "詳細", admin_community_path(community), class: "btn btn-outline-secondary btn-sm rounded-pill" %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <p class="text-center text-muted mb-0">
+          コミュニティはありません
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>
