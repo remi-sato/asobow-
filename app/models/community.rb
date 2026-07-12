@@ -7,4 +7,16 @@ class Community < ApplicationRecord
   validates :name, presence: true
   validates :introduction, presence: true
   validates :rules, presence: true
+
+  def self.looks(search,word)
+    if search == "perfect_match"
+      where(name: word)
+    elsif search == "forward_match"
+      where("name LIKE ?", "#{word}%")
+    elsif search == "backward_match"
+      where("name LIKE ?", "#%{word}")
+    else search == "partial_match"
+      where("name LIKE ?", "%#{word}%")
+    end
+  end
 end
