@@ -12,6 +12,8 @@ class SearchesController < ApplicationController
       @posts = Post.looks(@search, @word)
     elsif @range == "Tag"
       @tags = Tag.looks(@search, @word)
+    elsif @range == "Community"
+      @communities = Community.looks(@search, @word)
     end
   end
 
