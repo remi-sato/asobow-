@@ -28,6 +28,9 @@ Rails.application.routes.draw do
   
   resources :dogs, excet: [:index, :show] 
   resources :tags, only: [:index, :show]
+  resources :communities do
+    resources :community_users, only: [:create, :destroy]
+  end
 
   get "/login" => "sessions#new"
   post "/login" => "sessions#create"
@@ -50,6 +53,8 @@ Rails.application.routes.draw do
     end
 
     resources :posts, only: [:index, :show, :destroy]
+
+    resources :communities, only: [:index, :show, :destroy]
   end
 
 end

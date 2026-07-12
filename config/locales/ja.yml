@@ -3,6 +3,7 @@ ja:
     messages:
       blank: "を入力してください"
       too_short: "は%{count}文字以上で入力してください"
+      required: "を設定してください"
 
   activerecord:
     models:
@@ -19,6 +20,11 @@ ja:
         place_name: 場所名
         address: 住所
         rating: 評価
+      community:
+        user: 作成者
+        name: コミュニティ名
+        introduction: コミュニティ紹介
+        rules: ルール
 
   enums:
     dog:

@@ -1,0 +1,51 @@
+class CommunitiesController < ApplicationController
+  before_action :require_login
+  before_action :set_community, only: [:show, :edit, :update, :destroy]
+
+  def index
+    @communities = Community.all
+  end
+
+  def show
+  end
+
+  def new
+    @community = Community.new
+  end
+
+  def create
+    @community = current_user.owned_communities.new(community_params)
+
+    if @community.save
+      redirect_to community_path(@community), notice: "コミュニティを作成しました"
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    if @community.update(community_params)
+      redirect_to community_path(@community), notice: "コミュニティを更新しました"
+    else
+      render :edit, status: :unprocessable_entuty
+    end
+  end
+
+  def destroy
+    @community.destroy
+    redirect_to communities_path, notice: "コミュニティを削除しました"
+  end
+
+  private
+  def set_community
+    @community = Community.find(params[:id])
+  end
+
+  def community_params
+    params.require(:community).permit(:name, :introduction, :rules)
+  end
+
+end
