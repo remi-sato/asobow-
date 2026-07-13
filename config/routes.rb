@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get "community_notice/new"
+  get "community_notice/create"
+  get "community_notice/show"
   get "tags/index"
   get "tags/show"
 
@@ -30,6 +33,7 @@ Rails.application.routes.draw do
   resources :tags, only: [:index, :show]
   resources :communities do
     resources :community_users, only: [:create, :destroy]
+    resource :community_notice, only: [:new, :create, :show]
     member do
       get :requests
    end

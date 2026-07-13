@@ -15,8 +15,15 @@
     <div class="col-8"><%= @community.rules %></div>
   </div>
 
+   <div class="row mb-3">
+    <div class="col-4 fw-bold">メンバー数</div>
+    <div class="col-8"><%= @community.community_users.count + 1 %>人</div>
+  </div>
+
   <% if @community.user == current_user %>
     <div class="text-center mt-4">
+      <%= link_to "参加申請を確認", requests_community_path(@community), class: "btn btn-outline-warning w-100 rounded-pill mb-2" %>
+      <%= link_to "イベントを通知",  new_community_community_notice_path(@community), class: "btn btn-outline-warning w-100 rounded-pill" %>
       <%= link_to "編集", edit_community_path(@community), class: "btn btn-asobow w-100 rounded-pill me-2" %>
       <%= link_to "削除", community_path(@community), data: {turbo_method: :delete, turbo_confirm: "このコミュニティを削除しますか？"}, class: "btn btn-outline-danger w-100 rounded-pill" %>
       <%= link_to "一覧に戻る", communities_path, class: "btn btn-outline-secondary w-100 rounded-pill" %>
