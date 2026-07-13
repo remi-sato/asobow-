@@ -1,0 +1,25 @@
+<%= render "shared/form_card", title: "イベント通知", subtitle: "コミュニティメンバーへイベントのお知らせを送ります" do %>
+
+  <%= form_with url: community_community_notice_path(@community), method: :post, data: { turbo: false } do |f| %>
+
+    <div class="mb-3">
+      <%= f.label :title, "タイトル", class: "form-label fw-bold" %>
+      <%= f.text_field :title, class: "form-control" %>
+    </div>
+
+     <div class="mb-3">
+       <%= f.label :body, "本文", class: "form-label fw-bold" %>
+       <%= f.text_area :body,  class: "form-control" %>
+    </div>
+
+    <div class="text-center">
+      <%= f.submit "送信", class: "btn btn-asobow w-100 rounded-pill px-5" %>
+    </div>
+
+    <div class="text-center">
+      <%= link_to "コミュニティ詳細に戻る", community_path(@community), class: "btn btn-outline-secondary w-100 rounded-pill" %>
+    </div>
+  
+  <% end %>
+
+<% end %>

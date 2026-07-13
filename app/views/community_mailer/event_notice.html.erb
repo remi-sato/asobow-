@@ -1,0 +1,17 @@
+<h2><%= @community.name %>からのお知らせ</h2>
+
+<p>
+  <%= @user.name %>さん
+</p>
+
+<h3>
+  <%= @title %>
+</h3>
+
+<p>
+  <%= @body %>
+</p>
+
+<p>
+  <%= link_to "コミュニティ詳細を見る", community_url(@community) %>
+</p>
