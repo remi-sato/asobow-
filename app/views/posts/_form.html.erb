@@ -14,7 +14,7 @@
 <% end %>
 
 <%= form_with model: post, local: true,data: { turbo: false } do |f| %>
-  <% if post.images.attached? %>
+  <% if post.persisted? && post.images.attached? %>
     <div class="mb-3">
       <p class="form-label">現在の画像</p>
 
@@ -32,13 +32,18 @@
   </div>
 
   <div class="mb-3">
-    <%= f.label :title, "タイトル",class: "form-label" %>
+    <%= f.label :title ,class: "form-label" do %>
+      タイトル
+       <span class="badge bg-danger ms-1">必須</span>
+    <% end %>
     <%= f.text_field :title, class: "form-control", placeholder: "広くて走りやすい公園" %>
   </div>
 
   <div class="mb-3">
-    <%= f.label :rating, "評価", for: "post-rating", class: "form-label" %>
-
+    <%= f.label :rating, for: "post-rating", class: "form-label" do %>
+      評価
+      <span class="badge bg-danger ms-1">必須</span>
+    <% end %>
     <% if post.new_record? %>
       <div id="post-rating" data-score="<%= post.rating %>"></div>
     <% else %>
@@ -48,12 +53,18 @@
   </div>
 
   <div class="mb-3">
-    <%= f.label :place_name, "場所名",class: "form-label" %>
+    <%= f.label :place_name, class: "form-label" do %>
+      場所名
+      <span class="badge bg-danger ms-1">必須</span>
+    <% end %>
     <%= f.text_field :place_name, class: "form-control", placeholder: "例:○○公園" %>
   </div>
 
   <div class="mb-3">
-    <%= f.label :address, "住所",class: "form-label" %>
+    <%= f.label :address, class: "form-label" do %>
+      住所
+      <span class="badge bg-danger ms-1">必須</span>
+    <% end %>
     <%= f.text_field :address, class: "form-control", placeholder: "地図をクリックしてください" %>
   </div>
 
