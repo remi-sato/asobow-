@@ -7,13 +7,13 @@ class SearchesController < ApplicationController
     @word = params[:word]
 
     if @range == "User"
-      @users = User.looks(@search, @word)
+      @users = User.looks(@search, @word).page(params[:page]).per(10)
     elsif @range == "Post"
-      @posts = Post.looks(@search, @word)
+      @posts = Post.looks(@search, @word).page(params[:page]).per(9)
     elsif @range == "Tag"
-      @tags = Tag.looks(@search, @word)
+      @tags = Tag.looks(@search, @word).page(params[:page]).per(20)
     elsif @range == "Community"
-      @communities = Community.looks(@search, @word)
+      @communities = Community.looks(@search, @word).page(params[:page]).per(12)
     end
   end
 

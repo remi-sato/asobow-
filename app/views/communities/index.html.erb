@@ -4,7 +4,7 @@
     コミュニティ一覧
   </h2>
 
-  <div class="text-center mt-4">
+  <div class="text-center mt-4 mb-4">
     <%= link_to "コミュニティを作る",
           new_community_path,
           class: "btn btn-asobow rounded-pill px-5 fw-bold" %>
@@ -20,5 +20,9 @@
       コミュニティはまだありません。
     </p>
   <% end %>
+
+  <div class="d-flex justify-content-center mt-4">
+    <%= paginate @communities %>
+  </div>
 
 </div>
