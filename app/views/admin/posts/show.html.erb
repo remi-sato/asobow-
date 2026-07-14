@@ -11,7 +11,7 @@
                   <div class="col-8 d-flex flex-wrap gap-2">
                     <% if @post.images.attached? %>
                       <% @post.images.each do |image| %>
-                        <%= image_tag image, class: "rounded shadow-sm", style: "width: 180px; height: 140px; object-fit: cover;" %>
+                        <%= image_tag image, class: "rounded shadow-sm", style: "width: 180px; height: 140px; object-fit: contain;" %>
                       <% end %>
                     <% else %>
                       <span class="text-muted">画像はありません</span>
@@ -59,16 +59,6 @@
               </div>
 
               <div class="row mb-3">
-                <div class="col-4 fw-bold">いいね数</div>
-                <div class="col-8"><%= @post.favorites.count %></div>
-              </div>
-
-              <div class="row mb-3">
-                <div class="col-4 fw-bold">コメント数</div>
-                <div class="col-8"><%= @post.comments.count %></div>
-              </div>
-
-              <div class="row mb-3">
                 <div class="col-4 fw-bold">タグ</div>
                 <div class="col-8">
                   <% if @post.tags.present? %>
@@ -83,12 +73,55 @@
                 </div>
               </div>
 
-              <div class="d-grid gap-2 mt-4">
-              <%= link_to "削除", admin_post_path(@post), data:{turbo_method: :delete, turbo_confirm: "この投稿を削除しますか？"}, class: "btn btn-outline-danger w-100 rounded-pill" %>
-                <%= link_to "一覧へ戻る", admin_posts_path, class: "btn btn-outline-secondary w-100 rounded-pill" %>
+              <div class="row mb-3">
+                <div class="col-4 fw-bold">いいね数</div>
+                <div class="col-8"><%= @post.favorites.count %></div>
               </div>
+
+              <div class="row mb-3">
+                <div class="col-4 fw-bold">コメント数</div>
+                <div class="col-8"><%= @post.comments.count %></div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-4 fw-bold">コメント一覧</div>
+                  <div class="col-8">
+
+                    <% if @post.comments.present? %>
+                      <% @post.comments.each do |comment| %>
+                        <div class="border rounded p-3 mb-2">
+
+                          <p class="mb-1 fw-bold">
+                            <%= comment.user.name %>
+                          </p>
+
+                          <p class="mb-2">
+                            <%= comment.body %>
+                          </p>
+
+                          <%= link_to "削除",
+                                admin_post_comment_path(@post, comment),
+                                data: {
+                                turbo_method: :delete,
+                                turbo_confirm: "このコメントを削除しますか？"
+                                },
+                                class: "btn btn-outline-danger btn-sm rounded-pill" %>
+
+                        </div>
+                      <% end %>
+                    <% else %>
+                      <span class="text-muted">コメントはありません</span>
+                    <% end %>
+
+                  </div>
+                </div>
+
+                <div class="d-grid gap-2 mt-4">
+                  <%= link_to "削除", admin_post_path(@post), data:{turbo_method: :delete, turbo_confirm: "この投稿を削除しますか？"}, class: "btn btn-outline-danger w-100 rounded-pill" %>
+                  <%= link_to "一覧へ戻る", admin_posts_path, class: "btn btn-outline-secondary w-100 rounded-pill" %>
+                </div>
           
-        </div>
+               </div>
       </div>
     </div>
   </div>
