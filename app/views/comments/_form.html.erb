@@ -1,0 +1,23 @@
+<div class="mt-4">
+  <h5 class="fw-bold">
+    コメント <%= post.comments.count %>件
+  </h5>
+
+  <% if logged_in? %>
+    <%= form_with model: [post, comment], local: true do |f| %>
+      <div class="mb-3">
+        <%= f.text_area :body,
+              class: "form-control rounded-4",
+              rows: 3,
+              placeholder: "コメントを書く" %>
+      </div>
+
+      <%= f.submit "コメントする",
+            class: "btn btn-asobow w-100 rounded-pill fw-bold" %>
+    <% end %>
+  <% else %>
+    <p class="text-muted">
+      コメントするにはログインしてください。
+    </p>
+  <% end %>
+</div>

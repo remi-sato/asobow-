@@ -1,9 +1,9 @@
-<%= render "shared/form_card", title: "投稿編集", subtitle: "遊び場の情報を更新しよう" do %>
+<%= render "shared/page_card", title: "投稿編集", subtitle: "遊び場の情報を更新しよう" do %>
 
   <%= render "form", post: @post, submit_text: "変更を保存" %>
 
-  <div class="text-center mt-4">
-    <%= link_to "投稿詳細に戻る", post_path(@post), data: { turbo: false }, class: "btn btn-outline-secondary w-100 rounded-pill" %>
+  <div class="text-center mt-2">
+    <%= link_to "詳細へ戻る", post_path(@post), data: { turbo: false }, class: "class: btn btn-light border w-100 rounded-pill" %>
   </div>
 
 <% end %>

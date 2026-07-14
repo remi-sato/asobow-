@@ -1,0 +1,9 @@
+<% if tags.present? %>
+  <div class="d-flex flex-wrap gap-2">
+    <% tags.each do |tag| %>
+      <%= link_to "##{tag.name}",
+            tag_path(tag),
+            class: "tag-badge" %>
+    <% end %>
+  </div>
+<% end %>

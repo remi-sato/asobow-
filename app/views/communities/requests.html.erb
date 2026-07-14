@@ -1,4 +1,4 @@
-<%= render "shared/form_card", title: "#{@community.name}への参加申請" do %>
+<%= render "shared/page_card", title: "#{@community.name}への参加申請" do %>
   
   <% if @community_users.present? %>
 
@@ -33,7 +33,7 @@
   <% end %>
 
   <div class="text-center mt-4">
-    <%= link_to "コミュニティ詳細へ戻る", community_path(@community), class: "btn btn-outline-secondary rounded-pill px-4" %>
+    <%= link_to "詳細へ戻る", community_path(@community), class: "btn btn-outline-secondary w-100 rounded-pill px-4" %>
   </div>
 
 <% end %>
