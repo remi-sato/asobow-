@@ -4,7 +4,7 @@ class Admin::PostsController < ApplicationController
   before_action :set_post, only: [:show, :destroy]
 
   def index
-    @posts = Post.includes(:user).order(created_at: :desc)
+    @posts = Post.includes(:user).order(created_at: :desc).order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def show

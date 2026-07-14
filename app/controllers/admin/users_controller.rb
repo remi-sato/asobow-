@@ -4,7 +4,7 @@ class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:show, :withdraw, :reactive]
 
   def index
-    @users = User.includes(:posts, :dogs).order(created_at: :desc)
+    @users = User.includes(:posts, :dogs).order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def show

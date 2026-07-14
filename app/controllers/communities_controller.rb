@@ -3,7 +3,7 @@ class CommunitiesController < ApplicationController
   before_action :set_community, only: [:show, :edit, :update, :destroy, :requests]
 
   def index
-    @communities = Community.all
+    @communities = Community.order(created_at: :desc).page(params[:page]).per(12)
   end
 
   def show
@@ -44,7 +44,7 @@ class CommunitiesController < ApplicationController
       redirect_to community_path(@community), alert: "参加申請を確認する権限がありません"
       return 
     end
-    @community_users = @community.community_users.pending.includes(:user)
+    @community_users = @community.community_users.pending.includes(:user).order(created_at: :desc).page(params[:page]).per(9)
   end
 
   private

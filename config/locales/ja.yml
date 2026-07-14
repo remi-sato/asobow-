@@ -35,3 +35,11 @@ ja:
       gender:
         male: "男の子"
         female: "女の子"
+
+  views:
+    pagination:
+      first: "«"
+      last: "»"
+      previous: "‹"
+      next: "›"
+      truncate: "…"

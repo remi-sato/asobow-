@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
   def mypage
     @user = current_user
-    @posts = @user.posts.order(created_at: :desc)
+    @posts = @user.posts.order(created_at: :desc).page(params[:page]).per(9)
     @dogs = current_user.dogs
   end
 
@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @posts = @user.posts.order(created_at: :desc)
+    @posts = @user.posts.order(created_at: :desc).page(params[:page]).per(9)
     @dogs = @user.dogs
   end
 
