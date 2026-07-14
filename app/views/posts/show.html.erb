@@ -68,28 +68,28 @@
               <p class="text-muted">コメントはまだありません。</p>
             <% end %>
           </div>
-          <div class="d-flex justify-content-between">
-            <%= link_to "一覧へ戻る",
-                posts_path,
-                class: "btn btn-outline-secondary rounded-pill" %>
-
+          <div class="d-grid gap-2 mt-2">
             <% if @post.user == current_user %>
-              <div>
+              <div class="d-flex gap-2">
                 <%= link_to "編集",
-                    edit_post_path(@post),
-                    data: { turbo: false },
-                    class: "btn btn-asobow rounded-pill me-2" %>
+                  edit_post_path(@post),
+                  data: { turbo: false },
+                  class: "btn btn-asobow flex-fill rounded-pill fw-bold" %>
 
                 <%= link_to "削除",
-                    post_path(@post),
-                    data: {
-                      turbo_method: :delete,
-                      turbo_confirm: "本当に削除しますか？"
-                    },
-                    class: "btn btn-outline-danger rounded-pill" %>
+                  post_path(@post),
+                  data: {
+                  turbo_method: :delete,
+                  turbo_confirm: "本当に削除しますか？"
+                  },
+                  class: "btn btn-outline-danger flex-fill rounded-pill" %>
               </div>
             <% end %>
-          </div>
+
+              <%= link_to "一覧へ戻る",
+                posts_path,
+                class: "btn btn-outline-secondary w-100 rounded-pill" %>
+            </div>
         </div>
       </div>
 

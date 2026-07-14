@@ -59,11 +59,7 @@
 
   <% end %>
 
-  <div class="d-flex justify-content-center gap-3 mt-4">
-    <%= link_to "一覧へ戻る",
-          admin_users_path,
-          class: "btn btn-outline-secondary rounded-pill" %>
-
+  <div class="d-grid gap-2 mt-4">
     <% if @user.is_active %>
       <%= link_to "利用停止にする",
             withdraw_admin_user_path(@user),
@@ -71,7 +67,7 @@
               turbo_method: :patch,
               turbo_confirm: "利用停止にしますか？"
             },
-            class: "btn btn-outline-danger rounded-pill" %>
+           class: "btn btn-outline-danger w-100 rounded-pill" %>
     <% else %>
       <%= link_to "利用再開する",
             reactive_admin_user_path(@user),
@@ -79,8 +75,11 @@
               turbo_method: :patch,
               turbo_confirm: "利用を再開しますか？"
             },
-            class: "btn btn-outline-success rounded-pill" %>
+            class: "btn btn-outline-success w-100 rounded-pill" %>
     <% end %>
-  </div>
 
+     <%= link_to "一覧へ戻る",
+            admin_users_path,
+            class: "btn btn-outline-secondary w-100 rounded-pill" %>
+  </div>
 <% end %>

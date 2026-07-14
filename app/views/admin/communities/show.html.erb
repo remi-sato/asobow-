@@ -47,18 +47,19 @@
         label: "ルール",
         value: @community.rules %>
 
-  <div class="d-flex justify-content-center gap-3 mt-4">
-    <%= link_to "一覧へ戻る",
-          admin_communities_path,
-          class: "btn btn-outline-secondary rounded-pill" %>
-
+  <div class="d-grid gap-2 mt-4">
     <%= link_to "コミュニティを削除",
           admin_community_path(@community),
           data: {
             turbo_method: :delete,
             turbo_confirm: "このコミュニティを削除しますか？"
           },
-          class: "btn btn-outline-danger rounded-pill" %>
+          class: "btn btn-outline-danger w-100 rounded-pill" %>
+
+    <%= link_to "一覧へ戻る",
+          admin_communities_path,
+          class: "btn btn-outline-secondary w-100 rounded-pill" %>
+
   </div>
 
 <% end %>

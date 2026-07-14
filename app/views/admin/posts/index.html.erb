@@ -22,7 +22,7 @@
                       <td><%= post.place_name %></td>
                       <td><%= post.user.name %></td>
                       <td><%= post.created_at.strftime("%Y/%m/%d") %></td>
-                      <td><%= link_to "詳細", admin_post_path(post), class: "btn btn-asobow btn-sm rounded-pill" %>
+                      <td><%= link_to "詳細", admin_post_path(post), class: "btn btn-light border btn-sm rounded-pill px-3" %>
                     </tr>
                   <% end %>
                 </tbody>

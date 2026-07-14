@@ -74,14 +74,12 @@
         <% end %>
       </div>
 
-      <div class="header-right">
+      <div class="header-right d-flex gap-2">
         <% if logged_in? %>
-          <%= link_to logout_path, data: { turbo_method: :delete }, class: "btn btn-outline-secondary rounded-pill px-3 me-2" do %>
-            ログアウト
-          <% end %>
+          <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete }, class: "btn btn-outline-secondary rounded-pill px-3" %>
         <% else %>
-          <%= link_to "ログイン", login_path, class: "btn btn-outline-secondary rounded-pill px-3 me-2" %>
-          <%= link_to "新規登録", new_user_path, class: "btn btn-asobow rounded-pill px-3 me-2" %>
+          <%= link_to "ログイン", login_path, class: "btn btn-outline-secondary rounded-pill px-3" %>
+          <%= link_to "新規登録", new_user_path, class: "btn btn-asobow rounded-pill px-3" %>
         <% end %>
       </div>
 

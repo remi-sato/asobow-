@@ -1,12 +1,13 @@
 <div class="container py-4">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="fw-bold mb-0">
-      コミュニティ一覧
-    </h2>
 
+  <h2 class="fw-bold mb-4 text-center">
+    コミュニティ一覧
+  </h2>
+
+  <div class="text-center mt-4">
     <%= link_to "コミュニティを作る",
           new_community_path,
-          class: "btn btn-asobow rounded-pill" %>
+          class: "btn btn-asobow rounded-pill px-5 fw-bold" %>
   </div>
 
   <% if @communities.present? %>
@@ -19,4 +20,5 @@
       コミュニティはまだありません。
     </p>
   <% end %>
+
 </div>

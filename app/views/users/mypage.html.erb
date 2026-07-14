@@ -14,12 +14,16 @@
           プロフィール
         </h4>
 
-        <%= link_to "プロフィールを編集", edit_user_path(@user), class: "btn btn-asobow rounded-pill" %>
+        <%= link_to "編集", edit_user_path(@user), class: "btn btn-asobow rounded-pill fw-bold" %>
       </div>
 
-      <p class="mb-0">
-        <%= @user.introduction.present? ? simple_format(@user.introduction) : "自己紹介はまだありません。" %>
-      </p>
+      <% if @user.introduction.present? %>
+        <%= simple_format(@user.introduction) %>
+      <% else %>
+        <p class="text-muted mb-0">
+          自己紹介はまだありません。
+        </p>
+      <% end %>
 
     </div>
   </div>
@@ -32,8 +36,8 @@
         愛犬情報
       </h4>
 
-      <%= link_to "愛犬を登録", new_dog_path,
-          class: "btn btn-asobow rounded-pill" %>
+      <%= link_to "登録", new_dog_path,
+          class: "btn btn-asobow rounded-pill fw-bold" %>
     </div>
 
     <% if @dogs.any? %>
