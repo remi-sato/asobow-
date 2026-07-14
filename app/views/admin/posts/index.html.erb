@@ -1,30 +1,41 @@
 <div class="container py-5">
-  <div class="text-center mb-4">
+  <div class="mb-4">
     <h2 class="fw-bold text-center mb-4">投稿一覧</h2>
 
       <div class="card shadow-sm border-0 rounded-4">
         <div class="card-body p-4">
 
-          <table class="table table-hover align-middle mb-0">
-            <thead class="table-light text-center">
-              <tr>
-                <th>場所名</th>
-                <th>投稿者</th>
-                <th>投稿日</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody class= "text-center">
-              <% @posts.each do |post| %>
-                <tr>
-                  <td><%= post.place_name %></td>
-                  <td><%= post.user.name %></td>
-                  <td><%= post.created_at.strftime("%Y/%m/%d") %></td>
-                  <td><%= link_to "詳細", admin_post_path(post), class: "btn btn-asobow btn-sm rounded-pill" %>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
+          <% if @posts.present? %>
+            <div class="table-responsive">
+              <table class="table table-hover align-middle mb-0">
+                <thead class="table-light text-center">
+                  <tr>
+                    <th>場所名</th>
+                    <th>投稿者</th>
+                    <th>投稿日</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody class= "text-center">
+                  <% @posts.each do |post| %>
+                    <tr>
+                      <td><%= post.place_name %></td>
+                      <td><%= post.user.name %></td>
+                      <td><%= post.created_at.strftime("%Y/%m/%d") %></td>
+                      <td><%= link_to "詳細", admin_post_path(post), class: "btn btn-asobow btn-sm rounded-pill" %>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+      
+          <% else %>
+
+            <p class="text-center text-muted mb-0">
+              投稿はありません
+            </p>
+      
+          <% end %>
         </div>
       </div>  
   </div>

@@ -20,7 +20,7 @@
                 <tr>
                   <td><%= community.name %></td>
                   <td><%= community.user.name %></td>
-                  <td><%= community.community_users.approved.count %>人</td>
+                  <td><%= community.community_users.approved.count + 1 %>人</td>
                   <td><%= community.created_at.strftime("%Y/%m/%d") %></td>
                   <td><%= link_to "詳細", admin_community_path(community), class: "btn btn-outline-secondary btn-sm rounded-pill" %></td>
                 </tr>

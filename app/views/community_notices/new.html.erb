@@ -1,4 +1,4 @@
-<%= render "shared/form_card", title: "イベント通知", subtitle: "コミュニティメンバーへイベントのお知らせを送ります" do %>
+<%= render "shared/page_card", title: "イベント通知", subtitle: "コミュニティメンバーへイベントのお知らせを送ります" do %>
 
   <%= form_with url: community_community_notice_path(@community), method: :post, data: { turbo: false } do |f| %>
 

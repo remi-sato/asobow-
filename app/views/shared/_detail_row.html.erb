@@ -1,0 +1,13 @@
+<div class="row mb-3">
+  <div class="col-4 fw-bold">
+    <%= label %>
+  </div>
+
+  <div class="col-8">
+    <% if local_assigns[:value].present? %>
+      <%= value %>
+    <% else %>
+      <%= yield %>
+    <% end %>
+  </div>
+</div>

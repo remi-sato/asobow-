@@ -6,35 +6,45 @@
   </h2>
 
   <div class="card shadow-sm border-0 rounded-4 mb-4">
-    <div class="card-body">
+    <div class="card-body p-4">
       <h4 class="fw-bold mb-3">
         <i class="fa-solid fa-user"></i>
         プロフィール
       </h4>
 
-      <p class="mb-0">
-        <%= @user.introduction.present? ? simple_format(@user.introduction) : "自己紹介はまだありません。" %>
-      </p>
+      <div class="mb-0">
+        <% if @user.introduction.present? %>
+          <%= simple_format(@user.introduction) %>
+        <% else %>
+          <p class="text-muted mb-0">
+            自己紹介はまだありません。
+          </p>
+        <% end %>
+      </div>
     </div>
   </div>
 
   <div class="card shadow-sm border-0 rounded-4 mb-4">
-    <div class="card-body">
+    <div class="card-body p-4">
       <h4 class="fw-bold mb-3">
         <i class="fa-solid fa-dog"></i>
         愛犬情報
       </h4>
 
       <% if @dogs.any? %>
-        <%= render partial: "dogs/dog", collection: @dogs, locals: {show_actions: false } %>
+        <%= render partial: "dogs/dog",
+              collection: @dogs,
+              locals: { show_actions: false } %>
       <% else %>
-        <p class="text-muted mb-0">まだ愛犬情報が登録されていません。</p>
+        <p class="text-muted mb-0">
+          まだ愛犬情報が登録されていません。
+        </p>
       <% end %>
     </div>
   </div>
 
   <div class="card shadow-sm border-0 rounded-4">
-    <div class="card-body">
+    <div class="card-body p-4">
       <h4 class="fw-bold mb-3">
         <i class="fa-solid fa-paw"></i>
         <%= @user.name %>さんの投稿
@@ -42,10 +52,13 @@
 
       <% if @posts.any? %>
         <div class="row g-4">
-          <%= render partial: "posts/post", collection: @posts %>
+          <%= render partial: "posts/post",
+                collection: @posts %>
         </div>
       <% else %>
-        <p class="text-muted mb-0">まだ投稿はありません。</p>
+        <p class="text-muted mb-0">
+          まだ投稿はありません。
+        </p>
       <% end %>
     </div>
   </div>

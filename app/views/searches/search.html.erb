@@ -10,7 +10,7 @@
 
     <% if @users.present? %>
       <% @users.each do |user| %>
-        <div class="card mb-3 shadow-sm rounded-4">
+        <div class="card mb-3 shadow-sm border-0 rounded-4">
           <div class="card-body">
             <h5 class="card-title">
               <i class="fa-solid fa-user"></i>
@@ -20,7 +20,7 @@
         </div>
       <% end %>
     <% else %>
-      <p class="text-center">該当するユーザーはいません。</p>
+      <p class="text-center text-muted mb-0">該当するユーザーはいません。</p>
     <% end %>
 
   <% elsif @range == "Post" %>
@@ -28,7 +28,7 @@
 
     <% if @posts.present? %>
       <% @posts.each do |post| %>
-        <div class="card mb-3 shadow-sm rounded-4">
+        <div class="card mb-3 shadow-sm border-0 rounded-4">
           <div class="card-body">
             <h5 class="card-title">
               <i class="fa-solid fa-paw"></i>
@@ -43,7 +43,7 @@
         </div>
       <% end %>
     <% else %>
-      <p class="text-center">該当する投稿はありません。</p>
+      <p class="text-center text-muted mb-0">該当する投稿はありません。</p>
     <% end %>
 
   <% elsif @range == "Tag" %>
@@ -51,7 +51,7 @@
 
     <% if @tags.present? %>
       <% @tags.each do |tag| %>
-        <div class="card mb-3 shadow-sm rounded-4">
+        <div class="card mb-3 shadow-sm border-0 rounded-4">
           <div class="card-body">
             <h5 class="card-title mb-0">
               <i class="fa-solid fa-tags"></i>
@@ -63,7 +63,7 @@
         </div>
       <% end %>
     <% else %>
-      <p class="text-center">該当するタグはありません。</p>
+      <p class="text-center text-muted mb-0">該当するタグはありません。</p>
     <% end %>
 
   <% elsif @range == "Community" %>
@@ -71,7 +71,7 @@
 
     <% if @communities.present? %>
       <% @communities.each do |community| %>
-        <div class="card mb-3 shadow-sm rounded-4">
+        <div class="card mb-3 shadow-sm border-0 rounded-4">
           <div class="card-body">
             <h5 class="card-title mb-0">
               <i class="fa-solid fa-people-group"></i>
@@ -81,7 +81,7 @@
         </div>
       <% end %>
     <% else %>
-      <p class="text-center">該当するコミュニティはありません。</p>
+      <p class="text-center text-muted mb-0">該当するコミュニティはありません。</p>
     <% end %>
   <% end %>
 </div>

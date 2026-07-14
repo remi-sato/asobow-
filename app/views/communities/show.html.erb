@@ -1,31 +1,31 @@
-<%= render "shared/form_card", title: "#{@community.name}コミュニティの詳細" do %>
+<%= render "shared/page_card", title: "#{@community.name}コミュニティの詳細" do %>
 
-  <div class="row mb-3">
-    <div class="col-4 fw-bold">作成者</div>
-    <div class="col-8"><%= @community.user.name %></div>
-  </div>
+  <%= render "shared/page_card",
+    title: "#{@community.name}コミュニティの詳細",
+    width: "col-lg-8" do %>
 
-  <div class="row mb-3">
-    <div class="col-4 fw-bold">コミュニティ紹介</div>
-    <div class="col-8"><%= @community.introduction %></div>
-  </div>
+  <%= render "shared/detail_row",
+    label: "作成者",
+    value: @community.user.name %>
 
-  <div class="row mb-3">
-    <div class="col-4 fw-bold">ルール</div>
-    <div class="col-8"><%= @community.rules %></div>
-  </div>
+  <%= render "shared/detail_row",
+    label: "コミュニティ紹介",
+    value: @community.introduction %>
 
-   <div class="row mb-3">
-    <div class="col-4 fw-bold">メンバー数</div>
-    <div class="col-8"><%= @community.community_users.count + 1 %>人</div>
-  </div>
+  <%= render "shared/detail_row",
+    label: "ルール",
+    value: @community.rules %>
+
+  <%= render "shared/detail_row",
+    label: "メンバー数",
+    value: "#{@community.community_users.approved.count + 1}人" %>
 
   <% if @community.user == current_user %>
     <div class="text-center mt-4">
       <%= link_to "参加申請を確認", requests_community_path(@community), class: "btn btn-outline-warning w-100 rounded-pill mb-2" %>
-      <%= link_to "イベントを通知",  new_community_community_notice_path(@community), class: "btn btn-outline-warning w-100 rounded-pill" %>
-      <%= link_to "編集", edit_community_path(@community), class: "btn btn-asobow w-100 rounded-pill me-2" %>
-      <%= link_to "削除", community_path(@community), data: {turbo_method: :delete, turbo_confirm: "このコミュニティを削除しますか？"}, class: "btn btn-outline-danger w-100 rounded-pill" %>
+      <%= link_to "イベントを通知",  new_community_community_notice_path(@community), class: "btn btn-outline-warning w-100 rounded-pill mb-2" %>
+      <%= link_to "編集", edit_community_path(@community), class: "btn btn-asobow w-100 rounded-pill mb-2" %>
+      <%= link_to "削除", community_path(@community), data: {turbo_method: :delete, turbo_confirm: "このコミュニティを削除しますか？"}, class: "btn btn-outline-danger w-100 rounded-pill mb-2" %>
       <%= link_to "一覧に戻る", communities_path, class: "btn btn-outline-secondary w-100 rounded-pill" %>
     </div>
 
@@ -41,7 +41,7 @@
         <%= link_to "申請を取り消す", community_community_user_path(@community, community_user), data: { turbo_method: :delete, turbo_confirm: "参加申請を取り消しますか？"}, class: "btn btn-outline-danger rounded-pill px-4" %>
       <% elsif community_user.approved? %>
         <p class="text-success fw-bold">参加中です</p>
-      <% elsif community_user.rejacted? %>
+      <% elsif community_user.rejected? %>
         <p class="text-danger">参加申請が拒否されました</p>
       <% end %>
     </div>

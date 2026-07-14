@@ -1,24 +1,19 @@
-<div class="container py-4">
-  <div class="row justify-content-center">
-    <div class="col-lg-8">
-      <div class="card shadow-sm border-0 rounded-4">
-        <div class="card-body p-4">
-          <h2 class="fw-bold mb-3">
-            送信内容
-          </h2>
+<%= render "shared/page_card",
+      title: "送信内容" do %>
 
-           <div class="row mb-3">
-              <div class="col-4 fw-bold">タイトル</div>
-              <div class="col-8"><%= @title %></div>
-            </div>
+  <%= render "shared/detail_row",
+        label: "タイトル",
+        value: @title %>
 
-            <div class="row mb-3">
-              <div class="col-4 fw-bold">本文</div>
-              <div class="col-8"><%= @body %></div>
-            </div>
+  <%= render "shared/detail_row",
+        label: "本文" do %>
+    <%= simple_format(@body) %>
+  <% end %>
 
-            <%= link_to "コミュニティ一覧に戻る", communities_path %>
-      </div>
-    </div>
+  <div class="text-center mt-4">
+    <%= link_to "コミュニティ一覧に戻る",
+          communities_path,
+          class: "btn btn-outline-secondary rounded-pill px-4" %>
   </div>
-</div>
+
+<% end %>

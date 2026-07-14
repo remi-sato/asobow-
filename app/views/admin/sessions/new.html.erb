@@ -1,31 +1,33 @@
-<div class="container py-5">
-  <div class="row justify-content-center">
-    <div class="col-md-6 col-lg-5">
+<%= render "shared/page_card",
+      title: "管理者ログイン",
+      width: "col-md-6 col-lg-5",
+      body_class: "p-4" do %>
 
-      <div class="card shadow-sm border-0 rounded-4">
-        <div class="card-body p-4">
+  <%= form_with url: admin_login_path do |f| %>
 
-          <h2 class="text-center mb-4">管理者ログイン</h2>
+    <div class="mb-3">
+      <%= f.label :email_address,
+            "メールアドレス",
+            class: "form-label" %>
 
-          <%= form_with url: admin_login_path do |f| %>
-            <div class="mb-3">
-              <%= f.label :email_address, "メールアドレス", class: "form-label" %>
-              <%= f.email_field :email_address, class: "form-control rounded-pill" %>
-            </div>
-
-            <div class="mb-4">
-              <%= f.label :password, "パスワード", class: "form-label" %>
-              <%= f.password_field :password, class: "form-control rounded-pill" %>
-            </div>
-
-            <div class="text-center">
-              <%= f.submit "ログイン", class: "btn btn-asobow rounded-pill px-5" %>
-            </div>
-          <% end %>
-
-        </div>
-      </div>
-
+      <%= f.email_field :email_address,
+            class: "form-control rounded-pill" %>
     </div>
-  </div>
-</div>
+
+    <div class="mb-4">
+      <%= f.label :password,
+            "パスワード",
+            class: "form-label" %>
+
+      <%= f.password_field :password,
+            class: "form-control rounded-pill" %>
+    </div>
+
+    <div class="text-center">
+      <%= f.submit "ログイン",
+            class: "btn btn-asobow rounded-pill px-5" %>
+    </div>
+
+  <% end %>
+
+<% end %>

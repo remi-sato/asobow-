@@ -1,62 +1,64 @@
-<div class="container py-5">
-  <div class="row justify-content-center">
-    <div class="col-lg-8">
-       <div class="card shadow-sm border-0 rounded-4">
-          <div class="card-body p-4">
-            
-            <h2 class="fw-bold text-center mb-4">コミュニティ詳細</h2>
+<%= render "shared/page_card",
+      title: "コミュニティ詳細",
+      width: "col-lg-8",
+      body_class: "p-4" do %>
 
-              <div class="row mb-3">
-                <div class="col-4 fw-bold">コミュニティ名</div>
-                <div class="col-8"><%= @community.name %></div>
-              </div>
+  <%= render "shared/detail_row",
+        label: "コミュニティ名",
+        value: @community.name %>
 
-              <div class="row mb-3">
-                <div class="col-4 fw-bold">作成者</div>
-                <div class="col-8"><%= @community.user.name %></div>
-              </div>
+  <%= render "shared/detail_row",
+        label: "作成者",
+        value: @community.user.name %>
 
-              <div class="row mb-3">
-                <div class="col-4 fw-bold">メンバー一覧</div>
-                <div class="col-8">
-                  <% approved_members = @community.community_users.approved.includes(:user) %>
-                  <% if approved_members.present? %>
-                    <% approved_members.each do |community_user| %>
-                      <p class="mb-1"><%= community_user.user.name %></p>
-                    <% end %>
-                  <% else %>
-                    <span class="text-muted">参加メンバーはいません</span>
-                  <% end %>
-                </div>
-              </div>
+  <%= render "shared/detail_row",
+      label: "メンバー一覧（#{@community.community_users.approved.count + 1}人）" do %>
+    
+    <p class="mb-1">
+      <%= @community.user.name %>
+      <span class="text-muted small">（作成者）</span>
+    </p>
 
-              <div class="row mb-3">
-                <div class="col-4 fw-bold">作成日</div>
-                <div class="col-8"><%= @community.created_at.strftime("%Y/%m/%d") %></div>
-              </div>
+    <% approved_members = @community.community_users.approved.includes(:user) %>
 
-              <div class="row mb-3">
-                <div class="col-4 fw-bold">メンバー数</div>
-                <div class="col-8"><%= @community.community_users.approved.count + 1 %>人</div>
-              </div>
+    <% if approved_members.present? %>
+      <% approved_members.each do |community_user| %>
+        <p class="mb-1">
+          <%= community_user.user.name %>
+        </p>
+      <% end %>
+    <% else %>
+      <span class="text-muted">
+        参加メンバーはいません
+      </span>
+    <% end %>
 
-              <div class="row mb-3">
-                <div class="col-4 fw-bold">紹介文</div>
-                <div class="col-8"><%= @community.introduction %></div>
-              </div>
+  <% end %>
 
-              <div class="row mb-3">
-                <div class="col-4 fw-bold">ルール</div>
-                <div class="col-8"><%= @community.rules %></div>
-              </div>
+  <%= render "shared/detail_row",
+        label: "作成日",
+        value: @community.created_at.strftime("%Y/%m/%d") %>
 
-              <div class="d-flex justify-content-center gap-3 mt-3">
-                <%= link_to "一覧へ戻る", admin_communities_path, class: "btn btn-outline-secondary rounded-pill" %>
-                <%= link_to "コミュニティを削除", admin_community_path(@community), data:{turbo_method: :delete, turbo_confirm: "このコミュニティを削除しますか？"}, class: "btn btn-outline-danger rounded-pill" %>
-              </div>
-          
-        </div>
-      </div>
-    </div>
+  <%= render "shared/detail_row",
+        label: "紹介文",
+        value: @community.introduction %>
+
+  <%= render "shared/detail_row",
+        label: "ルール",
+        value: @community.rules %>
+
+  <div class="d-flex justify-content-center gap-3 mt-4">
+    <%= link_to "一覧へ戻る",
+          admin_communities_path,
+          class: "btn btn-outline-secondary rounded-pill" %>
+
+    <%= link_to "コミュニティを削除",
+          admin_community_path(@community),
+          data: {
+            turbo_method: :delete,
+            turbo_confirm: "このコミュニティを削除しますか？"
+          },
+          class: "btn btn-outline-danger rounded-pill" %>
   </div>
-</div>
+
+<% end %>

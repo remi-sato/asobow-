@@ -1,45 +1,22 @@
 <div class="container py-4">
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>
+    <h2 class="fw-bold mb-0">
       コミュニティ一覧
     </h2>
 
-    <%= link_to "コミュニティを作る", new_community_path, class: "btn btn-warnung rounded-pill" %>
+    <%= link_to "コミュニティを作る",
+          new_community_path,
+          class: "btn btn-asobow rounded-pill" %>
   </div>
 
   <% if @communities.present? %>
     <div class="row">
-      <% @communities.each do |community| %>
-        <div class="col-md-6 col-lg-4 mb-4">
-          <div class="card shadow-sm border-0 rounded-4 h-100">
-            <div class="card-body">
-              <h5 class="fw-bold">
-                <%= community.name %>
-              </h5>
-
-              <p class="text-muted">
-                作成者：<%= community.user.name %>
-              </p>
-
-              <p>
-                <%= truncate(community.introduction, length: 80) %>
-              </p>
-
-              <p>
-                <i class="fa-solid fa-user-group"></i>
-                <%= community.community_users.approved.count + 1 %>人
-              </p>
-
-              <%= link_to "詳細を見る", community_path(community), class: "btn btn-outline-warning rounded-pill" %>
-            
-            </div>
-          </div>
-        </div>
-      <% end %>
+      <%= render partial: "community",
+            collection: @communities %>
     </div>
   <% else %>
-    <p class="text-center text-muted">
-      コミュニティはまだありません
+    <p class="text-center text-muted py-5">
+      コミュニティはまだありません。
     </p>
   <% end %>
 </div>

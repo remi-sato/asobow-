@@ -1,0 +1,30 @@
+<div class="col-md-6 col-lg-4 mb-4">
+  <div class="card shadow-sm border-0 rounded-4 h-100">
+    <div class="card-body d-flex flex-column">
+
+      <h5 class="fw-bold">
+        <%= community.name %>
+      </h5>
+
+      <p class="text-muted">
+        作成者：<%= community.user.name %>
+      </p>
+
+      <p>
+        <%= truncate(community.introduction, length: 80) %>
+      </p>
+
+      <p>
+        <i class="fa-solid fa-user-group"></i>
+        <%= community.community_users.approved.count + 1 %>人
+      </p>
+
+      <div class="mt-auto">
+        <%= link_to "詳細を見る",
+              community_path(community),
+              class: "btn btn-outline-warning w-100 rounded-pill" %>
+      </div>
+
+    </div>
+  </div>
+</div>
