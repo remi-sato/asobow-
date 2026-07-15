@@ -2,11 +2,11 @@ class UsersController < ApplicationController
   before_action :redirect_if_logged_in, only: [:new, :create]
   before_action :require_login, except: [:new, :create]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
   def mypage
     @user = current_user
     @posts = @user.posts.order(created_at: :desc).page(params[:page]).per(9)
-    @dogs = current_user.dogs
+    @dogs = @user.dogs
   end
 
   def new
@@ -29,11 +29,10 @@ class UsersController < ApplicationController
   end
 
   def edit
-    redirect_to mypage_path unless @user == current_user
   end
 
   def update
-    if @user == current_user && @user.update(user_params)
+      if @user.update(user_params)
       redirect_to mypage_path, notice: "プロフィールを更新しました"
     else
       render :edit, status: :unprocessable_entity
@@ -41,13 +40,9 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    if @user == current_user
       @user.update(is_active: false)
       reset_session
       redirect_to new_user_path, notice: "退会しました"
-    else
-      redirect_to mypage_path, alert: "退会できません"
-    end
   end
 
   private
@@ -60,6 +55,12 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def ensure_correct_user
+    unless @user == current_user
+      redirect_to mypage_path, alert: "権限がありません"
+    end
   end
 
 end
