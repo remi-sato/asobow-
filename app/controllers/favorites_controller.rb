@@ -4,13 +4,19 @@ class FavoritesController < ApplicationController
 
   def create
     current_user.favorites.create(post: @post)
-    redirect_back fallback_location: post_path(@post)
+    respond_to do |format|
+      format.turbo_stream
+      format.html{ redirect_back fallback_location: post_path(@post)}
+    end
   end
 
   def destroy
     favorite = current_user.favorites.find_by(post: @post)
     favorite&.destroy
-    redirect_back fallback_location: post_path(@post)
+    respond_to do |format|
+      format.turbo_stream
+      format.html{ redirect_back fallback_location: post_path(@post) }
+    end
   end
 
   private
