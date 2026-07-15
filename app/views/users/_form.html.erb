@@ -12,11 +12,13 @@
 
   <div class="mb-3">
     <%= f.label :name, "名前", class: "form-label" %>
+    <span class="badge bg-danger ms-1">必須</span>
     <%= f.text_field :name, class: "form-control", placeholder: "ニックネーム" %>
   </div>
 
   <div class="mb-3">
     <%= f.label :email_address, "メールアドレス", class: "form-label" %>
+    <span class="badge bg-danger ms-1">必須</span>
     <%= f.email_field :email_address, class: "form-control", placeholder: "example@email.com" %>
   </div>
 
@@ -30,11 +32,13 @@
   <% if user.new_record? %>
     <div class="mb-3">
       <%= f.label :password, "パスワード", class: "form-label" %>
+      <span class="badge bg-danger ms-1">必須</span>
       <%= f.password_field :password,class: "form-control", placeholder: "6文字以上で入力してください" %>
     </div>
 
      <div class="mb-3">
       <%= f.label :password_confirmation, "パスワード確認", class: "form-label" %>
+      <span class="badge bg-danger ms-1">必須</span>
       <%= f.password_field :password_confirmation, class: "form-control", placeholder: "6文字以上で入力してください" %>
     </div>
   <% end %>
