@@ -1,6 +1,4 @@
-class Admin::UsersController < ApplicationController
-  layout "admin"
-  before_action :require_admin_login
+class Admin::UsersController < Admin::BaseController
   before_action :set_user, only: [:show, :withdraw, :reactive]
 
   def index

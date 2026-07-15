@@ -1,6 +1,4 @@
-class Admin::CommunitiesController < ApplicationController
-  layout "admin"
-  before_action :require_admin_login
+class Admin::CommunitiesController < Admin::BaseController
   before_action :set_community, only: [:show, :destroy]
 
   def index
