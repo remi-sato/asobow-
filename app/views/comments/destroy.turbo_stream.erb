@@ -1,0 +1,15 @@
+<%= turbo_stream.remove dom_id(@comment) %>
+
+<%= turbo_stream.update "comment-form" do %>
+  <%= render "comments/form",
+        post: @post,
+        comment: Comment.new %>
+<% end %>
+
+<% if @post.comments.reload.empty? %>
+  <%= turbo_stream.update "comments" do %>
+    <p id="no-comments-message" class="text-muted">
+      コメントはまだありません。
+    </p>
+  <% end %>
+<% end %>

@@ -33,7 +33,7 @@ class UsersController < ApplicationController
 
   def update
       if @user.update(user_params)
-      redirect_to mypage_path, notice: "プロフィールを更新しました"
+        redirect_to mypage_path, notice: "プロフィールを更新しました"
     else
       render :edit, status: :unprocessable_entity
     end

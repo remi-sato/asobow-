@@ -3,19 +3,36 @@ class CommentsController < ApplicationController
   before_action :set_post
 
   def create
-    comment = current_user.comments.new(comment_params)
-    comment.post = @post
-    if comment.save
-      redirect_back fallback_location: post_path(@post),notice: "コメントしました"
+    @comment = current_user.comments.new(comment_params)
+    @comment.post = @post
+    if @comment.save
+      respond_to do |format|
+        format.turbo_stream
+        format.html do
+          redirect_back fallback_location: post_path(@post),notice: "コメントしました"
+        end
+      end
     else
-      redirect_back fallback_location: post_path(@post), alert: "コメントを入力してください"
+      respond_to do |format|
+        format.turbo_stream do
+          render :create, status: :unprocessable_entity
+        end
+        format.html do
+          redirect_back fallback_location: post_path(@post), alert: "コメントを入力してください"
+        end
+      end
     end
   end
 
   def destroy
-    comment = current_user.comments.find(params[:id])
-    comment.destroy
-    redirect_back fallback_location: post_path(@post), notice: "コメントを削除しました"
+    @comment = current_user.comments.find(params[:id])
+    @comment.destroy
+    respond_to do |format|
+      format.turbo_stream
+      format.html do
+        redirect_back fallback_location: post_path(@post), notice: "コメントを削除しました"
+      end
+    end
   end
 
   private
