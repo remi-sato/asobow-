@@ -1,0 +1,21 @@
+<% if @comment.persisted? %>
+  <%= turbo_stream.remove "no-comments-message" %>
+
+  <%= turbo_stream.append "comments" do %>
+    <%= render "comments/comment",
+          comment: @comment,
+          post: @post %>
+  <% end %>
+
+  <%= turbo_stream.update "comment-form" do %>
+    <%= render "comments/form",
+          post: @post,
+          comment: Comment.new %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.update "comment-form" do %>
+    <%= render "comments/form",
+          post: @post,
+          comment: @comment %>
+  <% end %>
+<% end %>
