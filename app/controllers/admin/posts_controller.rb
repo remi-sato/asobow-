@@ -1,10 +1,8 @@
-class Admin::PostsController < ApplicationController
-  layout "admin"
-  before_action :require_admin_login
+class Admin::PostsController < Admin::BaseController
   before_action :set_post, only: [:show, :destroy]
 
   def index
-    @posts = Post.includes(:user).order(created_at: :desc).order(created_at: :desc).page(params[:page]).per(10)
+    @posts = Post.includes(:user).order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def show
