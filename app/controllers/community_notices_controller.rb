@@ -1,4 +1,5 @@
 class CommunityNoticesController < ApplicationController
+  before_action :require_login
   before_action :set_community
   before_action :ensure_owner
 

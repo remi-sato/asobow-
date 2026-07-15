@@ -1,4 +1,6 @@
 class TagsController < ApplicationController
+  before_action :require_login
+
   def index
     @word = params[:word]
 
@@ -17,6 +19,6 @@ class TagsController < ApplicationController
 
   def show
     @tag = Tag.find(params[:id])
-    @posts = @tag.posts.order(created_at: :desc).page(params[:page]).per(20)
+    @posts = @tag.posts.includes(:user).order(created_at: :desc).page(params[:page]).per(20)
   end
 end

@@ -1,6 +1,7 @@
 class CommunitiesController < ApplicationController
   before_action :require_login
   before_action :set_community, only: [:show, :edit, :update, :destroy, :requests]
+  before_action :ensure_owner, only: [:edit, :update, :destroy, :requests]
 
   def index
     @communities = Community.order(created_at: :desc).page(params[:page]).per(12)
@@ -30,7 +31,7 @@ class CommunitiesController < ApplicationController
     if @community.update(community_params)
       redirect_to community_path(@community), notice: "コミュニティを更新しました"
     else
-      render :edit, status: :unprocessable_entuty
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -40,20 +41,23 @@ class CommunitiesController < ApplicationController
   end
 
   def requests
-    unless @community.user == current_user
-      redirect_to community_path(@community), alert: "参加申請を確認する権限がありません"
-      return 
-    end
     @community_users = @community.community_users.pending.includes(:user).order(created_at: :desc).page(params[:page]).per(9)
   end
 
   private
+  
   def set_community
     @community = Community.find(params[:id])
   end
 
   def community_params
     params.require(:community).permit(:name, :introduction, :rules)
+  end
+
+  def ensure_owner
+    unless @community.user == current_user
+      redirect_to community_path(@community), alert: "権限がありません"
+    end
   end
 
 end
