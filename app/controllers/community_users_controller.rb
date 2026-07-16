@@ -26,7 +26,7 @@ class CommunityUsersController < ApplicationController
       return
     end
     community_user.approved!
-    redirect_to requests_community_path(community), notice: "参加申請しました"
+    redirect_to requests_community_path(community), notice: "参加申請を承認しました"
   end
 
   def reject
