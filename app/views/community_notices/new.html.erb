@@ -4,12 +4,14 @@
 
     <div class="mb-3">
       <%= f.label :title, "タイトル", class: "form-label fw-bold" %>
+      <span class="badge bg-danger ms-1">必須</span>
       <%= f.text_field :title, class: "form-control" %>
     </div>
 
      <div class="mb-3">
-       <%= f.label :body, "本文", class: "form-label fw-bold" %>
-       <%= f.text_area :body,  class: "form-control" %>
+      <%= f.label :body, "本文", class: "form-label fw-bold" %>
+      <span class="badge bg-danger ms-1">必須</span>
+      <%= f.text_area :body,  class: "form-control" %>
     </div>
 
     <div class="text-center">
