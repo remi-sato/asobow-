@@ -10,7 +10,7 @@
         <% if community.user == current_user %>
           <span class="community-status-badge community-status-owner">
             <i class="fa-solid fa-crown"></i>
-            オーナー
+            作成者
           </span>
         <% elsif community.community_users.approved.exists?(user: current_user) %>
           <span class="community-status-badge community-status-member">
@@ -26,7 +26,7 @@
       </div>
 
       <p class="text-muted">
-        作成者：<%= community.user.name %>
+        作成者：<%= link_to community.user.name, user_path(community.user), class: "text-decoration-none" %>
       </p>
 
       <p>
