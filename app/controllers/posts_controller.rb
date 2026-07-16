@@ -20,7 +20,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.new(create_post_params.except(:tag_names))
     if @post.save
       save_tags(@post, create_post_params[:tag_names])
-      redirect_to posts_path, notice: "投稿しました"
+      redirect_to post_path(@post), notice: "投稿しました"
     else
       render :new, status: :unprocessable_entity
     end
