@@ -1,8 +1,19 @@
 <div class="container py-4">
-  <h2 class="fw-bold mb-4 text-center">
-    <i class="fa-solid fa-tree"></i>
-    投稿一覧
-  </h2>
+  <div class="text-center mb-4">
+    <h2 class="fw-bold mb-4 text-center">
+      <i class="fa-solid fa-tree"></i>
+      投稿一覧
+    </h2>
+
+    <% if logged_in? %>
+        <%= link_to new_post_path,
+              data: { turbo: false },
+              class: "btn btn-asobow rounded-pill px-4 fw-bold" do %>
+          <i class="fa-solid fa-paw"></i>
+         遊び場を投稿する
+        <% end %>
+    <% end %>
+  </div>
 
   <% if @posts.any? %>
     <div class="row">
