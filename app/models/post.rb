@@ -12,7 +12,7 @@ class Post < ApplicationRecord
   validates :title, presence: true
   validates :place_name, presence: true
   validates :address, presence: true
-  validates :rating, presence: true, inclusion: { in: 1..5}
+  validates :rating, presence: true, inclusion: { in: 1..5, message: "を選択してください"}
 
   def self.looks(search, word)
     if search == "perfect_match"
