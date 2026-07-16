@@ -6,6 +6,25 @@
         <%= community.name %>
       </h5>
 
+      <div class="mb-2">
+        <% if community.user == current_user %>
+          <span class="community-status-badge community-status-owner">
+            <i class="fa-solid fa-crown"></i>
+            オーナー
+          </span>
+        <% elsif community.community_users.approved.exists?(user: current_user) %>
+          <span class="community-status-badge community-status-member">
+            <i class="fa-regular fa-circle-check"></i>
+            参加済
+          </span>
+        <% elsif community.community_users.pending.exists?(user: current_user) %>
+          <span class="community-status-badge community-status-pending">
+            <i class="fa-regular fa-clock"></i>
+            申請中
+          </span>
+        <% end %>
+      </div>
+
       <p class="text-muted">
         作成者：<%= community.user.name %>
       </p>
