@@ -2,5 +2,11 @@
 
   <%= render "form", community: @community %>
 
+  <div class="mt-3">
+    <%= link_to "一覧へ戻る",
+          communities_path,
+          class: "btn btn-outline-secondary w-100 rounded-pill" %>
+  </div>
+
 <% end %>
         

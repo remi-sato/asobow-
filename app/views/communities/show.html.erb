@@ -1,5 +1,5 @@
 <%= render "shared/page_card",
-      title: "#{@community.name}コミュニティの詳細",
+      title: "#{@community.name}の詳細",
       width: "col-lg-8" do %>
 
   <%= render "shared/detail_row",
@@ -56,7 +56,7 @@
               class: "btn btn-outline-danger flex-fill rounded-pill" %>
       </div>
 
-      <%= link_to "一覧に戻る",
+      <%= link_to "一覧へ戻る",
             communities_path,
             class: "btn btn-outline-secondary w-100 rounded-pill" %>
 

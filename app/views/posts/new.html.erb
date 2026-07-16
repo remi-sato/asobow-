@@ -2,4 +2,8 @@
 
   <%= render "form", post: @post, submit_text: "投稿" %>
 
+  <div class="mt-3">
+    <%= link_to "一覧へ戻る", posts_path, class: "btn btn-outline-secondary w-100 rounded-pill" %>
+  </div>
+
 <% end %>
