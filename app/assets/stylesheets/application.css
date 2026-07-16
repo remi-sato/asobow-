@@ -251,6 +251,34 @@
   font-weight: bold;
 }
 
+.community-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.community-status-owner {
+  color: #8a6d1d;
+  background-color: #fff8dc;
+  border: 1px solid #eadb9b;
+}
+
+.community-status-member {
+  color: #4f7561;
+  background-color: #eef8f1;
+  border: 1px solid #c9e2d1;
+}
+
+.community-status-pending {
+  color: #8a6a45;
+  background-color: #fff5e8;
+  border: 1px solid #ead4b8;
+}
+
 @media screen and (max-width: 576px) {
   .header{
     height: 80px;
