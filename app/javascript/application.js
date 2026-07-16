@@ -3,13 +3,10 @@ import "controllers"
 import "map"
 import "raty"
 
-document.addEventListener("turbo:load", () => {
-  const button = document.getElementById("menuButton");
-  const menu = document.getElementById("hamburgerMenu");
-
+document.addEventListener("click", (event) => {
+  const button = event.target.closest("#menuButton");
   if (!button) return;
-
-  button.addEventListener("click", () => {
-    menu.classList.toggle("open");
-  });
+  const menu = document.getElementById("hamburgerMenu");
+  if (!menu) return;
+  menu.classList.toggle("open");
 });
