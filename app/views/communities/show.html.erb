@@ -18,6 +18,16 @@
         label: "メンバー数",
         value: "#{@community.community_users.approved.count + 1}人" %>
 
+  <% members = [@community.user] + @community.community_users.approved.includes(:user).map(&:user) %>
+
+  <% member_links = members.map do |user| %>
+    <% link_to user.name, user_path(user), class: "text-decoration-none" %>
+  <% end %>
+
+  <%= render "shared/detail_row",
+        label: "メンバー",
+        value: safe_join(member_links, "、") %>
+
   <% if @community.user == current_user %>
 
     <div class="mt-4">
