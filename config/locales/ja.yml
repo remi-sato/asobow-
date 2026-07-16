@@ -4,22 +4,32 @@ ja:
       blank: "を入力してください"
       too_short: "は%{count}文字以上で入力してください"
       required: "を設定してください"
+      inclusion: "は一覧にありません"
+      taken: "はすでに使用されています"
 
   activerecord:
     models:
       user: ユーザー
       post: 投稿
+      comment: コメント
+      community: コミュニティ
+
     attributes:
       user:
         name: 名前
-        email: メールアドレス
+        email_address: メールアドレス
         password: パスワード
+
       post:
         title: タイトル
         body: 本文
         place_name: 場所名
         address: 住所
         rating: 評価
+
+      comment:
+        body: コメント
+
       community:
         user: 作成者
         name: コミュニティ名
@@ -42,4 +52,3 @@ ja:
       last: "»"
       previous: "‹"
       next: "›"
-      truncate: "…"
