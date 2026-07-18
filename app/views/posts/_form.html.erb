@@ -141,6 +141,25 @@
     <%= f.hidden_field :longitude, id: "post_longitude" %>
 
   </div>
+
+  <div class="mb-4">
+    <%= f.label :dog_ids, "一緒に遊びに行った犬", class: "form-label fw-bold" %>
+
+    <% if current_user.dogs.any? %>
+      <div class="d-flex flex-column gap-2">
+        <%= f.collection_check_boxes :dog_ids, current_user.dogs, :id, :name do |b| %>
+          <div class="form-check">
+            <%= b.check_box class: "form-check-input" %>
+            <%= b.label class: "form-check-label" %>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-muted mb-0">
+        登録されている犬はいません。
+      </p>
+    <% end %>
+  </div>
   
   <div class="mb-3">
     <%= f.label :body, "本文",class: "form-label" %>

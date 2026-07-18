@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_07_18_060334) do
+ActiveRecord::Schema[8.0].define(version: 2026_07_18_075434) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -99,6 +99,16 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_18_060334) do
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
+  create_table "post_dogs", force: :cascade do |t|
+    t.integer "post_id", null: false
+    t.integer "dog_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dog_id"], name: "index_post_dogs_on_dog_id"
+    t.index ["post_id", "dog_id"], name: "index_post_dogs_on_post_id_and_dog_id", unique: true
+    t.index ["post_id"], name: "index_post_dogs_on_post_id"
+  end
+
   create_table "post_tags", force: :cascade do |t|
     t.integer "post_id", null: false
     t.integer "tag_id", null: false
@@ -154,6 +164,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_18_060334) do
   add_foreign_key "dogs", "users"
   add_foreign_key "favorites", "posts"
   add_foreign_key "favorites", "users"
+  add_foreign_key "post_dogs", "dogs"
+  add_foreign_key "post_dogs", "posts"
   add_foreign_key "post_tags", "posts"
   add_foreign_key "post_tags", "tags"
   add_foreign_key "posts", "users"
