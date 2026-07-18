@@ -27,6 +27,47 @@
   <%= render "shared/detail_row",
         label: "メンバー",
         value: safe_join(member_links, "、") %>
+  
+  <% dogs = members.flat_map(&:dogs) %>
+
+  <% if dogs.any? %>
+    <div class="bg-light rounded-4 p-3 mt-4">
+      <h5 class="fw-bold mb-3">
+        <i class="fa-solid fa-dog"></i>
+       参加メンバーの愛犬
+      </h5>
+
+      <div class="d-flex flex-column gap-3">
+        <% dogs.each do |dog| %>
+          <%= link_to user_path(dog.user),
+                class: "d-flex align-items-center gap-3 rounded-4 p-3 bg-white text-decoration-none text-dark" do %>
+
+            <% if dog.image.attached? %>
+              <%= image_tag dog.image,
+                    class: "rounded-circle object-fit-cover flex-shrink-0",
+                    style: "width: 80px; height: 80px;" %>
+            <% else %>
+              <div class="rounded-circle bg-light d-flex align-items-center justify-content-center flex-shrink-0"
+                   style="width: 80px; height: 80px;">
+                <i class="fa-solid fa-dog fs-3 text-muted"></i>
+              </div>
+            <% end %>
+
+            <div>
+              <p class="fw-bold mb-1"><%= dog.name %></p>
+              <p class="mb-1">
+                <%= dog.breed %>・<%= dog.size_i18n %>
+              </p>
+              <p class="text-muted small mb-0">
+                飼い主：<%= dog.user.name %>さん
+              </p>
+            </div>
+
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 
   <% if @community.user == current_user %>
 
