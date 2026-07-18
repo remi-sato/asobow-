@@ -47,13 +47,13 @@ class PostsController < ApplicationController
    
   def create_post_params
     params.require(:post).permit(
-      :title, :body, :place_name, :address, :rating, :latitude, :longitude, :tag_names, :category, :parking, :fee, images: []
+      :title, :body, :place_name, :address, :rating, :latitude, :longitude, :tag_names, :category, :parking, :fee, images: [], dog_ids: []
     )
   end
 
   def update_post_params
     params.require(:post).permit(
-      :title, :body, :place_name, :address, :latitude, :longitude, :tag_names, :category, :parking, :fee,  images: []
+      :title, :body, :place_name, :address, :latitude, :longitude, :tag_names, :category, :parking, :fee,  images: [], dog_ids: []
     )
   end
 

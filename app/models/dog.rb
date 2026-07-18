@@ -1,5 +1,8 @@
 class Dog < ApplicationRecord
   belongs_to :user
+  has_many :post_dogs, dependent: :destroy
+  has_many :posts, through: :post_dogs
+  
   has_one_attached :image
 
   enum :size, {
