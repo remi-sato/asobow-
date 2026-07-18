@@ -5,14 +5,35 @@ class Post < ApplicationRecord
   has_many :post_tags, dependent: :destroy
   has_many :tags, through: :post_tags
 
+  has_many_attached :images
+
   attr_accessor :tags_names
 
-  has_many_attached :images
+  enum :category, {
+    park: 0,
+    dog_run: 1,
+    other: 2
+  }, prefix: true
+
+  enum :parking, {
+    available: 0,
+    unavailable: 1,
+    unknown: 2
+  }, prefix: true
+
+  enum :fee, {
+    free: 0,
+    paid: 1,
+    unknown: 2
+  }, prefix: true
   
   validates :title, presence: true
   validates :place_name, presence: true
   validates :address, presence: true
-  validates :rating, presence: true, inclusion: { in: 1..5, message: "を選択してください"}
+  validates :rating, inclusion: { in: 1..5, message: "を選択してください"}
+  validates :category, presence: true
+  validates :parking, presence: true
+  validates :fee, presence: true
 
   def self.looks(search, word)
     if search == "perfect_match"
