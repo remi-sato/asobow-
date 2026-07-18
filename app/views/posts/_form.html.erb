@@ -52,22 +52,96 @@
 
   </div>
 
-  <div class="mb-3">
-    <%= f.label :place_name, class: "form-label" do %>
-      場所名
+  <div class="border rounded-4 p-4 mb-4 bg-white">
+    <h6 class="fw-bold mb-3">
+      <i class="fa-solid fa-location-dot text-danger"></i>
+      スポット情報
       <span class="badge bg-danger ms-1">必須</span>
-    <% end %>
-    <%= f.text_field :place_name, class: "form-control", placeholder: "例:○○公園" %>
-  </div>
+    </h6>
 
-  <div class="mb-3">
-    <%= f.label :address, class: "form-label" do %>
-      住所
-      <span class="badge bg-danger ms-1">必須</span>
-    <% end %>
-    <%= f.text_field :address, class: "form-control", placeholder: "地図をクリックしてください" %>
-  </div>
+    <div class="mb-3">
+      <%= f.label :place_name, class: "form-label" do %>
+        場所名
+      <% end %>
+      <%= f.text_field :place_name, class: "form-control", placeholder: "例:○○公園" %>
+    </div>
 
+    <div class="mb-3">
+      <%= f.label :category, class: "form-label" do %>
+        カテゴリ
+      <% end %>
+  
+      <div class="d-flex flex-wrap gap-3">
+        <% Post.categories.keys.each do |category| %>
+          <div class="form-check">
+            <%= f.radio_button :category, category, class: "form-check-input", id: "post_category_#{category}" %>
+            <%= f.label :category, I18n.t("enums.post.category.#{category}"), value: category, class: "form-check-label", for: "post_category_#{category}" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :parking, class: "form-label" do %>
+        駐車場
+      <% end %>
+
+      <div class="d-flex flex-wrap gap-3">
+        <% Post.parkings.keys.each do |parking| %>
+          <div class="form-check">
+            <%= f.radio_button :parking, parking,
+                class: "form-check-input",
+                id: "post_parking_#{parking}" %>
+
+            <%= f.label :parking,
+                I18n.t("enums.post.parking.#{parking}"),
+                value: parking,
+                class: "form-check-label",
+                for: "post_parking_#{parking}" %>
+            </div>
+        <% end %>        
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :fee, class: "form-label" do %>
+        利用料金
+      <% end %>
+
+      <div class="d-flex flex-wrap gap-3">
+        <% Post.fees.keys.each do |fee| %>
+          <div class="form-check">
+            <%= f.radio_button :fee, fee,
+                class: "form-check-input",
+                id: "post_fee_#{fee}" %>
+
+            <%= f.label :fee,
+                I18n.t("enums.post.fee.#{fee}"),
+                value: fee,
+                class: "form-check-label",
+                for: "post_fee_#{fee}" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :address, class: "form-label" do %>
+        住所
+      <% end %>
+      <%= f.text_field :address, class: "form-control", placeholder: "地図をクリックしてください" %>
+    </div>
+
+    <div class="mb-4">
+      <label class="form-label"></label>
+        <div id="map" class="rounded-4" style="height: 400px;"></div>
+    </div>
+  
+    <%= f.hidden_field :latitude, id: "post_latitude" %>
+    <%= f.hidden_field :longitude, id: "post_longitude" %>
+
+  </div>
+  
   <div class="mb-3">
     <%= f.label :body, "本文",class: "form-label" %>
     <%= f.text_area :body, class: "form-control", rows: 5, placeholder: "犬連れで行った感想や注意点を書いてください" %> 
@@ -85,15 +159,6 @@
         複数のタグはスペース区切りで入力してください
       </div>
   </div>
-
-  <div class="mb-4">
-    <label class="form-label"></label>
-      <div id="map" class="rounded-4" style="height: 400px;"></div>
-  </div>
-  
-  <%= f.hidden_field :latitude, id: "post_latitude" %>
-  <%= f.hidden_field :longitude, id: "post_longitude" %>
-
 
   <%= f.submit submit_text, class:  "btn btn-asobow w-100 rounded-pill fw-bold" %>
 

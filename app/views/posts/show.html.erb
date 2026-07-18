@@ -23,17 +23,52 @@
             <%= @post.place_name %>
           </h2>
 
-          <p class="text-muted mb-2">
-            <%= @post.title %>
-          </p>
+          <div class="card-body p-4">
+            <h2 class="fw-bold mb-2">
+              <%= @post.title %>
+            </h2>
 
-          <div class="text-warning fw-bold mb-2">
-            <div class="raty-read-only" data-score="<%= @post.rating %>"></div>
-          </div>
+            <div class="text-warning fw-bold mb-4">
+              <div class="raty-read-only" data-score="<%= @post.rating %>"></div>
+            </div>
 
-          <p class="text-muted mb-4">
-            <%= @post.address %>
-          </p>
+            <div class="bg-light rounded-4 p-3 mb-4">
+              <h5 class="fw-bold mb-3">
+                <i class="fa-solid fa-location-dot"></i>
+                スポット情報
+              </h5>
+
+              <div class="row mb-2">
+                <div class="col-4 fw-bold">場所名</div>
+                <div class="col-8"><%= @post.place_name %></div>
+              </div>
+
+              <div class="row mb-2">
+                <div class="col-4 fw-bold">カテゴリ</div>
+                <div class="col-8">
+                  <%= I18n.t("enums.post.category.#{@post.category}") %>
+                </div>
+              </div>
+
+              <div class="row mb-2">
+                <div class="col-4 fw-bold">駐車場</div>
+                <div class="col-8">
+                  <%= I18n.t("enums.post.parking.#{@post.parking}") %>
+                </div>
+              </div>
+
+              <div class="row mb-2">
+                <div class="col-4 fw-bold">利用料金</div>
+                <div class="col-8">
+                  <%= I18n.t("enums.post.fee.#{@post.fee}") %>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-4 fw-bold">住所</div>
+                <div class="col-8"><%= @post.address %></div>
+              </div>
+        </div>
 
           <div class="mb-4">
             <%= simple_format(@post.body) %>

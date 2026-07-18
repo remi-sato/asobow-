@@ -26,6 +26,9 @@ ja:
         place_name: 場所名
         address: 住所
         rating: 評価
+        category: カテゴリー
+        parking: 駐車場
+        fee: 料金
 
       comment:
         body: コメント
@@ -45,6 +48,20 @@ ja:
       gender:
         male: "男の子"
         female: "女の子"
+
+    post:
+      category:
+        park: "公園"
+        dog_run: "ドッグラン"
+        other: "その他"
+      parking:
+        available: "あり"
+        unavailable: "なし"
+        unknown: "不明"
+      fee:
+        free: "無料"
+        paid: "有料"
+        unknown: "不明"
 
   views:
     pagination:
