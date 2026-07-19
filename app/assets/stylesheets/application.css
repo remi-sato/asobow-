@@ -33,7 +33,9 @@
  }
 
  .header-left{
-  width: 60px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
  }
 
  .header-right{
@@ -277,6 +279,28 @@
   color: #8a6a45;
   background-color: #fff5e8;
   border: 1px solid #ead4b8;
+}
+
+.notification-link {
+  color: #333;
+  font-size: 1.4rem;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.notification-link:hover {
+  color: #333;
+}
+
+.notification-badge {
+  font-size: 0.6rem;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
 }
 
 @media screen and (max-width: 576px) {

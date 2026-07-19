@@ -41,7 +41,7 @@
 
   <%= render "shared/detail_row",
         label: "紹介文",
-        value: @community.introduction %>
+        value: l(@community.created_at, format: :short) %>
 
   <%= render "shared/detail_row",
         label: "ルール",

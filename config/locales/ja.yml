@@ -1,4 +1,14 @@
 ja:
+  time:
+    formats:
+      short: "%Y/%m/%d %H:%M"
+      long: "%Y年%m月%d日 %H:%M"
+
+  date:
+    formats:
+      short: "%Y/%m/%d"
+      long: "%Y年%m月%d日"
+
   errors:
     messages:
       blank: "を入力してください"
@@ -13,6 +23,7 @@ ja:
       post: 投稿
       comment: コメント
       community: コミュニティ
+      notification: 通知
 
     attributes:
       user:
@@ -39,6 +50,15 @@ ja:
         introduction: コミュニティ紹介
         rules: ルール
 
+      notification:
+        visitor: 通知したユーザー
+        visited: 通知を受け取るユーザー
+        post: 投稿
+        comment: コメント
+        community: コミュニティ
+        action: 通知の種類
+        checked: 既読
+
   enums:
     dog:
       size:
@@ -62,6 +82,15 @@ ja:
         free: "無料"
         paid: "有料"
         unknown: "不明"
+
+    notification:
+      action:
+        like: "いいね"
+        comment: "コメント"
+        join_request: "参加申請"
+        approved: "参加承認"
+        rejected: "参加拒否"
+        event: "イベント通知"
 
   views:
     pagination:

@@ -6,7 +6,16 @@ class CommentsController < ApplicationController
     @comment = current_user.comments.new(comment_params)
     @comment.post = @post
     if @comment.save
-      respond_to do |format|
+      if current_user != @post.user
+        Notification.create!(
+          visitor: current_user,
+          visited: @post.user,
+          post: @post,
+          comment: @comment,
+          action: :comment
+        )
+      end
+        respond_to do |format|
         format.turbo_stream
         format.html do
           redirect_back fallback_location: post_path(@post),notice: "コメントしました"

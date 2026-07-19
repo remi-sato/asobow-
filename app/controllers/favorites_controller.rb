@@ -3,7 +3,15 @@ class FavoritesController < ApplicationController
   before_action :set_post
 
   def create
-    current_user.favorites.create(post: @post)
+    favorite = current_user.favorites.create(post: @post)
+    if favorite.persisted? && current_user != @post_user
+      Notification.create!(
+        visitor: current_user,
+        visited: @post.user,
+        post: @post,
+        action: :like
+      )
+    end
     respond_to do |format|
       format.turbo_stream
       format.html{ redirect_back fallback_location: post_path(@post)}

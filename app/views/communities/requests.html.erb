@@ -12,7 +12,7 @@
 
             <small class="text-muted">
               申請日：
-              <%= community_user.created_at.strftime("%Y/%m/%d") %>
+              <%= l community_user.created_at.to_date, format: :short %>
             </small>
           </div>
 
