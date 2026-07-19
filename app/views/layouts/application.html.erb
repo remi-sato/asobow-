@@ -33,6 +33,19 @@
           <i class="fa-solid fa-bars"></i>
         </button>
 
+        <% if logged_in? %>
+          <%= link_to notifications_path, class: "notification-link position-relative" do %>
+            <i class="fa-regular fa-bell"></i>
+
+            <% unread_count = current_user.passive_notifications.where(checked: false).count %>
+              <% if unread_count.positive? %>
+                <span class="notification-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  <%= unread_count %>
+                </span>
+              <% end %>
+            <% end %>
+        <% end %>
+
         <nav class="hamburger-menu" id="hamburgerMenu">
           <%= link_to root_path do %> 
             <i class="fa-solid fa-house"></i>

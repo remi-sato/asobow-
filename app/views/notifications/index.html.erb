@@ -1,0 +1,68 @@
+<div class="container py-5">
+  <h2 class="fw-bold text-center mb-4">通知一覧</h2>
+
+  <% if @notifications.present? %>
+    <% @notifications.each do |notification| %>
+      <div class="card shadow-sm border-0 rounded-4 mb-3">
+        <div class="card-body">
+          <p class="mb-1">
+            <%= notification.visitor.name %>さんが
+
+            <% case notification.action %>
+            <% when "like" %>
+              <%= link_to "あなたの投稿",
+                          post_path(notification.post),
+                          class: "text-decoration-none" %>
+              にいいねしました
+
+            <% when "comment" %>
+              <%= link_to "あなたの投稿",
+                          post_path(notification.post),
+                          class: "text-decoration-none" %>
+              にコメントしました
+
+            <% when "join_request" %>
+              <%= link_to notification.community.name,
+                          community_path(notification.community),
+                          class: "text-decoration-none" %>
+              への参加を申請しました
+
+            <% when "approved" %>
+              <%= link_to notification.community.name,
+                          community_path(notification.community),
+                          class: "text-decoration-none" %>
+              への参加申請を承認しました
+
+            <% when "rejected" %>
+              <%= link_to notification.community.name,
+                          community_path(notification.community),
+                          class: "text-decoration-none" %>
+              への参加申請を拒否しました
+
+            <% when "event" %>
+              <%= link_to notification.community.name,
+                          community_path(notification.community),
+                          class: "text-decoration-none" %>
+              のイベントを通知しました。
+              詳細は登録メールアドレスをご確認ください。
+            <% end %>
+          </p>
+
+          <% if notification.comment? && notification.comment.present? %>
+            <p class="text-muted mb-2">
+              「<%= truncate(notification.comment.body, length: 50) %>」
+            </p>
+          <% end %>
+
+          <small class="text-muted">
+            <%= l notification.created_at, format: :short %>
+          </small>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <p class="text-center text-muted mb-0">
+      通知はありません。
+    </p>
+  <% end %>
+</div>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "notifications/index"
   get "community_notice/new"
   get "community_notice/create"
   get "community_notice/show"
@@ -45,6 +46,8 @@ Rails.application.routes.draw do
       patch :reject
     end
   end
+
+  resources :notifications, only: [:index] 
 
   get "/login" => "sessions#new"
   post "/login" => "sessions#create"

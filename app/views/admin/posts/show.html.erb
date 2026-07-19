@@ -54,7 +54,7 @@
               <div class="row mb-3">
                 <div class="col-4 fw-bold">投稿日</div>
                   <div class="col-8">
-                    <%= @post.created_at.strftime("%Y/%m/%d %H:%M") %>
+                    <%= l @post.created_at, format: :short %>
                   </div>
               </div>
 

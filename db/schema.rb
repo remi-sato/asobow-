@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_07_18_075434) do
+ActiveRecord::Schema[8.0].define(version: 2026_07_19_013641) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -99,6 +99,23 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_18_075434) do
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer "visitor_id", null: false
+    t.integer "visited_id", null: false
+    t.integer "post_id"
+    t.integer "comment_id"
+    t.integer "community_id"
+    t.integer "action", null: false
+    t.boolean "checked", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["comment_id"], name: "index_notifications_on_comment_id"
+    t.index ["community_id"], name: "index_notifications_on_community_id"
+    t.index ["post_id"], name: "index_notifications_on_post_id"
+    t.index ["visited_id"], name: "index_notifications_on_visited_id"
+    t.index ["visitor_id"], name: "index_notifications_on_visitor_id"
+  end
+
   create_table "post_dogs", force: :cascade do |t|
     t.integer "post_id", null: false
     t.integer "dog_id", null: false
@@ -164,6 +181,11 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_18_075434) do
   add_foreign_key "dogs", "users"
   add_foreign_key "favorites", "posts"
   add_foreign_key "favorites", "users"
+  add_foreign_key "notifications", "comments"
+  add_foreign_key "notifications", "communities"
+  add_foreign_key "notifications", "posts"
+  add_foreign_key "notifications", "users", column: "visited_id"
+  add_foreign_key "notifications", "users", column: "visitor_id"
   add_foreign_key "post_dogs", "dogs"
   add_foreign_key "post_dogs", "posts"
   add_foreign_key "post_tags", "posts"

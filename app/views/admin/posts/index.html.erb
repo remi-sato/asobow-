@@ -21,7 +21,7 @@
                     <tr>
                       <td><%= post.place_name %></td>
                       <td><%= post.user.name %></td>
-                      <td><%= post.created_at.strftime("%Y/%m/%d") %></td>
+                      <td><%= l post.created_at.to_date, format: :short %></td>
                       <td><%= link_to "詳細", admin_post_path(post), class: "btn btn-light border btn-sm rounded-pill px-3" %>
                     </tr>
                   <% end %>

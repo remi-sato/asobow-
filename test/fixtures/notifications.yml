@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  visitor: one
+  visited: one
+  post: one
+  comment: one
+  community: one
+  action: 1
+  checked: false
+
+two:
+  visitor: two
+  visited: two
+  post: two
+  comment: two
+  community: two
+  action: 1
+  checked: false

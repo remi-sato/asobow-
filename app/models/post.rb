@@ -6,6 +6,7 @@ class Post < ApplicationRecord
   has_many :tags, through: :post_tags
   has_many :post_dogs, dependent: :destroy
   has_many :dogs, through: :post_dogs
+  has_many :notifications, dependent: :destroy
 
   has_many_attached :images
 
