@@ -9,4 +9,4 @@ document.addEventListener("click", (event) => {
   const menu = document.getElementById("hamburgerMenu");
   if (!menu) return;
   menu.classList.toggle("open");
-});
+});import "channels"
