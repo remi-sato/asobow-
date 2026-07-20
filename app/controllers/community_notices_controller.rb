@@ -25,6 +25,21 @@ class CommunityNoticesController < ApplicationController
         @title,
         @body
       ).deliver_now
+
+      notification = Notification.create!(
+        visitor: current_user,
+        visited: community_user.user,
+        community: @community,
+        action: :event
+      )
+
+      NotificationsChannel.broadcast_to(
+        community_user.user,
+        {
+          message: "#{@community.name}からイベントのお知らせが届きました",
+          notification_id: notification.id
+        }
+      )
     end
     
     render :show

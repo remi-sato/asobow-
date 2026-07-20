@@ -5,10 +5,6 @@ class FavoritesController < ApplicationController
   def create
   favorite = current_user.favorites.create(post: @post)
 
-  Rails.logger.info "favorite.persisted?: #{favorite.persisted?}"
-  Rails.logger.info "いいねしたユーザーID: #{current_user.id}"
-  Rails.logger.info "投稿者ユーザーID: #{@post.user.id}"
-
   if favorite.persisted? && current_user != @post.user
     notification = Notification.create!(
       visitor: current_user,
@@ -16,8 +12,6 @@ class FavoritesController < ApplicationController
       post: @post,
       action: :like
     )
-
-    Rails.logger.info "通知送信先ユーザーID: #{@post.user.id}"
 
     NotificationsChannel.broadcast_to(
       @post.user,
