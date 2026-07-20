@@ -4,7 +4,13 @@ class PostsController < ApplicationController
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
   def index
-   @posts = Post.order(created_at: :desc).page(params[:page]).per(9)
+   @posts = Post
+     .by_category(params[:category])
+     .by_parking(params[:parking])
+     .by_fee(params[:fee])
+     .order(created_at: :desc)
+     .page(params[:page])
+     .per(9)
   end
 
   def show

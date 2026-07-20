@@ -15,6 +15,83 @@
     <% end %>
   </div>
 
+  <div class="card shadow-sm border-0 rounded-4 mb-4">
+    <div class="card-body p-4">
+      <h5 class="fw-bold mb-4">
+        <i class="fa-solid fa-filter"></i>
+        絞り込み検索
+      </h5>
+      <%= form_with url: posts_path, method: :get, local: true do |f| %>
+        <div class="row g-3 mb-3">
+          <div class="col-md-4">
+            <%= f.label :category, "カテゴリ", class: "form-label fw-bold" %>
+
+            <%= f.select :category,
+                  options_for_select(
+                    Post.categories.keys.map { |category|
+                      [
+                        I18n.t("enums.post.category.#{category}"),
+                        category
+                      ]
+                    },
+                    params[:category]
+                  ),
+                  { include_blank: "すべて" },
+                  class: "form-select" %>
+          </div>
+
+          <div class="col-md-4">
+            <%= f.label :parking, "駐車場", class: "form-label fw-bold" %>
+
+            <%= f.select :parking,
+                  options_for_select(
+                    Post.parkings.keys.map { |parking|
+                      [
+                        I18n.t("enums.post.parking.#{parking}"),
+                        parking
+                      ]
+                    },
+                    params[:parking]
+                  ),
+                  { include_blank: "すべて" },
+                  class: "form-select" %>
+          </div>
+
+          <div class="col-md-4">
+            <%= f.label :fee, "利用料金", class: "form-label fw-bold" %>
+
+            <%= f.select :fee,
+                  options_for_select(
+                    Post.fees.keys.map { |fee|
+                      [
+                        I18n.t("enums.post.fee.#{fee}"),
+                        fee
+                      ]
+                    },
+                    params[:fee]
+                  ),
+                  { include_blank: "すべて" },
+                  class: "form-select" %>
+          </div>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-md-3">
+            <%= f.submit "絞り込む",
+              class: "btn btn-asobow w-100 rounded-pill fw-bold" %>
+          </div>
+        
+          <div class="col-md-3">
+            <%= link_to "条件をリセット",
+              posts_path,
+              class: "btn btn-light w-100 border rounded-pill" %>
+          </div>
+
+        </div>
+      <% end %>
+    </div>
+  </div>
+
   <% if @posts.any? %>
     <div class="row">
       <%= render partial: "post", collection: @posts %>
@@ -25,7 +102,13 @@
     </div>
   <% else %>
     <p class="text-center text-muted py-5">
-      まだ投稿はありません。
+      <% if params[:category].present? ||
+            params[:parking].present? ||
+            params[:fee].present? %>
+        条件に一致する投稿はありません
+      <% else %>
+       まだ投稿はありません。
+      <% end %>
     </p>
   <% end %>
 </div>
