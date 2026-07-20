@@ -3,20 +3,30 @@ class FavoritesController < ApplicationController
   before_action :set_post
 
   def create
-    favorite = current_user.favorites.create(post: @post)
-    if favorite.persisted? && current_user != @post_user
-      Notification.create!(
-        visitor: current_user,
-        visited: @post.user,
-        post: @post,
-        action: :like
-      )
-    end
-    respond_to do |format|
-      format.turbo_stream
-      format.html{ redirect_back fallback_location: post_path(@post)}
-    end
+  favorite = current_user.favorites.create(post: @post)
+
+  if favorite.persisted? && current_user != @post.user
+    notification = Notification.create!(
+      visitor: current_user,
+      visited: @post.user,
+      post: @post,
+      action: :like
+    )
+
+    NotificationsChannel.broadcast_to(
+      @post.user,
+      {
+        message: "#{current_user.name}さんがいいねしました",
+        notification_id: notification.id
+      }
+    )
   end
+
+  respond_to do |format|
+    format.turbo_stream
+    format.html { redirect_back fallback_location: post_path(@post) }
+  end
+end
 
   def destroy
     favorite = current_user.favorites.find_by(post: @post)
