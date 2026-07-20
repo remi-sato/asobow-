@@ -20,4 +20,37 @@ class Community < ApplicationRecord
       where("name LIKE ?", "%#{word}%")
     end
   end
+
+  def create_notification_join_request!(visitor)
+    notification = Notification.create!(
+      visitor: visitor,
+      visited: user,
+      community: self,
+      action: :join_request
+    )
+    NotificationsChannel.broadcast_to(
+      user,
+      {
+        message: "#{visitor.name}さんから参加申請が届きました",
+        notification_id: notification.id
+      }
+    )
+  end
+
+  def create_notification_event!(visitor, community_user)
+    notification = Notification.create!(
+        visitor: visitor,
+        visited: community_user.user,
+        community: self,
+        action: :event
+      )
+
+      NotificationsChannel.broadcast_to(
+        community_user.user,
+        {
+          message: "#{self}からイベントのお知らせが届きました",
+          notification_id: notification.id
+        }
+      )
+  end
 end
