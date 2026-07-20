@@ -38,6 +38,18 @@ class Post < ApplicationRecord
   validates :parking, presence: true
   validates :fee, presence: true
 
+  scope :by_category, ->(category) {
+    where(category: category) if category.present?
+  }
+
+  scope :by_parking, ->(parking) {
+    where(parking: parking) if parking.present?
+  }
+
+  scope :by_fee, ->(fee) {
+    where(fee: fee) if fee.present?
+  }
+
   def self.looks(search, word)
     if search == "perfect_match"
       where("place_name LIKE ? OR address LIKE ?", word, word)
