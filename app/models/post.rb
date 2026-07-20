@@ -54,4 +54,43 @@ class Post < ApplicationRecord
     favorites.exists?(user_id: user.id)
   end
 
+  def create_notification_like!(visitor)
+    return if visitor == user
+
+    notification = Notification.create!(
+      visitor: visitor,
+      visited: user,
+      post: self,
+      action: :like
+    )
+  
+    NotificationsChannel.broadcast_to(
+      user,
+      {
+        message: "#{visitor.name}さんがいいねしました",
+        notification_id: notification.id
+      }
+    )
+  end
+
+  def create_notification_comment!(visitor, comment)
+    return if visitor == user
+
+    notification = Notification.create!(
+      visitor: visitor,
+      visited: user,
+      post: self,
+      comment: comment,
+      action: :comment
+    )
+
+    NotificationsChannel.broadcast_to(
+      user,
+      {
+        message: "#{visitor.name}さんがコメントしました",
+        notification_id: notification.id
+      }
+    )
+  end
+
 end

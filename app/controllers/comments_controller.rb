@@ -7,21 +7,7 @@ class CommentsController < ApplicationController
     @comment.post = @post
     if @comment.save
       if current_user != @post.user
-        notification = Notification.create!(
-          visitor: current_user,
-          visited: @post.user,
-          post: @post,
-          comment: @comment,
-          action: :comment
-        )
-
-        NotificationsChannel.broadcast_to(
-          @post.user,
-          {
-            message: "#{current_user.name}さんがコメントしました",
-            notification_id: notification.id
-          }
-        )
+        @post.create_notification_comment!(current_user, @comment)
       end
         respond_to do |format|
         format.turbo_stream
