@@ -122,7 +122,7 @@
     <% end %>
 
    
-    <main>
+    <main class="flex-grow-1">
       <div class="container mt-3">
         <% flash.each do |key, message| %>
           <div class="alert <%= key == "notice" ? "alert-success" : "alert-danger" %>" role="alert">
@@ -135,6 +135,7 @@
     </main>
     
     <footer>
+      © 2026 Asobow
     </footer>
   </body>
 </html>
