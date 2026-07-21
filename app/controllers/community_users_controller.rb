@@ -1,14 +1,26 @@
 class CommunityUsersController < ApplicationController
   before_action :require_login
 
+  def new
+    @community = Community.find(params[:community_id])
+    @community_user = CommunityUser.new
+  end
+
   def create
     community = Community.find(params[:community_id])
     community_user = current_user.community_users.new(community: community, status: :pending)
+  
+    dog_ids = community_user_params[:dog_ids]
+    community_user.dogs = current_user.dogs.where(id: dog_ids)
+
     if community_user.save
       community.create_notification_join_request!(current_user)
       redirect_to community_path(community), notice: "参加申請を送りました"
     else
-      redirect_to community_path(community), alert: "参加申請に失敗しました"
+      @community = community
+      @community_user = community_user
+      flash.now[:alert] = "参加申請に失敗しました"
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -41,6 +53,12 @@ class CommunityUsersController < ApplicationController
     community_user.rejected!
     community_user.create_notification_rejected!(current_user)
     redirect_to requests_community_path(community), notice: "参加申請を拒否しました"
+  end
+
+  private
+
+  def community_user_params
+    params.fetch(:community_user, {}).permit(dog_ids: [])
   end
 
 end

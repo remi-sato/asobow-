@@ -1,6 +1,8 @@
 class CommunityUser < ApplicationRecord
   belongs_to :user
   belongs_to :community
+  has_many :community_user_dogs, dependent: :destroy
+  has_many :dogs, through: :community_user_dogs
 
   enum :status, {
     pending: 0,

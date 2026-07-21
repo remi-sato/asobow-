@@ -16,9 +16,9 @@
 
   <%= render "shared/detail_row",
         label: "メンバー数",
-        value: "#{@community.community_users.approved.count + 1}人" %>
+        value: "#{@community.community_users.approved.count }人" %>
 
-  <% members = [@community.user] + @community.community_users.approved.includes(:user).map(&:user) %>
+  <% members = @community.community_users.approved.includes(:user).map(&:user) %>
 
   <% member_links = members.map do |user| %>
     <% link_to user.name, user_path(user), class: "text-decoration-none" %>
@@ -28,7 +28,7 @@
         label: "メンバー",
         value: safe_join(member_links, "、") %>
   
-  <% dogs = members.flat_map(&:dogs) %>
+  <% dogs = @community.participating_dogs.includes(:user) %>
 
   <% if dogs.any? %>
     <div class="bg-light rounded-4 p-3 mt-4">
@@ -112,11 +112,7 @@
       <% if community_user.nil? %>
 
         <%= link_to "参加申請する",
-              community_community_users_path(@community),
-              data: {
-                turbo_method: :post,
-                turbo_confirm: "参加申請しますか？"
-              },
+              new_community_community_user_path(@community),
               class: "btn btn-asobow w-100 rounded-pill fw-bold" %>
 
       <% elsif community_user.pending? %>

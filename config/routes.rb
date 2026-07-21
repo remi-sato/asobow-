@@ -33,7 +33,7 @@ Rails.application.routes.draw do
   resources :dogs, excet: [:index, :show] 
   resources :tags, only: [:index, :show]
   resources :communities do
-    resources :community_users, only: [:create, :destroy]
+    resources :community_users, only: [:new, :create, :destroy]
     resource :community_notice, only: [:new, :create, :show]
     member do
       get :requests

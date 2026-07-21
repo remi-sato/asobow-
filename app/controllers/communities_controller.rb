@@ -15,20 +15,31 @@ class CommunitiesController < ApplicationController
   end
 
   def create
-    @community = current_user.owned_communities.new(community_params)
+    @community = current_user.owned_communities.new(community_attributes)
 
-    if @community.save
-      redirect_to community_path(@community), notice: "コミュニティを作成しました"
-    else
-      render :new, status: :unprocessable_entity
+    Community.transaction do
+      @community.save!
+
+      community_user = @community.community_users.create!(
+        user: current_user,
+        status: :approved
+      )
+
+      community_user.dogs =
+        current_user.dogs.where(id: community_dog_ids)
     end
+
+    redirect_to community_path(@community), notice: "コミュニティを作成しました"
+
+  rescue ActiveRecord::RecordInvalid
+    render :new, status: :unprocessable_entity
   end
 
   def edit
   end
 
   def update
-    if @community.update(community_params)
+    if @community.update(community_attributes)
       redirect_to community_path(@community), notice: "コミュニティを更新しました"
     else
       render :edit, status: :unprocessable_entity
@@ -50,8 +61,12 @@ class CommunitiesController < ApplicationController
     @community = Community.find(params[:id])
   end
 
-  def community_params
+  def community_attributes
     params.require(:community).permit(:name, :introduction, :rules)
+  end
+
+  def community_dog_ids
+    params.fetch(:community, {}).permit(dog_ids: [])[:dog_ids]
   end
 
   def ensure_owner

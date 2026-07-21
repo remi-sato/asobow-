@@ -3,6 +3,10 @@ class Community < ApplicationRecord
 
   has_many :community_users, dependent: :destroy
   has_many :users, through: :community_users
+
+  has_many :community_user_dogs, through: :community_users
+  has_many :participating_dogs, through: :community_user_dogs, source: :dog
+
   has_many :notifications, dependent: :destroy
 
   validates :name, presence: true
@@ -48,7 +52,7 @@ class Community < ApplicationRecord
       NotificationsChannel.broadcast_to(
         community_user.user,
         {
-          message: "#{self}からイベントのお知らせが届きました",
+          message: "#{name}からイベントのお知らせが届きました",
           notification_id: notification.id
         }
       )

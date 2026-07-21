@@ -27,6 +27,49 @@
     <%= f.text_area :rules, rows: 5, class: "form-control" %>
   </div>
 
+  <% if community.new_record? && current_user.dogs.any? %>
+  <div class="mb-4">
+    <p class="fw-bold mb-2">
+      <i class="fa-solid fa-dog"></i>
+      参加させる愛犬
+    </p>
+
+    <p class="text-muted small mb-3">
+      選択しなくてもコミュニティを作成できます
+    </p>
+
+    <div class="d-flex flex-column gap-3">
+      <% current_user.dogs.each do |dog| %>
+        <label class="d-flex align-items-center gap-3 border rounded-4 p-3">
+          <%= check_box_tag "community[dog_ids][]",
+                dog.id,
+                false,
+                id: "community_dog_ids_#{dog.id}",
+                class: "form-check-input flex-shrink-0" %>
+
+          <% if dog.image.attached? %>
+            <%= image_tag dog.image,
+                  class: "rounded-circle object-fit-cover flex-shrink-0",
+                  style: "width: 70px; height: 70px;" %>
+          <% else %>
+            <div class="rounded-circle bg-light d-flex align-items-center justify-content-center flex-shrink-0"
+                 style="width: 70px; height: 70px;">
+              <i class="fa-solid fa-dog fs-3 text-muted"></i>
+            </div>
+          <% end %>
+
+          <div>
+            <p class="fw-bold mb-1"><%= dog.name %></p>
+            <p class="text-muted mb-0">
+              <%= dog.breed %>・<%= dog.size_i18n %>
+            </p>
+          </div>
+        </label>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
   <div class="text-center">
     <%= f.submit community.persisted? ? "変更を保存" : "作成", class: "btn btn-asobow w-100 rounded-pill fw-bold" %>
   </div>
