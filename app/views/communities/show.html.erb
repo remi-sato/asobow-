@@ -16,25 +16,53 @@
 
   <%= render "shared/detail_row",
         label: "メンバー数",
-        value: "#{@community.community_users.approved.count }人" %>
+        value: "#{@community.community_users.approved.count}人" %>
 
-  <% members = @community.community_users.approved.includes(:user).map(&:user) %>
+  <div class="bg-light rounded-4 p-3 mt-4">
+    <h5 class="fw-bold mb-3">
+      <i class="fa-solid fa-users"></i>
+      メンバー
+    </h5>
 
-  <% member_links = members.map do |user| %>
-    <% link_to user.name, user_path(user), class: "text-decoration-none" %>
-  <% end %>
+    <div class="d-flex flex-column gap-2">
+      <% @community.community_users.approved.includes(:user).each do |community_user| %>
+        <div class="d-flex justify-content-between align-items-center bg-white rounded-4 p-3">
 
-  <%= render "shared/detail_row",
-        label: "メンバー",
-        value: safe_join(member_links, "、") %>
-  
+          <div>
+            <%= link_to "#{community_user.user.name}さん",
+                  user_path(community_user.user),
+                  class: "text-decoration-none fw-bold" %>
+
+            <% if community_user.user == @community.user %>
+              <span class="badge bg-secondary ms-2">
+                オーナー
+              </span>
+            <% end %>
+          </div>
+
+          <% if @community.user == current_user &&
+                community_user.user != @community.user %>
+            <%= link_to "退会させる",
+                  remove_community_user_path(community_user),
+                  data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "#{community_user.user.name}さんを退会させますか？"
+                  },
+                  class: "btn btn-outline-danger btn-sm rounded-pill" %>
+          <% end %>
+
+        </div>
+      <% end %>
+    </div>
+  </div>
+
   <% dogs = @community.participating_dogs.includes(:user) %>
 
   <% if dogs.any? %>
     <div class="bg-light rounded-4 p-3 mt-4">
       <h5 class="fw-bold mb-3">
         <i class="fa-solid fa-dog"></i>
-       参加メンバーの愛犬
+        参加メンバーの愛犬
       </h5>
 
       <div class="d-flex flex-column gap-3">
@@ -55,9 +83,11 @@
 
             <div>
               <p class="fw-bold mb-1"><%= dog.name %></p>
+
               <p class="mb-1">
                 <%= dog.breed %>・<%= dog.size_i18n %>
               </p>
+
               <p class="text-muted small mb-0">
                 飼い主：<%= dog.user.name %>さん
               </p>
@@ -72,7 +102,6 @@
   <% if @community.user == current_user %>
 
     <div class="mt-4">
-
       <div class="d-flex gap-2 mb-2">
         <%= link_to "参加申請を確認",
               requests_community_path(@community),
@@ -100,12 +129,12 @@
       <%= link_to "一覧へ戻る",
             communities_path,
             class: "btn btn-outline-secondary w-100 rounded-pill" %>
-
     </div>
 
   <% else %>
 
-    <% community_user = current_user.community_users.find_by(community: @community) %>
+    <% community_user =
+         current_user.community_users.find_by(community: @community) %>
 
     <div class="d-grid gap-2 mt-4">
 
@@ -135,13 +164,13 @@
           参加中です
         </p>
 
-        <%= link_to "退会する", 
-          community_community_user_path(@community, community_user),
-          data: {
-            turbo_method: :delete,
-            turbo_confirm: "このコミュニティから退会しますか？"
-          },
-          class: "btn btn-outline-danger w-100 rounded-pill" %>
+        <%= link_to "退会する",
+              community_community_user_path(@community, community_user),
+              data: {
+                turbo_method: :delete,
+                turbo_confirm: "このコミュニティから退会しますか？"
+              },
+              class: "btn btn-outline-danger w-100 rounded-pill" %>
 
       <% elsif community_user.rejected? %>
 
@@ -154,7 +183,6 @@
       <%= link_to "一覧へ戻る",
             communities_path,
             class: "btn btn-outline-secondary w-100 rounded-pill" %>
-
     </div>
 
   <% end %>

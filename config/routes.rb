@@ -30,10 +30,10 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :destroy]
   end
   
-  resources :dogs, excet: [:index, :show] 
+  resources :dogs, except: [:index, :show] 
   resources :tags, only: [:index, :show]
   resources :communities do
-    resources :community_users, only: [:new, :create, :destroy]
+    resources :community_users, only: [:new, :create, :destroy] 
     resource :community_notice, only: [:new, :create, :show]
     member do
       get :requests
@@ -44,6 +44,7 @@ Rails.application.routes.draw do
     member do
       patch :approve
       patch :reject
+      delete :remove
     end
   end
 

@@ -10,7 +10,6 @@ class Notification < ApplicationRecord
     comment: 1,
     join_request: 2,
     approved: 3,
-    rejected: 4,
     event: 5
   }
 end
