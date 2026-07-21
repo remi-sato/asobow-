@@ -27,8 +27,15 @@ class CommunityUsersController < ApplicationController
   def destroy
     community_user = current_user.community_users.find(params[:id])
     community = community_user.community
+
+    message = 
+      if community_user.pending?
+        "参加申請を取り消しました"
+      else
+        "コミュニティから退会しました"
+      end
     community_user.destroy
-    redirect_to community_path(community), notice: "参加申請を取り消しました"
+    redirect_to community_path(community), notice: message
   end
 
    def approve

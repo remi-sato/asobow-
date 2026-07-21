@@ -135,6 +135,14 @@
           参加中です
         </p>
 
+        <%= link_to "退会する", 
+          community_community_user_path(@community, community_user),
+          data: {
+            turbo_method: :delete,
+            turbo_confirm: "このコミュニティから退会しますか？"
+          },
+          class: "btn btn-outline-danger w-100 rounded-pill" %>
+
       <% elsif community_user.rejected? %>
 
         <p class="text-center text-danger mb-0">
