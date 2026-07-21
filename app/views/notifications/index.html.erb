@@ -33,12 +33,6 @@
                           class: "text-decoration-none" %>
               への参加申請を承認しました
 
-            <% when "rejected" %>
-              <%= link_to notification.community.name,
-                          community_path(notification.community),
-                          class: "text-decoration-none" %>
-              への参加申請を拒否しました
-
             <% when "event" %>
               <%= link_to notification.community.name,
                           community_path(notification.community),

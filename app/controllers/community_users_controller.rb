@@ -58,8 +58,26 @@ class CommunityUsersController < ApplicationController
       return
     end
     community_user.rejected!
-    community_user.create_notification_rejected!(current_user)
     redirect_to requests_community_path(community), notice: "参加申請を拒否しました"
+  end
+
+  def remove
+    community_user = CommunityUser.find(params[:id])
+    community = community_user.community
+    unless community.user_id == current_user.id
+      redirect_to community_path(community),
+                  alert: "この操作を行う権限がありません"
+      return
+    end
+    if community_user.user_id == community.user_id
+      redirect_to community_path(community),
+                  alert: "作成者は退会させられません"
+      return
+   end
+    member_name = community_user.user.name
+    community_user.destroy
+    redirect_to community_path(community),
+                notice: "#{member_name}さんを退会させました"
   end
 
   private
