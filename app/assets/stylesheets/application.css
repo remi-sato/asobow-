@@ -8,20 +8,20 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
- body{
+body{
   margin: 0;
   background-color: #FFFDF8;
   color: #5C4033;
- }
+}
 
- .post-image{
+.post-image{
   width: 100%;
   max-width: 300px;
   height: 200px;
   object-fit: contain;
 }
 
- .header{
+header{
   height: 100px;
   z-index: 1000;
   position: relative;
@@ -30,41 +30,61 @@
   justify-content: space-between;
   padding: 10px 20px;
   background-color: #E6DFE0;
- }
+}
 
- .header-left{
+.header-left{
   display: flex;
   align-items: center;
   gap: 12px;
- }
+}
 
- .header-right{
-   min-width: 220px;
+.header-right{
+  min-width: 220px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 8px;
- }
+}
 
- .header-center{
+.header-center{
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
- }
+}
 
- .logo{
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+footer{
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #E6DFE0;
+}
+
+.logo{
   height: 80px;
   margin-top: 10px;
 }
 
- .menu-button{
+.menu-button{
   font-size: 30px;
   background-color: transparent;
   border: none;
   cursor: pointer;
- }
+}
 
- .hamburger-menu{
+.hamburger-menu{
   display: none;
   position: absolute;
   top: 100%;
