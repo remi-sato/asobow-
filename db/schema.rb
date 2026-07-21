@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_07_19_013641) do
+ActiveRecord::Schema[8.0].define(version: 2026_07_21_055606) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -64,6 +64,16 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_19_013641) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_communities_on_user_id"
+  end
+
+  create_table "community_user_dogs", force: :cascade do |t|
+    t.integer "community_user_id", null: false
+    t.integer "dog_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["community_user_id", "dog_id"], name: "index_community_user_dogs_on_community_user_id_and_dog_id", unique: true
+    t.index ["community_user_id"], name: "index_community_user_dogs_on_community_user_id"
+    t.index ["dog_id"], name: "index_community_user_dogs_on_dog_id"
   end
 
   create_table "community_users", force: :cascade do |t|
@@ -176,6 +186,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_19_013641) do
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "communities", "users"
+  add_foreign_key "community_user_dogs", "community_users"
+  add_foreign_key "community_user_dogs", "dogs"
   add_foreign_key "community_users", "communities"
   add_foreign_key "community_users", "users"
   add_foreign_key "dogs", "users"

@@ -1,0 +1,63 @@
+<%= render "shared/page_card",
+      title: "#{@community.name}への参加申請",
+      subtitle: "一緒に参加する愛犬がいる場合は選択してください",
+      width: "col-lg-8" do %>
+
+  <%= form_with model: [@community, @community_user] do |f| %>
+
+    <% if current_user.dogs.any? %>
+      <p class="text-muted text-center small mb-3">
+        愛犬を選択しなくても参加申請できます
+      </p>
+
+      <div class="d-flex flex-column gap-3 mb-4">
+        <% current_user.dogs.each do |dog| %>
+          <label class="d-flex align-items-center gap-3 border rounded-4 p-3">
+            <%= check_box_tag "community_user[dog_ids][]",
+                  dog.id,
+                  false,
+                  class: "form-check-input flex-shrink-0" %>
+
+            <% if dog.image.attached? %>
+              <%= image_tag dog.image,
+                    class: "rounded-circle object-fit-cover flex-shrink-0",
+                    style: "width: 70px; height: 70px;" %>
+            <% else %>
+              <div class="rounded-circle bg-light d-flex align-items-center justify-content-center flex-shrink-0"
+                   style="width: 70px; height: 70px;">
+                <i class="fa-solid fa-dog fs-3 text-muted"></i>
+              </div>
+            <% end %>
+
+            <div>
+              <p class="fw-bold mb-1"><%= dog.name %></p>
+              <p class="text-muted mb-0">
+                <%= dog.breed %>・<%= dog.size_i18n %>
+              </p>
+            </div>
+          </label>
+        <% end %>
+      </div>
+
+      <%= f.submit "参加申請する",
+            class: "btn btn-asobow w-100 rounded-pill fw-bold" %>
+
+    <% else %>
+      <p class="text-center text-muted mb-4">
+        愛犬を登録していなくても参加申請できます。
+      </p>
+
+      <%= f.submit "犬を選ばず参加申請する",
+            class: "btn btn-asobow w-100 rounded-pill fw-bold" %>
+
+      <%= link_to "愛犬を登録する",
+            new_dog_path,
+            class: "btn btn-light border w-100 rounded-pill mt-3" %>
+    <% end %>
+
+    <%= link_to "コミュニティ詳細へ戻る",
+          community_path(@community),
+          class: "btn btn-outline-secondary w-100 rounded-pill mt-3" %>
+
+  <% end %>
+<% end %>
