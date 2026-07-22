@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :favorite_posts, through: :favorites, source: :post
   has_many :dogs, dependent: :destroy
   has_many :community_users, dependent: :destroy
   has_many :owned_communities, class_name: "Community", foreign_key: :user_id, dependent: :destroy

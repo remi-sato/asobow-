@@ -29,43 +29,31 @@
   </div>
 
   <div class="card shadow-sm border-0 rounded-4 mb-4">
-  <div class="card-body">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h4 class="fw-bold mb-0">
-        <i class="fa-solid fa-dog"></i>
-        愛犬情報
-      </h4>
-
-      <%= link_to "登録", new_dog_path,
-          class: "btn btn-asobow rounded-pill fw-bold" %>
-    </div>
-
-    <% if @dogs.any? %>
-      <%= render partial: "dogs/dog", collection: @dogs, locals: { show_actions: true } %>
-    <% else %>
-      <p class="text-muted mb-0">まだ愛犬情報が登録されていません。</p>
-    <% end %>
-  </div>
-</div>
-
-  <div class="card shadow-sm border-0 rounded-4">
     <div class="card-body">
-      <h4 class="fw-bold mb-3">
-        <i class="fa-solid fa-paw"></i>
-        <%= @user.name %>さんの投稿
-      </h4>
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="fw-bold mb-0">
+          <i class="fa-solid fa-dog"></i>
+          愛犬情報
+        </h4>
 
-      <% if @posts.any? %>
-        <div class="row g-4">
-          <%= render partial: "posts/post", collection: @posts %>
-        </div>
-        <div class="d-flex justify-content-center mt-4">
-          <%= paginate @posts %>
-        </div>
+        <%= link_to "登録", new_dog_path,
+            class: "btn btn-asobow rounded-pill fw-bold" %>
+      </div>
+
+      <% if @dogs.any? %>
+        <%= render partial: "dogs/dog", collection: @dogs, locals: { show_actions: true } %>
       <% else %>
-        <p class="text-muted mb-0">まだ投稿はありません。</p>
+        <p class="text-muted mb-0">まだ愛犬情報が登録されていません。</p>
       <% end %>
     </div>
   </div>
+
+  <%= turbo_frame_tag "my_posts" do %>
+    <%= render "my_posts", posts: @posts, user: @user %>
+  <% end %>
+
+  <%= turbo_frame_tag "favorite_posts" do %>
+    <%= render "favorite_posts", favorite_posts: @favorite_posts %>
+  <% end %>
 
 </div>
