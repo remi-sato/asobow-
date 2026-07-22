@@ -11,10 +11,10 @@ class User < ApplicationRecord
   has_many :joined_communities, through: :community_users, source: :community
   has_many :active_notifications, class_name: "Notification", foreign_key: "visitor_id", dependent: :destroy
   has_many :passive_notifications, class_name: "Notification", foreign_key: "visited_id", dependent: :destroy
-  
+
   validates :name, presence: true
   validates :email_address, presence: true, uniqueness: true
-  validates :password, presence: true, length: {minimum: 6}, on: :create
+  validates :password, presence: true, length: { minimum: 6 }, on: :create
 
   def self.looks(search, word)
     if search == "perfect_match"
@@ -27,5 +27,4 @@ class User < ApplicationRecord
       where("name LIKE ?", "%#{word}%")
     end
   end
-
 end

@@ -16,5 +16,4 @@ class SearchesController < ApplicationController
       @communities = Community.looks(@search, @word).page(params[:page]).per(12)
     end
   end
-
 end

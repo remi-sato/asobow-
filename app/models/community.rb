@@ -13,7 +13,7 @@ class Community < ApplicationRecord
   validates :introduction, presence: true
   validates :rules, presence: true
 
-  def self.looks(search,word)
+  def self.looks(search, word)
     if search == "perfect_match"
       where(name: word)
     elsif search == "forward_match"

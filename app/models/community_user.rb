@@ -27,5 +27,4 @@ class CommunityUser < ApplicationRecord
       }
     )
   end
-
 end

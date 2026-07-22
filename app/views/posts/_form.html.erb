@@ -70,7 +70,7 @@
       <%= f.label :category, class: "form-label" do %>
         カテゴリ
       <% end %>
-  
+
       <div class="d-flex flex-wrap gap-3">
         <% Post.categories_i18n.each do |category, label| %>
           <div class="form-check">
@@ -99,7 +99,7 @@
                 class: "form-check-label",
                 for: "post_parking_#{parking}" %>
             </div>
-        <% end %>        
+        <% end %>
       </div>
     </div>
 
@@ -146,7 +146,7 @@
       style="height: 400px;">
     </div>
   </div>
-  
+
     <%= f.hidden_field :latitude, id: "post_latitude" %>
     <%= f.hidden_field :longitude, id: "post_longitude" %>
 
@@ -170,10 +170,10 @@
       </p>
     <% end %>
   </div>
-  
+
   <div class="mb-3">
     <%= f.label :body, "本文",class: "form-label" %>
-    <%= f.text_area :body, class: "form-control", rows: 5, placeholder: "犬連れで行った感想や注意点を書いてください" %> 
+    <%= f.text_area :body, class: "form-control", rows: 5, placeholder: "犬連れで行った感想や注意点を書いてください" %>
   </div>
 
   <div class="mb-3">
@@ -192,5 +192,3 @@
   <%= f.submit submit_text, class:  "btn btn-asobow w-100 rounded-pill fw-bold" %>
 
 <% end %>
-
- 

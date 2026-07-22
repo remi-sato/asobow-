@@ -1,5 +1,5 @@
 class Admin::UsersController < Admin::BaseController
-  before_action :set_user, only: [:show, :withdraw, :reactive]
+  before_action :set_user, only: [ :show, :withdraw, :reactive ]
 
   def index
     @users = User.includes(:posts, :dogs).order(created_at: :desc).page(params[:page]).per(10)
@@ -23,5 +23,4 @@ class Admin::UsersController < Admin::BaseController
   def set_user
     @user = User.find(params[:id])
   end
-
 end

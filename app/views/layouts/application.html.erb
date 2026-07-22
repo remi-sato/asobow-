@@ -45,8 +45,7 @@
             <span
               id="notification-badge"
               class="notification-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-              style="<%= 'display: none;' if unread_count.zero? %>"
-            >
+              style="<%= 'display: none;' if unread_count.zero? %>">
                 <%= unread_count %>
             </span>
 
@@ -54,11 +53,11 @@
         <% end %>
 
         <nav class="hamburger-menu" id="hamburgerMenu">
-          <%= link_to root_path do %> 
+          <%= link_to root_path do %>
             <i class="fa-solid fa-house"></i>
             トップ
           <% end %>
-          <%= link_to about_path do %> 
+          <%= link_to about_path do %>
             <i class="fa-solid fa-dog"></i>
             このサイトについて
           <% end %>
@@ -117,11 +116,10 @@
 
           <%= f.submit "検索", class: "btn btn-asobow" %>
 
-        <% end %>  
+        <% end %>
       </div>
     <% end %>
 
-   
     <main class="flex-grow-1">
       <div class="container mt-3">
         <% flash.each do |key, message| %>
@@ -133,7 +131,7 @@
         <%= yield %>
       </div>
     </main>
-    
+
     <footer>
       © 2026 Asobow
     </footer>

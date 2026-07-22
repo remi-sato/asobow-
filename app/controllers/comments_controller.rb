@@ -12,7 +12,7 @@ class CommentsController < ApplicationController
         respond_to do |format|
         format.turbo_stream
         format.html do
-          redirect_back fallback_location: post_path(@post),notice: "コメントしました"
+          redirect_back fallback_location: post_path(@post), notice: "コメントしました"
         end
       end
     else

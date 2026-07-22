@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
-  before_action :require_login, only: [ :new, :create, :edit, :update, :destroy]
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
+  before_action :require_login, only: [ :new, :create, :edit, :update, :destroy ]
+  before_action :set_post, only: [ :show, :edit, :update, :destroy ]
+  before_action :ensure_correct_user, only: [ :edit, :update, :destroy ]
 
   def index
    @posts = Post
@@ -56,7 +56,7 @@ class PostsController < ApplicationController
   end
 
   private
-   
+
   def create_post_params
     params.require(:post).permit(
       :title, :body, :place_name, :address, :rating, :latitude, :longitude, :tag_names, :category, :parking, :fee, images: [], dog_ids: []
@@ -81,7 +81,7 @@ class PostsController < ApplicationController
 
   def save_tags(post, tag_names)
     normalized_tag_names = tag_names.to_s.tr("＃　", "# ")
-    
+
     names = normalized_tag_names .scan(/#([^\s#]+)/) .flatten .map(&:strip) .reject(&:blank?) .uniq
 
     tags = names.map do |name|

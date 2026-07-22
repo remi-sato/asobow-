@@ -16,7 +16,7 @@
                     <th></th>
                   </tr>
                 </thead>
-                <tbody class= "text-center">
+                <tbody class="text-center">
                   <% @posts.each do |post| %>
                     <tr>
                       <td><%= post.place_name %></td>
@@ -32,16 +32,15 @@
             <div class="d-flex justify-content-center mt-4">
               <%= paginate @posts %>
             </div>
-      
+
           <% else %>
 
             <p class="text-center text-muted mb-0">
               投稿はありません
             </p>
-      
+
           <% end %>
         </div>
-      </div>  
+      </div>
   </div>
 </div>
-

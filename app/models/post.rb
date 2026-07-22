@@ -29,11 +29,11 @@ class Post < ApplicationRecord
     paid: 1,
     unknown: 2
   }, prefix: true
-  
+
   validates :title, presence: true
   validates :place_name, presence: true
   validates :address, presence: true
-  validates :rating, inclusion: { in: 1..5, message: "を選択してください"}
+  validates :rating, inclusion: { in: 1..5, message: "を選択してください" }
   validates :category, presence: true
   validates :parking, presence: true
   validates :fee, presence: true
@@ -89,7 +89,7 @@ class Post < ApplicationRecord
       post: self,
       action: :like
     )
-  
+
     NotificationsChannel.broadcast_to(
       user,
       {
@@ -118,5 +118,4 @@ class Post < ApplicationRecord
       }
     )
   end
-
 end
