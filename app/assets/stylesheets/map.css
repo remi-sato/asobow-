@@ -1,0 +1,146 @@
+.map-info-window {
+  width: 220px;
+  max-height: 420px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.map-info-count {
+  margin-bottom: 12px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.map-info-post {
+  width: 100%;
+}
+
+.map-info-image {
+  width: 100%;
+  height: 120px;
+  object-fit: contain;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+}
+
+.map-info-no-image {
+  display: flex;
+  width: 100%;
+  height: 120px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  color: #6c757d;
+  font-size: 14px;
+}
+
+.map-info-post-title {
+  margin-top: 8px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.map-info-rating {
+  margin-top: 4px;
+}
+
+.map-info-rating-icon {
+  color: #ffd43b;
+}
+
+.map-info-reactions {
+  margin-top: 6px;
+  color: #666;
+}
+
+.map-info-favorite-icon {
+  color: #ff5a7a;
+}
+
+.map-info-comment {
+  margin-left: 12px;
+}
+
+.map-info-comment-icon {
+  color: #8e7cc3;
+}
+
+.map-info-actions {
+  margin-top: 10px;
+}
+
+.map-info-detail-link {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background-color: #8b5e3c;
+  color: #fff;
+  text-decoration: none;
+}
+
+.map-info-detail-link:hover {
+  color: #fff;
+  opacity: 0.85;
+}
+
+.map-info-divider {
+  margin: 14px 0;
+  border: 0;
+  border-top: 1px solid #ddd;
+}
+
+.map-info-new-post {
+  margin-top: 12px p 16px;
+  padding-top: 12px;
+  border-top: 1px solid #ddd;
+}
+
+.map-selected-window {
+  width: 230px;
+}
+
+.map-selected-title {
+  margin-bottom: 8px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.map-selected-place-name {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.map-selected-address {
+  margin-bottom: 12px;
+  color: #666;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.map-selected-post-link {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background-color: #8b5e3c;
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.map-selected-post-link:hover {
+  color: #fff;
+  opacity: 0.85;
+}
+
+.map-info-average-rating {
+  margin-bottom: 12px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.map-info-location {
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: bold;
+}

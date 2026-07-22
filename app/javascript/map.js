@@ -12,15 +12,13 @@ window.initMap = function() {
   const lat = mapElement.dataset.lat;
   const lng = mapElement.dataset.lng;
   const mapMode = mapElement.dataset.mapMode;
-
-  // data-posts属性がある画面をトップ画面と判定
   const isTopPage = mapElement.hasAttribute("data-posts");
 
   const posts = mapElement.dataset.posts
     ? JSON.parse(mapElement.dataset.posts)
     : [];
 
-  const center = (lat && lng)
+  const center = lat && lng
     ? {
         lat: parseFloat(lat),
         lng: parseFloat(lng)
@@ -39,57 +37,45 @@ window.initMap = function() {
 
   setupMapSearch();
 
-  // -------------------------
-  // トップ画面
-  // -------------------------
   if (isTopPage) {
     setupPostMarkers(posts);
     setupTopMapClick();
     return;
   }
 
-  // -------------------------
-  // 投稿フォーム
-  // -------------------------
   if (mapMode === "form") {
     if (lat && lng) {
       setPostMarker(center);
-   }
+    }
 
     setupNewPostMapClick();
     return;
   }
 
-// -------------------------
-// 投稿詳細画面
-// -------------------------
-if (lat && lng) {
-  marker = new google.maps.Marker({
-    position: center,
-    map: map
-  });
+  if (lat && lng) {
+    marker = new google.maps.Marker({
+      position: center,
+      map: map
+    });
 
-  return;
-}
+    return;
+  }
 
-  // -------------------------
-  // 新規投稿画面
-  // -------------------------
   setupNewPostMapClick();
 };
 
 
-// ========================================
-// トップ画面の投稿ピン
-// ========================================
-
 function setupPostMarkers(posts) {
-  posts.forEach(function(post) {
-    if (!post.latitude || !post.longitude) return;
+  const groupedPosts = groupPostsByLocation(posts);
+  const mapElement = document.getElementById("map");
+  const newPostUrl = mapElement?.dataset.newPostUrl;
+
+  Object.values(groupedPosts).forEach(function(postsAtLocation) {
+    const firstPost = postsAtLocation[0];
 
     const position = {
-      lat: parseFloat(post.latitude),
-      lng: parseFloat(post.longitude)
+      lat: parseFloat(firstPost.latitude),
+      lng: parseFloat(firstPost.longitude)
     };
 
     const postMarker = new google.maps.Marker({
@@ -97,99 +83,41 @@ function setupPostMarkers(posts) {
       map: map
     });
 
-    const imageHtml = post.image_url
+    const postsHtml = postsAtLocation
+      .map(function(post) {
+        return buildPostInfoHtml(post);
+      })
+      .join('<hr class="map-info-divider">');
+
+    const averageRatingHtml = buildAverageRatingHtml(postsAtLocation);
+
+    const postCountHtml = postsAtLocation.length > 1
       ? `
-        <img
-          src="${post.image_url}"
-          alt=""
-          style="
-            width: 100%;
-            height: 120px;
-            object-fit: contain;
-            border-radius: 8px;
-            background: #f8f9fa;
-          "
-        >
-      `
-      : `
-        <div
-          style="
-            width: 100%;
-            height: 120px;
-            background: #f8f9fa;
-            color: #6c757d;
-            border-radius: 8px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 14px;
-          "
-        >
-          No Image
+        <div class="map-info-count">
+          この場所の投稿：${postsAtLocation.length}件
         </div>
-      `;
-
-    const ratingHtml = post.rating
-      ? `
-        <i
-          class="fa-solid fa-star"
-          style="color: #FFD43B;"
-        ></i>
-        ${post.rating}
       `
-      : "評価なし";
+      : "";
 
-    const reactionHtml = `
-      <div style="margin-top: 6px; color: #666;">
-        <i
-          class="fa-solid fa-heart"
-          style="color: #ff5a7a;"
-        ></i>
-        ${post.favorites_count || 0}
-
-        <span style="margin-left: 12px;">
-          <i
-            class="fa-regular fa-comment-dots"
-            style="color: #8e7cc3;"
-          ></i>
-          ${post.comments_count || 0}
-        </span>
+    const placeNameHtml = `
+      <div class="map-info-location">
+        📍 ${escapeHtml(firstPost.place_name)}
       </div>
     `;
 
+    const newPostLinkHtml = buildNewPostLinkHtml(
+      newPostUrl,
+      firstPost
+    );
+
     const infoWindow = new google.maps.InfoWindow({
       content: `
-        <div style="width: 180px;">
-          ${imageHtml}
-
-          <div style="margin-top: 8px;">
-            <strong style="font-size: 16px;">
-              ${escapeHtml(post.place_name || "")}
-            </strong>
-          </div>
-
-          <div style="margin-top: 4px;">
-            ${ratingHtml}
-          </div>
-
-          ${reactionHtml}
-
-          <div style="margin-top: 10px;">
-            <a
-              href="/posts/${post.id}"
-              data-turbo="false"
-              style="
-                display: inline-block;
-                padding: 6px 12px;
-                background-color: #8b5e3c;
-                color: white;
-                text-decoration: none;
-                border-radius: 6px;
-              "
-            >
-              詳細を見る
-            </a>
-          </div>
+        <div class="map-info-window">
+          ${placeNameHtml}
+          ${newPostLinkHtml}
+          ${postCountHtml}
+          ${averageRatingHtml}
+          ${postsHtml}
         </div>
       `
     });
@@ -208,9 +136,152 @@ function setupPostMarkers(posts) {
 }
 
 
-// ========================================
-// 住所・施設名検索
-// ========================================
+function groupPostsByLocation(posts) {
+  return posts.reduce(function(groupedPosts, post) {
+    if (!post.latitude || !post.longitude) {
+      return groupedPosts;
+    }
+
+    const latitude = parseFloat(post.latitude);
+    const longitude = parseFloat(post.longitude);
+
+    if (
+      Number.isNaN(latitude) ||
+      Number.isNaN(longitude)
+    ) {
+      return groupedPosts;
+    }
+
+    const locationKey =
+      `${latitude.toFixed(6)},${longitude.toFixed(6)}`;
+
+    if (!groupedPosts[locationKey]) {
+      groupedPosts[locationKey] = [];
+    }
+
+    groupedPosts[locationKey].push(post);
+
+    return groupedPosts;
+  }, {});
+}
+
+function buildAverageRatingHtml(posts) {
+  const ratings = posts
+    .map(function(post) {
+      return Number(post.rating);
+    })
+    .filter(function(rating) {
+      return !Number.isNaN(rating);
+    });
+
+  if (ratings.length === 0) {
+    return `
+      <div class="map-info-average-rating">
+        平均評価：評価なし
+      </div>
+    `;
+  }
+
+  const total = ratings.reduce(function(sum, rating) {
+    return sum + rating;
+  }, 0);
+
+  const average = total / ratings.length;
+
+  return `
+    <div class="map-info-average-rating">
+      平均評価：<i class="fa-solid fa-star map-info-rating-icon"></i>${average.toFixed(1)}
+    </div>
+  `;
+}
+
+function buildPostInfoHtml(post) {
+  const imageHtml = post.image_url
+    ? `
+      <img
+        src="${escapeHtml(post.image_url)}"
+        alt=""
+        class="map-info-image"
+      >
+    `
+    : `
+      <div class="map-info-no-image">
+        No Image
+      </div>
+    `;
+
+  const ratingHtml = post.rating
+    ? `
+      <i class="fa-solid fa-star map-info-rating-icon"></i>
+      ${escapeHtml(post.rating)}
+    `
+    : "評価なし";
+
+  return `
+    <div class="map-info-post">
+      ${imageHtml}
+
+      <div class="map-info-post-title">
+        ${escapeHtml(post.title || "")}
+      </div>
+
+      <div class="map-info-rating">
+        ${ratingHtml}
+      </div>
+
+      <div class="map-info-reactions">
+        <span>
+          <i class="fa-solid fa-heart map-info-favorite-icon"></i>
+          ${post.favorites_count || 0}
+        </span>
+
+        <span class="map-info-comment">
+          <i
+            class="fa-regular fa-comment-dots map-info-comment-icon"
+          ></i>
+          ${post.comments_count || 0}
+        </span>
+      </div>
+
+      <div class="map-info-actions">
+        <a
+          href="/posts/${post.id}"
+          data-turbo="false"
+          class="map-info-detail-link"
+        >
+          詳細を見る
+        </a>
+      </div>
+    </div>
+  `;
+}
+
+
+function buildNewPostLinkHtml(newPostUrl, post) {
+  if (!newPostUrl) return "";
+
+  const params = new URLSearchParams({
+    place_name: post.place_name || "",
+    address: post.address || "",
+    latitude: post.latitude,
+    longitude: post.longitude
+  });
+
+  const postUrl = `${newPostUrl}?${params.toString()}`;
+
+  return `
+    <div class="map-info-new-post">
+      <a
+        href="${postUrl}"
+        data-turbo="false"
+        class="btn btn-asobow rounded-pill fw-bold w-100"
+      >
+        この地点を投稿する
+      </a>
+    </div>
+  `;
+}
+
 
 function setupMapSearch() {
   const searchInput = document.getElementById("map-search-input");
@@ -289,16 +360,10 @@ function setupMapSearch() {
 }
 
 
-// ========================================
-// トップ画面で任意の地点をクリック
-// ========================================
-
 function setupTopMapClick() {
   map.addListener("click", function(event) {
     if (!event.latLng) return;
 
-    // 地図上の施設名・店名などをクリックした場合、
-    // Google標準の吹き出しを表示させない
     if (event.placeId) {
       event.stop();
     }
@@ -318,7 +383,6 @@ function setupTopMapClick() {
 
     setSearchMarker(clickedLocation);
 
-    // 施設名クリックの場合
     if (event.placeId) {
       geocoder.geocode(
         {
@@ -334,8 +398,6 @@ function setupTopMapClick() {
             ? result.formatted_address
             : "";
 
-          // Geocoderでは施設名を確実に取得できないため、
-          // ひとまず空欄で投稿画面へ渡す
           showSelectedLocationInfo({
             location: clickedLocation,
             placeName: "",
@@ -349,7 +411,6 @@ function setupTopMapClick() {
       return;
     }
 
-    // 地図の何もない場所をクリックした場合
     geocoder.geocode(
       {
         location: {
@@ -376,10 +437,6 @@ function setupTopMapClick() {
 }
 
 
-// ========================================
-// 選択地点の吹き出し
-// ========================================
-
 function showSelectedLocationInfo({
   location,
   placeName,
@@ -390,7 +447,6 @@ function showSelectedLocationInfo({
   const mapElement = document.getElementById("map");
   const newPostUrl = mapElement?.dataset.newPostUrl;
 
-  // 未ログインの場合は投稿リンクを表示しない
   if (!newPostUrl) return;
 
   const params = new URLSearchParams({
@@ -406,7 +462,7 @@ function showSelectedLocationInfo({
 
   const placeNameHtml = placeName
     ? `
-      <div style="font-weight: bold; margin-bottom: 5px;">
+      <div class="map-selected-place-name">
         ${escapeHtml(placeName)}
       </div>
     `
@@ -414,42 +470,21 @@ function showSelectedLocationInfo({
 
   selectedLocationInfoWindow = new google.maps.InfoWindow({
     content: `
-      <div style="width: 230px;">
-        <div
-          style="
-            font-size: 15px;
-            font-weight: bold;
-            margin-bottom: 8px;
-          "
-        >
+      <div class="map-selected-window">
+        <div class="map-selected-title">
           選択した地点
         </div>
 
         ${placeNameHtml}
 
-        <div
-          style="
-            font-size: 13px;
-            color: #666;
-            margin-bottom: 12px;
-            line-height: 1.5;
-          "
-        >
+        <div class="map-selected-address">
           ${escapeHtml(address || "住所を取得できませんでした")}
         </div>
 
         <a
           href="${postUrl}"
           data-turbo="false"
-          style="
-            display: inline-block;
-            padding: 8px 14px;
-            background-color: #8b5e3c;
-            color: white;
-            text-decoration: none;
-            border-radius: 999px;
-            font-weight: bold;
-          "
+          class="map-selected-post-link"
         >
           この地点を投稿する
         </a>
@@ -463,6 +498,7 @@ function showSelectedLocationInfo({
   });
 }
 
+
 function closeSelectedLocationInfoWindow() {
   if (!selectedLocationInfoWindow) return;
 
@@ -471,10 +507,6 @@ function closeSelectedLocationInfoWindow() {
 }
 
 
-// ========================================
-// 新規投稿画面で地図をクリック
-// ========================================
-
 function setupNewPostMapClick() {
   const latitudeField = document.getElementById("post_latitude");
   const longitudeField = document.getElementById("post_longitude");
@@ -482,6 +514,8 @@ function setupNewPostMapClick() {
   if (!latitudeField || !longitudeField) return;
 
   map.addListener("click", function(event) {
+    if (!event.latLng) return;
+
     const clickedLocation = event.latLng;
     const clickedLat = clickedLocation.lat();
     const clickedLng = clickedLocation.lng();
@@ -514,10 +548,6 @@ function setupNewPostMapClick() {
 }
 
 
-// ========================================
-// 新規投稿画面のフォーム更新
-// ========================================
-
 function updatePostFieldsFromSearch(
   location,
   formattedAddress,
@@ -545,10 +575,6 @@ function updatePostFieldsFromSearch(
 }
 
 
-// ========================================
-// マーカー操作
-// ========================================
-
 function setSearchMarker(location, title = "") {
   if (searchMarker) {
     searchMarker.setMap(null);
@@ -560,6 +586,7 @@ function setSearchMarker(location, title = "") {
     title: title
   });
 }
+
 
 function setPostMarker(location) {
   if (marker) {
@@ -573,20 +600,12 @@ function setPostMarker(location) {
 }
 
 
-// ========================================
-// 画面判定
-// ========================================
-
 function isTopMap() {
   const mapElement = document.getElementById("map");
 
   return mapElement?.hasAttribute("data-posts");
 }
 
-
-// ========================================
-// エラー表示
-// ========================================
 
 function showMapSearchError(errorElement, message) {
   if (!errorElement) return;
@@ -595,6 +614,7 @@ function showMapSearchError(errorElement, message) {
   errorElement.classList.remove("d-none");
 }
 
+
 function hideMapSearchError(errorElement) {
   if (!errorElement) return;
 
@@ -602,10 +622,6 @@ function hideMapSearchError(errorElement) {
   errorElement.classList.add("d-none");
 }
 
-
-// ========================================
-// HTMLエスケープ
-// ========================================
 
 function escapeHtml(value) {
   return String(value)
@@ -616,10 +632,6 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
-
-// ========================================
-// Google Maps API読み込み
-// ========================================
 
 document.addEventListener("turbo:load", function() {
   const mapElement = document.getElementById("map");
@@ -639,7 +651,6 @@ document.addEventListener("turbo:load", function() {
   if (!apiKeyElement) return;
 
   const apiKey = apiKeyElement.content;
-
   const script = document.createElement("script");
 
   script.id = "google-maps-script";
