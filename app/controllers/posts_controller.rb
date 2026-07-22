@@ -5,6 +5,7 @@ class PostsController < ApplicationController
 
   def index
    @posts = Post
+     .by_keyword(params[:keyword])
      .by_category(params[:category])
      .by_parking(params[:parking])
      .by_fee(params[:fee])
@@ -19,7 +20,12 @@ class PostsController < ApplicationController
   end
 
   def new
-    @post = Post.new
+    @post = Post.new(
+      place_name: params[:place_name],
+      address: params[:address],
+      latitude: params[:latitude],
+      longitude: params[:longitude]
+    )
   end
 
   def create

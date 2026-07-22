@@ -19,22 +19,53 @@
     <% end %>
   </div>
 
+  <div class="row justify-content-center mb-3">
+    <div class="col-lg-8">
+      <div class="input-group">
+        <input
+          type="text"
+          id="map-search-input"
+          class="form-control"
+          placeholder="住所・施設名を入力してください"
+        >
+
+        <button
+          type="button"
+          id="map-search-button"
+          class="btn btn-asobow fw-bold"
+        >
+          <i class="fa-solid fa-magnifying-glass"></i>
+          地図で探す
+        </button>
+      </div>
+
+      <p
+        id="map-search-error"
+        class="text-danger small mt-2 mb-0 d-none">
+      </p>
+    </div>
+  </div>
+
   <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
     <div class="card-body p-0">
-      <div id="map"
-           data-posts='<%= raw @posts.map { |post|
-             {
-               id: post.id,
-               place_name: post.place_name,
-               latitude: post.latitude,
-               longitude: post.longitude,
-               rating: post.rating,
-               image_url: post.images.attached? ? url_for(post.images.first) : nil,
-               favorites_count: post.favorites.count,
-               comments_count: post.comments.count
-             }
-           }.to_json %>'
-           style="height: 600px;">
+      <div
+        id="map"
+        data-posts='<%= raw @posts.map { |post|
+          {
+            id: post.id,
+            place_name: post.place_name,
+            latitude: post.latitude,
+            longitude: post.longitude,
+            rating: post.rating,
+            image_url: post.images.attached? ? url_for(post.images.first) : nil,
+            favorites_count: post.favorites.count,
+            comments_count: post.comments.count
+          }
+        }.to_json %>'
+        <% if logged_in? %>
+          data-new-post-url="<%= new_post_path %>"
+        <% end %>
+        style="height: 600px;">
       </div>
     </div>
   </div>

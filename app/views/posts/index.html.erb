@@ -23,6 +23,17 @@
       </h5>
       <%= form_with url: posts_path, method: :get, local: true do |f| %>
         <div class="row g-3 mb-3">
+          <div class="col-12">
+            <%= f.label :keyword, "施設名・住所", class: "form-label fw-bold" %>
+            
+            <%= f.text_field :keyword,
+              value: params[:keyword],
+              class: "form-control",
+              placeholder: "○○公園、○○市○○区" %>
+          </div>
+        </div>
+
+        <div class="row g-3 mb-3">
           <div class="col-md-4">
             <%= f.label :category, "カテゴリ", class: "form-label fw-bold" %>
 
