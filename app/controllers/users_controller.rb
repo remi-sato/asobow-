@@ -3,9 +3,17 @@ class UsersController < ApplicationController
   before_action :require_login, except: [:new, :create]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
+
   def mypage
     @user = current_user
-    @posts = @user.posts.order(created_at: :desc).page(params[:page]).per(9)
+    @posts = @user.posts
+      .order(created_at: :desc)
+      .page(params[:page])
+      .per(3)
+    @favorite_posts = @user.favorite_posts
+      .order(created_at: :desc)
+      .page(params[:favorite_page])
+      .per(3)
     @dogs = @user.dogs
   end
 
