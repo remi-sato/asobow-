@@ -72,10 +72,10 @@
       <% end %>
   
       <div class="d-flex flex-wrap gap-3">
-        <% Post.categories.keys.each do |category| %>
+        <% Post.categories_i18n.each do |category, label| %>
           <div class="form-check">
             <%= f.radio_button :category, category, class: "form-check-input", id: "post_category_#{category}" %>
-            <%= f.label :category, I18n.t("enums.post.category.#{category}"), value: category, class: "form-check-label", for: "post_category_#{category}" %>
+            <%= f.label :category, label, value: category, class: "form-check-label", for: "post_category_#{category}" %>
           </div>
         <% end %>
       </div>
@@ -87,14 +87,14 @@
       <% end %>
 
       <div class="d-flex flex-wrap gap-3">
-        <% Post.parkings.keys.each do |parking| %>
+        <% Post.parkings_i18n.each do |parking, label| %>
           <div class="form-check">
             <%= f.radio_button :parking, parking,
                 class: "form-check-input",
                 id: "post_parking_#{parking}" %>
 
             <%= f.label :parking,
-                I18n.t("enums.post.parking.#{parking}"),
+                label,
                 value: parking,
                 class: "form-check-label",
                 for: "post_parking_#{parking}" %>
@@ -109,14 +109,14 @@
       <% end %>
 
       <div class="d-flex flex-wrap gap-3">
-        <% Post.fees.keys.each do |fee| %>
+        <% Post.fees_i18n.each do |fee, label| %>
           <div class="form-check">
             <%= f.radio_button :fee, fee,
                 class: "form-check-input",
                 id: "post_fee_#{fee}" %>
 
             <%= f.label :fee,
-                I18n.t("enums.post.fee.#{fee}"),
+                label,
                 value: fee,
                 class: "form-check-label",
                 for: "post_fee_#{fee}" %>

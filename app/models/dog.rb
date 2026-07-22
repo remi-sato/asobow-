@@ -24,12 +24,4 @@ class Dog < ApplicationRecord
   validates :birthday, presence: true
   validates :gender, presence: true
 
-  def size_i18n
-    I18n.t("enums.dog.size.#{size}")
-  end
-
-  def gender_i18n
-    I18n.t("enums.dog.gender.#{gender}")
-  end
-
 end

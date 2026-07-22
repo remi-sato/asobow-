@@ -42,7 +42,7 @@
   <div class="mb-3">
     <%= f.label :size, "サイズ", class: "form-label" %>
     <span class="badge bg-danger ms-1">必須</span>
-    <%= f.select :size, Dog.sizes.keys.map { |size| [I18n.t("enums.dog.size.#{size}"), size] }, {}, class: "form-select" %>
+    <%= f.select :size, Dog.sizes_i18n.invert, {}, class: "form-select" %>
   </div>
 
   <div class="mb-3">
@@ -54,7 +54,7 @@
   <div class="mb-3">
     <%= f.label :gender, "性別", class: "form-label" %>
     <span class="badge bg-danger ms-1">必須</span>
-    <%= f.select :gender, Dog.genders.keys.map  { |gender| [I18n.t("enums.dog.gender.#{gender}"), gender] }, {}, class: "form-select" %>
+    <%= f.select :gender, Dog.genders_i18n.invert, {}, class: "form-select" %>
   </div>
 
   <%= f.submit submit_text, class: "btn btn-asobow w-100 rounded-pill fw-bold" %>
