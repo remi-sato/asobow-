@@ -38,15 +38,7 @@
             <%= f.label :category, "カテゴリ", class: "form-label fw-bold" %>
 
             <%= f.select :category,
-                  options_for_select(
-                    Post.categories.keys.map { |category|
-                      [
-                        I18n.t("enums.post.category.#{category}"),
-                        category
-                      ]
-                    },
-                    params[:category]
-                  ),
+                 Post.categories_i18n.invert,
                   { include_blank: "すべて" },
                   class: "form-select" %>
           </div>
@@ -55,15 +47,7 @@
             <%= f.label :parking, "駐車場", class: "form-label fw-bold" %>
 
             <%= f.select :parking,
-                  options_for_select(
-                    Post.parkings.keys.map { |parking|
-                      [
-                        I18n.t("enums.post.parking.#{parking}"),
-                        parking
-                      ]
-                    },
-                    params[:parking]
-                  ),
+                  Post.parkings_i18n.invert,
                   { include_blank: "すべて" },
                   class: "form-select" %>
           </div>
@@ -72,15 +56,7 @@
             <%= f.label :fee, "利用料金", class: "form-label fw-bold" %>
 
             <%= f.select :fee,
-                  options_for_select(
-                    Post.fees.keys.map { |fee|
-                      [
-                        I18n.t("enums.post.fee.#{fee}"),
-                        fee
-                      ]
-                    },
-                    params[:fee]
-                  ),
+                  Post.fees_i18n.invert,
                   { include_blank: "すべて" },
                   class: "form-select" %>
           </div>

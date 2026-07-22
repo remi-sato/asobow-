@@ -30,17 +30,17 @@
       <div class="d-flex flex-wrap gap-2 mb-3">
         <span class="badge bg-light text-dark border">
           <i class="fa-solid fa-tree me-1"></i>
-          <%= I18n.t("enums.post.category.#{post.category}") %>
+          <%= post.category_i18n %>
         </span>
 
         <span class="badge bg-light text-dark border">
           <i class="fa-solid fa-car me-1"></i>
-          <%= I18n.t("enums.post.parking.#{post.parking}") %>
+          <%= post.parking_i18n %>
         </span>
 
         <span class="badge bg-light text-dark border">
           <i class="fa-solid fa-yen-sign me-1"></i>
-          <%= I18n.t("enums.post.fee.#{post.fee}") %>
+          <%= post.fee_i18n %>
         </span>
       </div>
 
