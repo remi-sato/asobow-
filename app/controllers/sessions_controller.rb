@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :redirect_if_logged_in, only: [:new, :create]
+  before_action :redirect_if_logged_in, only: [ :new, :create ]
 
   def new
   end
@@ -25,5 +25,4 @@ class SessionsController < ApplicationController
     session.delete(:user_id)
     redirect_to root_path, notice: "ログアウトしました"
   end
-  
 end

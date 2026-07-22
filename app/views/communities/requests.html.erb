@@ -1,5 +1,5 @@
 <%= render "shared/page_card", title: "#{@community.name}への参加申請" do %>
-  
+
   <% if @community_users.present? %>
 
     <% @community_users.each do |community_user| %>
@@ -27,7 +27,7 @@
      <div class="d-flex justify-content-center mt-4">
       <%= paginate @community_users %>
     </div>
-  
+
   <% else %>
 
     <p class="text-center text-muted mb-0">

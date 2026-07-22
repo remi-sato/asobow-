@@ -25,7 +25,7 @@
         <div class="row g-3 mb-3">
           <div class="col-12">
             <%= f.label :keyword, "施設名・住所", class: "form-label fw-bold" %>
-            
+
             <%= f.text_field :keyword,
               value: params[:keyword],
               class: "form-control",
@@ -67,7 +67,7 @@
             <%= f.submit "絞り込む",
               class: "btn btn-asobow w-100 rounded-pill fw-bold" %>
           </div>
-        
+
           <div class="col-md-3">
             <%= link_to "条件をリセット",
               posts_path,

@@ -4,7 +4,7 @@ class Dog < ApplicationRecord
   has_many :posts, through: :post_dogs
   has_many :community_user_dogs, dependent: :destroy
   has_many :community_users, through: :community_user_dogs
-  
+
   has_one_attached :image
 
   enum :size, {
@@ -23,5 +23,4 @@ class Dog < ApplicationRecord
   validates :size, presence: true
   validates :birthday, presence: true
   validates :gender, presence: true
-
 end

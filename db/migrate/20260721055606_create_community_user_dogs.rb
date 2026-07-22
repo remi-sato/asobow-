@@ -8,7 +8,7 @@ class CreateCommunityUserDogs < ActiveRecord::Migration[8.0]
     end
 
     add_index :community_user_dogs,
-              [:community_user_id, :dog_id],
+              [ :community_user_id, :dog_id ],
               unique: true
   end
 end

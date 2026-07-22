@@ -1,7 +1,7 @@
 class DogsController < ApplicationController
   before_action :require_login
-  before_action :set_dog, only: [:edit, :update, :destroy]
-  
+  before_action :set_dog, only: [ :edit, :update, :destroy ]
+
   def new
     @dog = Dog.new
   end
@@ -40,5 +40,4 @@ class DogsController < ApplicationController
   def set_dog
     @dog = current_user.dogs.find(params[:id])
   end
-
 end

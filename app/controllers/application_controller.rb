@@ -40,5 +40,4 @@ class ApplicationController < ActionController::Base
       redirect_to admin_login_path, alert: "管理者としてログインしてください"
     end
   end
-
 end

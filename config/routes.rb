@@ -22,19 +22,19 @@ Rails.application.routes.draw do
   root "homes#top"
   get "about" => "homes#about"
 
-  resources :users, except: [:index]
+  resources :users, except: [ :index ]
   get "mypage" => "users#mypage"
-  
+
   resources :posts do
-    resource :favorite, only: [:create, :destroy]
-    resources :comments, only: [:create, :destroy]
+    resource :favorite, only: [ :create, :destroy ]
+    resources :comments, only: [ :create, :destroy ]
   end
-  
-  resources :dogs, except: [:index, :show] 
-  resources :tags, only: [:index, :show]
+
+  resources :dogs, except: [ :index, :show ]
+  resources :tags, only: [ :index, :show ]
   resources :communities do
-    resources :community_users, only: [:new, :create, :destroy] 
-    resource :community_notice, only: [:new, :create, :show]
+    resources :community_users, only: [ :new, :create, :destroy ]
+    resource :community_notice, only: [ :new, :create, :show ]
     member do
       get :requests
    end
@@ -48,7 +48,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :notifications, only: [:index] 
+  resources :notifications, only: [ :index ]
 
   get "/login" => "sessions#new"
   post "/login" => "sessions#create"
@@ -58,22 +58,21 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root "homes#index"
-   
+
     get "login" => "sessions#new"
     post "login" => "sessions#create"
     delete "logout" => "sessions#destroy"
 
-    resources :users, only: [:index, :show] do
+    resources :users, only: [ :index, :show ] do
       member do
         patch :withdraw
         patch :reactive
       end
     end
 
-    resources :posts, only: [:index, :show, :destroy] do
-      resources :comments, only: [:destroy]
+    resources :posts, only: [ :index, :show, :destroy ] do
+      resources :comments, only: [ :destroy ]
     end
-    resources :communities, only: [:index, :show, :destroy]
+    resources :communities, only: [ :index, :show, :destroy ]
   end
-
 end

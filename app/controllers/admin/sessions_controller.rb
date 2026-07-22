@@ -18,5 +18,4 @@ class Admin::SessionsController < ApplicationController
     session[:admin_id] = nil
     redirect_to admin_login_path, notice: "ログアウトしました"
   end
-
 end

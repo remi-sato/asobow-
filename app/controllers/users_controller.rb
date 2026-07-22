@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
-  before_action :redirect_if_logged_in, only: [:new, :create]
-  before_action :require_login, except: [:new, :create]
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
+  before_action :redirect_if_logged_in, only: [ :new, :create ]
+  before_action :require_login, except: [ :new, :create ]
+  before_action :set_user, only: [ :show, :edit, :update, :destroy ]
+  before_action :ensure_correct_user, only: [ :edit, :update, :destroy ]
 
   def mypage
     @user = current_user
@@ -42,9 +42,9 @@ class UsersController < ApplicationController
   def update
       if @user.update(user_params)
         redirect_to mypage_path, notice: "プロフィールを更新しました"
-    else
+      else
       render :edit, status: :unprocessable_entity
-    end
+      end
   end
 
   def destroy
@@ -70,5 +70,4 @@ class UsersController < ApplicationController
       redirect_to mypage_path, alert: "権限がありません"
     end
   end
-
 end

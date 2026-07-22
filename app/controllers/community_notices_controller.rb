@@ -28,7 +28,7 @@ class CommunityNoticesController < ApplicationController
 
       @community.create_notification_event!(current_user, community_user)
     end
-    
+
     render :show
   end
 

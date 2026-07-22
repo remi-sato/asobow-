@@ -1,5 +1,5 @@
 class Admin::CommunitiesController < Admin::BaseController
-  before_action :set_community, only: [:show, :destroy]
+  before_action :set_community, only: [ :show, :destroy ]
 
   def index
     @communities = Community.includes(:user, :community_users).order(created_at: :desc).page(params[:page]).per(10)

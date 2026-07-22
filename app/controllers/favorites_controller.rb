@@ -5,7 +5,7 @@ class FavoritesController < ApplicationController
   def create
   favorite = current_user.favorites.create(post: @post)
 
-  if favorite.persisted? 
+  if favorite.persisted?
     @post.create_notification_like!(current_user)
   end
 
@@ -20,7 +20,7 @@ end
     favorite&.destroy
     respond_to do |format|
       format.turbo_stream
-      format.html{ redirect_back fallback_location: post_path(@post) }
+      format.html { redirect_back fallback_location: post_path(@post) }
     end
   end
 

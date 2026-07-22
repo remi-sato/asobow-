@@ -8,8 +8,8 @@ class CreateNotifications < ActiveRecord::Migration[8.0]
       t.references :comment, foreign_key: true
       t.references :community, foreign_key: true
 
-      t.integer :action, null:false
-      t.boolean :checked, null:false, default: false
+      t.integer :action, null: false
+      t.boolean :checked, null: false, default: false
 
       t.timestamps
     end

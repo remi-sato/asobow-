@@ -9,7 +9,7 @@ class CommunityUsersController < ApplicationController
   def create
     community = Community.find(params[:community_id])
     community_user = current_user.community_users.new(community: community, status: :pending)
-  
+
     dog_ids = community_user_params[:dog_ids]
     community_user.dogs = current_user.dogs.where(id: dog_ids)
 
@@ -28,7 +28,7 @@ class CommunityUsersController < ApplicationController
     community_user = current_user.community_users.find(params[:id])
     community = community_user.community
 
-    message = 
+    message =
       if community_user.pending?
         "参加申請を取り消しました"
       else
@@ -73,7 +73,7 @@ class CommunityUsersController < ApplicationController
       redirect_to community_path(community),
                   alert: "作成者は退会させられません"
       return
-   end
+    end
     member_name = community_user.user.name
     community_user.destroy
     redirect_to community_path(community),
@@ -85,5 +85,4 @@ class CommunityUsersController < ApplicationController
   def community_user_params
     params.fetch(:community_user, {}).permit(dog_ids: [])
   end
-
 end
