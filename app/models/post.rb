@@ -38,16 +38,30 @@ class Post < ApplicationRecord
   validates :parking, presence: true
   validates :fee, presence: true
 
+  scope :by_keyword, ->(keyword) {
+    if keyword.present?
+      escaped_keyword =
+        ActiveRecord::Base.sanitize_sql_like(keyword.strip)
+
+      where(
+        "(place_name LIKE :keyword OR address LIKE :keyword)",
+        keyword: "%#{escaped_keyword}%"
+      )
+    else
+      all
+    end
+  }
+
   scope :by_category, ->(category) {
-    where(category: category) if category.present?
+    category.present? ? where(category: category) : all
   }
 
   scope :by_parking, ->(parking) {
-    where(parking: parking) if parking.present?
+    parking.present? ? where(parking: parking) : all
   }
 
   scope :by_fee, ->(fee) {
-    where(fee: fee) if fee.present?
+    fee.present? ? where(fee: fee) : all
   }
 
   def self.looks(search, word)
