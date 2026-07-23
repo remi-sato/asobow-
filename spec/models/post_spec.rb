@@ -18,7 +18,7 @@ RSpec.describe Post, type: :model do
       post = build(:post, place_name: nil)
 
       expect(post).not_to be_valid
-    end 
+    end
 
     it "住所が空なら登録できない" do
       post = build(:post, address: nil)

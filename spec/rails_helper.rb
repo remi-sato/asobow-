@@ -67,6 +67,18 @@ RSpec.configure do |config|
 
   # Filter lines from Rails gems in backtraces.
   config.include FactoryBot::Syntax::Methods
+  config.before(type: :system) do
+    driven_by :selenium,
+              using: :headless_chrome,
+              screen_size: [ 1400, 1400 ]
+  end
+  config.before(type: :system) do
+    Capybara.default_max_wait_time = 10
+
+    driven_by :selenium,
+              using: :headless_chrome,
+              screen_size: [ 1400, 1400 ]
+  end
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")

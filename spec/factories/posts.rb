@@ -8,6 +8,7 @@ FactoryBot.define do
     latitude { 35.1815 }
     longitude { 136.9066 }
     rating { 5 }
+    body { "いい公園です" }
 
     category { :park }
     parking { :available }
