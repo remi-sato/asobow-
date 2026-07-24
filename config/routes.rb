@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount ActionCable.server => "/cable"
   get "notifications/index"
   get "community_notice/new"
   get "community_notice/create"
