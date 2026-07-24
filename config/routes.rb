@@ -1,11 +1,5 @@
 Rails.application.routes.draw do
   mount ActionCable.server => "/cable"
-  get "notifications/index"
-  get "community_notice/new"
-  get "community_notice/create"
-  get "community_notice/show"
-  get "tags/index"
-  get "tags/show"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
