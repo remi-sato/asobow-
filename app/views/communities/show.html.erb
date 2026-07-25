@@ -35,7 +35,7 @@
 
             <% if community_user.user == @community.user %>
               <span class="badge bg-secondary ms-2">
-                オーナー
+                作成者
               </span>
             <% end %>
           </div>
@@ -101,8 +101,8 @@
 
   <% if @community.user == current_user %>
 
-    <div class="mt-4">
-      <div class="d-flex gap-2 mb-2">
+    <div class="d-grid gap-2 mt-4">
+      <div class="d-flex gap-2">
         <%= link_to "参加申請を確認",
               requests_community_path(@community),
               class: "btn btn-light border flex-fill rounded-pill" %>
@@ -112,7 +112,7 @@
               class: "btn btn-light border flex-fill rounded-pill" %>
       </div>
 
-      <div class="d-flex gap-2 mb-2">
+      <div class="d-flex gap-2">
         <%= link_to "編集",
               edit_community_path(@community),
               class: "btn btn-asobow flex-fill rounded-pill fw-bold" %>
