@@ -39,25 +39,33 @@
         <% end %>
       </div>
 
-      <%= f.submit "参加申請する",
-            class: "btn btn-asobow w-100 rounded-pill fw-bold" %>
+      <div class="d-grid gap-2">
+        <%= f.submit "参加申請する",
+              class: "btn btn-asobow w-100 rounded-pill fw-bold" %>
+
+        <%= link_to "コミュニティ詳細へ戻る",
+              community_path(@community),
+              class: "btn btn-outline-secondary w-100 rounded-pill" %>
+      </div>
 
     <% else %>
       <p class="text-center text-muted mb-4">
         愛犬を登録していなくても参加申請できます。
       </p>
 
-      <%= f.submit "犬を選ばず参加申請する",
-            class: "btn btn-asobow w-100 rounded-pill fw-bold" %>
+      <div class="d-grid gap-2">
+        <%= f.submit "愛犬を選ばず参加申請する",
+              class: "btn btn-asobow w-100 rounded-pill fw-bold" %>
 
-      <%= link_to "愛犬を登録する",
-            new_dog_path,
-            class: "btn btn-light border w-100 rounded-pill mt-3" %>
+        <%= link_to "愛犬を登録する",
+              new_dog_path,
+              class: "btn btn-light border w-100 rounded-pill" %>
+
+        <%= link_to "コミュニティ詳細へ戻る",
+              community_path(@community),
+              class: "btn btn-outline-secondary w-100 rounded-pill" %>
+      </div>
     <% end %>
-
-    <%= link_to "コミュニティ詳細へ戻る",
-          community_path(@community),
-          class: "btn btn-outline-secondary w-100 rounded-pill mt-3" %>
 
   <% end %>
 <% end %>

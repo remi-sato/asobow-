@@ -7,8 +7,8 @@
           <div class="d-flex overflow-auto">
             <% @post.images.each do |image| %>
               <%= image_tag image,
-                  class: "post-show-image",
-                  style: "height: 320px; min-width: 100%; object-fit: contain;" %>
+                    class: "post-show-image",
+                    style: "height: 320px; min-width: 100%; object-fit: contain;" %>
             <% end %>
           </div>
         <% else %>
@@ -23,80 +23,71 @@
             <%= @post.place_name %>
           </h2>
 
-          <div class="card-body p-4">
-            <h2 class="fw-bold mb-2">
-              <%= @post.title %>
-            </h2>
+          <h2 class="fw-bold mb-2">
+            <%= @post.title %>
+          </h2>
 
-            <div class="text-warning fw-bold mb-4">
-              <div class="raty-read-only" data-score="<%= @post.rating %>"></div>
+          <div class="text-warning fw-bold mb-4">
+            <div class="raty-read-only" data-score="<%= @post.rating %>"></div>
+          </div>
+
+          <div class="bg-light rounded-4 p-3 mb-4">
+            <h5 class="fw-bold mb-3">
+              <i class="fa-solid fa-location-dot"></i>
+              スポット情報
+            </h5>
+
+            <div class="row mb-2">
+              <div class="col-4 fw-bold">場所名</div>
+              <div class="col-8"><%= @post.place_name %></div>
             </div>
 
+            <div class="row mb-2">
+              <div class="col-4 fw-bold">カテゴリ</div>
+              <div class="col-8"><%= @post.category_i18n %></div>
+            </div>
+
+            <div class="row mb-2">
+              <div class="col-4 fw-bold">駐車場</div>
+              <div class="col-8"><%= @post.parking_i18n %></div>
+            </div>
+
+            <div class="row mb-2">
+              <div class="col-4 fw-bold">利用料金</div>
+              <div class="col-8"><%= @post.fee_i18n %></div>
+            </div>
+
+            <div class="row">
+              <div class="col-4 fw-bold">住所</div>
+              <div class="col-8"><%= @post.address %></div>
+            </div>
+          </div>
+
+          <% if @post.dogs.any? %>
             <div class="bg-light rounded-4 p-3 mb-4">
               <h5 class="fw-bold mb-3">
-                <i class="fa-solid fa-location-dot"></i>
-                スポット情報
-              </h5>
-
-              <div class="row mb-2">
-                <div class="col-4 fw-bold">場所名</div>
-                <div class="col-8"><%= @post.place_name %></div>
-              </div>
-
-              <div class="row mb-2">
-                <div class="col-4 fw-bold">カテゴリ</div>
-                <div class="col-8">
-                  <%= @post.category_i18n %>
-                </div>
-              </div>
-
-              <div class="row mb-2">
-                <div class="col-4 fw-bold">駐車場</div>
-                <div class="col-8">
-                  <%= @post.parking_i18n %>
-                </div>
-              </div>
-
-              <div class="row mb-2">
-                <div class="col-4 fw-bold">利用料金</div>
-                <div class="col-8">
-                  <%= @post.fee_i18n %>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-4 fw-bold">住所</div>
-                <div class="col-8"><%= @post.address %></div>
-              </div>
-        </div>
-
-        <% if @post.dogs.any? %>
-          <div class="bg-light rounded-4 p-3 mb-4">
-            <div class="card-body">
-              <h5 class="fw-bold mb-3">
                 <i class="fa-solid fa-dog"></i>
-                 一緒に遊びに行った愛犬
+                一緒に遊びに行った愛犬
               </h5>
 
               <div class="d-flex flex-column gap-3">
                 <% @post.dogs.each do |dog| %>
-                  <%= link_to user_path(dog.user), class: "d-flex align-items-center gap-3 rounded-4 p-3 bg-white text-decoration-none text-dark" do %>
+                  <%= link_to user_path(dog.user),
+                        class: "d-flex align-items-center gap-3 rounded-4 p-3 bg-white text-decoration-none text-dark" do %>
 
                     <% if dog.image.attached? %>
                       <%= image_tag dog.image,
-                        class: "rounded-circle object-fit-cover",
-                        style: "width: 80px; height: 80px;" %>
+                            class: "rounded-circle object-fit-cover flex-shrink-0",
+                            style: "width: 80px; height: 80px;" %>
                     <% else %>
-                      <div class="rounded-circle bg-light d-flex align-items-center justify-content-center"
-                        style="width: 80px; height: 80px;">
+                      <div class="rounded-circle bg-light d-flex align-items-center justify-content-center flex-shrink-0"
+                           style="width: 80px; height: 80px;">
                         <i class="fa-solid fa-dog fs-3 text-muted"></i>
                       </div>
                     <% end %>
 
                     <div>
-                      <p class="fw-bold mb-1">
-                        <%= dog.name %>
-                      </p>
+                      <p class="fw-bold mb-1"><%= dog.name %></p>
 
                       <p class="mb-1">
                         犬種：<%= dog.breed %>
@@ -106,13 +97,11 @@
                         サイズ：<%= dog.size_i18n %>
                       </p>
                     </div>
-
                   <% end %>
                 <% end %>
               </div>
             </div>
-          </div>
-        <% end %>
+          <% end %>
 
           <div class="mb-4">
             <%= simple_format(@post.body) %>
@@ -147,36 +136,37 @@
           <div id="comments" class="mt-4 mb-4">
             <% if @comments.any? %>
               <%= render partial: "comments/comment",
-                collection: @comments,
-                locals: { post: @post } %>
+                    collection: @comments,
+                    locals: { post: @post } %>
             <% else %>
               <p id="no-comments-message" class="text-muted">
                 コメントはまだありません。
               </p>
             <% end %>
           </div>
-          <div class="d-grid gap-2 mt-2">
+
+          <div class="d-grid gap-2 mt-4">
             <% if @post.user == current_user %>
               <div class="d-flex gap-2">
                 <%= link_to "編集",
-                  edit_post_path(@post),
-                  data: { turbo: false },
-                  class: "btn btn-asobow flex-fill rounded-pill fw-bold" %>
+                      edit_post_path(@post),
+                      data: { turbo: false },
+                      class: "btn btn-asobow flex-fill rounded-pill fw-bold" %>
 
                 <%= link_to "削除",
-                  post_path(@post),
-                  data: {
-                  turbo_method: :delete,
-                  turbo_confirm: "本当に削除しますか？"
-                  },
-                  class: "btn btn-outline-danger flex-fill rounded-pill" %>
+                      post_path(@post),
+                      data: {
+                        turbo_method: :delete,
+                        turbo_confirm: "本当に削除しますか？"
+                      },
+                      class: "btn btn-outline-danger flex-fill rounded-pill" %>
               </div>
             <% end %>
 
-              <%= link_to "一覧へ戻る",
-                posts_path,
-                class: "btn btn-outline-secondary w-100 rounded-pill" %>
-            </div>
+            <%= link_to "一覧へ戻る",
+                  posts_path,
+                  class: "btn btn-outline-secondary w-100 rounded-pill" %>
+          </div>
         </div>
       </div>
 
