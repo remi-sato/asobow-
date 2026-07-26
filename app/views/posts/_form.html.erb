@@ -13,7 +13,7 @@
   </div>
 <% end %>
 
-<%= form_with model: post, local: true,data: { turbo: false } do |f| %>
+<%= form_with model: post, local: true, data: { turbo: false } do |f| %>
   <% if post.persisted? && post.images.attached? %>
     <div class="mb-3">
       <p class="form-label">現在の画像</p>
@@ -42,14 +42,17 @@
   <div class="mb-3">
     <%= f.label :rating, for: "post-rating", class: "form-label" do %>
       評価
-      <span class="badge bg-danger ms-1">必須</span>
+      <% if post.new_record? %>
+        <span class="badge bg-danger ms-1">必須</span>
+      <% end %>
     <% end %>
+
     <% if post.new_record? %>
       <div id="post-rating" data-score="<%= post.rating %>"></div>
     <% else %>
       <div class="raty-read-only" data-score="<%= post.rating %>"></div>
+      <div class="form-text">評価は投稿後に変更できません</div>
     <% end %>
-
   </div>
 
   <div class="border rounded-4 p-4 mb-4 bg-white">
