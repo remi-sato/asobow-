@@ -35,11 +35,11 @@ window.initMap = function() {
 
   geocoder = new google.maps.Geocoder();
 
-  setupMapSearch();
+  setupMapSearch(posts);
 
   if (isTopPage) {
     setupPostMarkers(posts);
-    setupTopMapClick();
+    setupTopMapClick(posts);
     return;
   }
 
@@ -225,6 +225,10 @@ function buildPostInfoHtml(post) {
         ${escapeHtml(post.title || "")}
       </div>
 
+      <div class="map-info-user">
+        投稿者：${escapeHtml(post.user_name || "")}
+      </div>
+
       <div class="map-info-rating">
         ${ratingHtml}
       </div>
@@ -283,7 +287,7 @@ function buildNewPostLinkHtml(newPostUrl, post) {
 }
 
 
-function setupMapSearch() {
+function setupMapSearch(posts = []) {
   const searchInput = document.getElementById("map-search-input");
   const searchButton = document.getElementById("map-search-button");
   const errorElement = document.getElementById("map-search-error");
@@ -336,7 +340,8 @@ function setupMapSearch() {
             placeName: keyword,
             address: formattedAddress,
             latitude: location.lat(),
-            longitude: location.lng()
+            longitude: location.lng(),
+            posts: posts
           });
         }
 
@@ -360,7 +365,7 @@ function setupMapSearch() {
 }
 
 
-function setupTopMapClick() {
+function setupTopMapClick(posts) {
   map.addListener("click", function(event) {
     if (!event.latLng) return;
 
@@ -403,7 +408,8 @@ function setupTopMapClick() {
             placeName: "",
             address: address,
             latitude: latitude,
-            longitude: longitude
+            longitude: longitude,
+            posts: posts
           });
         }
       );
@@ -429,20 +435,90 @@ function setupTopMapClick() {
           placeName: "",
           address: address,
           latitude: latitude,
-          longitude: longitude
+          longitude: longitude,
+          posts: posts
         });
       }
     );
   });
 }
 
+function findNearbyPosts(
+  posts,
+  latitude,
+  longitude,
+  maxDistanceMeters = 100
+) {
+  return posts.filter(function(post) {
+    if (!post.latitude || !post.longitude) return false;
+
+    const postLatitude = parseFloat(post.latitude);
+    const postLongitude = parseFloat(post.longitude);
+
+    if (
+      Number.isNaN(postLatitude) ||
+      Number.isNaN(postLongitude)
+    ) {
+      return false;
+    }
+
+    const distance = calculateDistanceInMeters(
+      latitude,
+      longitude,
+      postLatitude,
+      postLongitude
+    );
+
+    return distance <= maxDistanceMeters;
+  });
+}
+
+
+function calculateDistanceInMeters(
+  latitude1,
+  longitude1,
+  latitude2,
+  longitude2
+) {
+  const earthRadius = 6371000;
+
+  const toRadians = function(degrees) {
+    return degrees * Math.PI / 180;
+  };
+
+  const latitudeDifference = toRadians(
+    latitude2 - latitude1
+  );
+
+  const longitudeDifference = toRadians(
+    longitude2 - longitude1
+  );
+
+  const firstLatitude = toRadians(latitude1);
+  const secondLatitude = toRadians(latitude2);
+
+  const calculation =
+    Math.sin(latitudeDifference / 2) ** 2 +
+    Math.cos(firstLatitude) *
+      Math.cos(secondLatitude) *
+      Math.sin(longitudeDifference / 2) ** 2;
+
+  const angle =
+    2 * Math.atan2(
+      Math.sqrt(calculation),
+      Math.sqrt(1 - calculation)
+    );
+
+  return earthRadius * angle;
+}
 
 function showSelectedLocationInfo({
   location,
   placeName,
   address,
   latitude,
-  longitude
+  longitude,
+  posts = []
 }) {
   const mapElement = document.getElementById("map");
   const newPostUrl = mapElement?.dataset.newPostUrl;
@@ -460,34 +536,58 @@ function showSelectedLocationInfo({
 
   closeSelectedLocationInfoWindow();
 
+  const nearbyPosts = findNearbyPosts(
+    posts,
+    Number(latitude),
+    Number(longitude)
+  );
+
   const placeNameHtml = placeName
     ? `
-      <div class="map-selected-place-name">
-        ${escapeHtml(placeName)}
+      <div class="map-info-location">
+        📍 ${escapeHtml(placeName)}
       </div>
     `
     : "";
 
+  const nearbyPostsHtml = nearbyPosts.length > 0
+    ? `
+      <div class="map-selected-posts">
+        <div class="map-info-count">
+          この場所の投稿：${nearbyPosts.length}件
+        </div>
+
+        ${buildAverageRatingHtml(nearbyPosts)}
+
+        ${nearbyPosts
+          .map(function(post) {
+            return buildPostInfoHtml(post);
+          })
+          .join('<hr class="map-info-divider">')}
+      </div>
+    `
+    : `
+      <div class="map-selected-no-posts">
+        この場所の投稿はまだありません
+      </div>
+    `;
+
   selectedLocationInfoWindow = new google.maps.InfoWindow({
     content: `
-      <div class="map-selected-window">
-        <div class="map-selected-title">
-          選択した地点
-        </div>
-
+      <div class="map-select-window">
         ${placeNameHtml}
 
-        <div class="map-selected-address">
-          ${escapeHtml(address || "住所を取得できませんでした")}
+        <div class="map-info-new-post">
+          <a
+            href="${postUrl}"
+            data-turbo="false"
+            class="btn btn-asobow rounded-pill fw-bold w-100"
+          >
+            この地点を投稿する
+          </a>
         </div>
 
-        <a
-          href="${postUrl}"
-          data-turbo="false"
-          class="map-selected-post-link"
-        >
-          この地点を投稿する
-        </a>
+        ${nearbyPostsHtml}
       </div>
     `
   });
@@ -497,7 +597,6 @@ function showSelectedLocationInfo({
     anchor: searchMarker
   });
 }
-
 
 function closeSelectedLocationInfoWindow() {
   if (!selectedLocationInfoWindow) return;
