@@ -1,0 +1,127 @@
+<div class="container my-4">
+  <h2 class="text-center mb-3">検索結果</h2>
+
+  <p class="text-center mb-4">
+    「<%= @word %>」の検索結果
+  </p>
+
+  <% if @range == "User" %>
+    <h3 class="mb-3">ユーザー</h3>
+
+    <% if @users.present? %>
+      <% @users.each do |user| %>
+        <div class="card mb-3 shadow-sm border-0 rounded-4">
+          <div class="card-body">
+            <h5 class="card-title mb-2">
+              <i class="fa-solid fa-user"></i>
+              <%= link_to user.name,
+                    admin_user_path(user),
+                    class: "text-decoration-none text-dark" %>
+            </h5>
+
+            <p class="mb-1">
+              メールアドレス：<%= user.email_address %>
+            </p>
+
+            <p class="mb-0">
+              ステータス：
+              <% if user.is_active? %>
+                <span class="badge bg-success">有効</span>
+              <% else %>
+                <span class="badge bg-secondary">利用停止</span>
+              <% end %>
+            </p>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="d-flex justify-content-center mt-4">
+        <%= paginate @users,
+              params: {
+                range: @range,
+                search: @search,
+                word: @word
+              } %>
+      </div>
+    <% else %>
+      <p class="text-center text-muted mb-0">
+        該当するユーザーはいません。
+      </p>
+    <% end %>
+
+  <% elsif @range == "Post" %>
+    <h3 class="mb-3">投稿</h3>
+
+    <% if @posts.present? %>
+      <% @posts.each do |post| %>
+        <div class="card mb-3 shadow-sm border-0 rounded-4">
+          <div class="card-body">
+            <h5 class="card-title mb-2">
+              <i class="fa-solid fa-paw"></i>
+              <%= link_to post.place_name,
+                    admin_post_path(post),
+                    class: "text-decoration-none text-dark" %>
+            </h5>
+
+            <p class="mb-1">
+              <i class="fa-solid fa-location-dot"></i>
+              <%= post.address %>
+            </p>
+
+            <p class="mb-0">
+              投稿者：<%= post.user.name %>
+            </p>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="d-flex justify-content-center mt-4">
+        <%= paginate @posts,
+              params: {
+                range: @range,
+                search: @search,
+                word: @word
+              } %>
+      </div>
+    <% else %>
+      <p class="text-center text-muted mb-0">
+        該当する投稿はありません。
+      </p>
+    <% end %>
+
+  <% elsif @range == "Community" %>
+    <h3 class="mb-3">コミュニティ</h3>
+
+    <% if @communities.present? %>
+      <% @communities.each do |community| %>
+        <div class="card mb-3 shadow-sm border-0 rounded-4">
+          <div class="card-body">
+            <h5 class="card-title mb-2">
+              <i class="fa-solid fa-people-group"></i>
+              <%= link_to community.name,
+                    admin_community_path(community),
+                    class: "text-decoration-none text-dark" %>
+            </h5>
+
+            <p class="mb-0">
+              オーナー：<%= community.user.name %>
+            </p>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="d-flex justify-content-center mt-4">
+        <%= paginate @communities,
+              params: {
+                range: @range,
+                search: @search,
+                word: @word
+              } %>
+      </div>
+    <% else %>
+      <p class="text-center text-muted mb-0">
+        該当するコミュニティはありません。
+      </p>
+    <% end %>
+  <% end %>
+</div>

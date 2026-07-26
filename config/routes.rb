@@ -68,6 +68,8 @@ Rails.application.routes.draw do
     resources :posts, only: [ :index, :show, :destroy ] do
       resources :comments, only: [ :destroy ]
     end
+
     resources :communities, only: [ :index, :show, :destroy ]
+    get "search", to: "searches#search", as: :search
   end
 end

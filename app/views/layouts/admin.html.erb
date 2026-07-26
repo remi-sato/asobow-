@@ -58,6 +58,46 @@
 
   <div class="header-right"></div>
 </header>
+  
+  <% if admin_logged_in? %>
+  <div class="search-bar container my-3">
+    <%= form_with url: admin_search_path, method: :get, local: true do |f| %>
+
+      <%= f.select :range,
+            options_for_select(
+              [
+                ["ユーザー", "User"],
+                ["投稿", "Post"],
+                ["コミュニティ", "Community"]
+              ],
+              params[:range]
+            ),
+            {},
+            class: "form-select d-inline-block w-auto" %>
+
+      <%= f.select :search,
+            options_for_select(
+              [
+                ["完全一致", "perfect_match"],
+                ["前方一致", "forward_match"],
+                ["後方一致", "backward_match"],
+                ["部分一致", "partial_match"]
+              ],
+              params[:search]
+            ),
+            {},
+            class: "form-select d-inline-block w-auto" %>
+
+      <%= f.text_field :word,
+            value: params[:word],
+            placeholder: "キーワードを入力",
+            class: "form-control d-inline-block w-auto" %>
+
+      <%= f.submit "検索", class: "btn btn-asobow" %>
+
+    <% end %>
+  </div>
+<% end %>
 
     <main>
       <div class="container mt-3">
