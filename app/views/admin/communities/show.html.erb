@@ -11,20 +11,21 @@
         label: "作成者",
         value: @community.user.name %>
 
+  <% approved_members = @community.community_users
+        .approved
+        .includes(:user) %>
+
   <%= render "shared/detail_row",
-      label: "メンバー一覧（#{@community.community_users.approved.count + 1}人）" do %>
-
-    <p class="mb-1">
-      <%= @community.user.name %>
-      <span class="text-muted small">（作成者）</span>
-    </p>
-
-    <% approved_members = @community.community_users.approved.includes(:user) %>
+        label: "メンバー一覧（#{approved_members.count}人）" do %>
 
     <% if approved_members.present? %>
       <% approved_members.each do |community_user| %>
         <p class="mb-1">
           <%= community_user.user.name %>
+
+          <% if community_user.user == @community.user %>
+            <span class="text-muted small">（作成者）</span>
+          <% end %>
         </p>
       <% end %>
     <% else %>
@@ -37,11 +38,11 @@
 
   <%= render "shared/detail_row",
         label: "作成日",
-        value: @community.created_at.strftime("%Y/%m/%d") %>
+        value: l(@community.created_at, format: :short) %>
 
   <%= render "shared/detail_row",
         label: "紹介文",
-        value: l(@community.created_at, format: :short) %>
+        value: @community.introduction %>
 
   <%= render "shared/detail_row",
         label: "ルール",
@@ -59,7 +60,6 @@
     <%= link_to "一覧へ戻る",
           admin_communities_path,
           class: "btn btn-outline-secondary w-100 rounded-pill" %>
-
   </div>
 
 <% end %>
