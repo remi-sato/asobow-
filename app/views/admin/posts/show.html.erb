@@ -18,10 +18,25 @@
                     <% end %>
                   </div>
               </div>
-
+              
               <div class="row mb-3">
                 <div class="col-4 fw-bold">場所名</div>
-                <div class="col-8"><%= @post.place_name %></div>
+                  <div class="col-8"><%= @post.place_name %></div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-4 fw-bold">カテゴリ</div>
+                <div class="col-8"><%= @post.category_i18n %></div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-4 fw-bold">駐車場</div>
+                <div class="col-8"><%= @post.parking_i18n %></div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-4 fw-bold">利用料金</div>
+                <div class="col-8"><%= @post.fee_i18n %></div>
               </div>
 
               <div class="row mb-3">
@@ -49,6 +64,17 @@
               <div class="row mb-3">
                 <div class="col-4 fw-bold">投稿者</div>
                 <div class="col-8"><%= @post.user.name %></div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-4 fw-bold">一緒に遊んだ犬</div>
+                <div class="col-8">
+                  <% if @post.dogs.present? %>
+                    <%= @post.dogs.pluck(:name).join("、") %>
+                  <% else %>
+                    <span class="text-muted">登録されていません</span>
+                  <% end %>
+                </div>
               </div>
 
               <div class="row mb-3">
