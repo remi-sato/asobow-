@@ -76,6 +76,35 @@ class Post < ApplicationRecord
     end
   end
 
+  def self.admin_looks(search, word)
+    relation = joins(:user)
+
+    if search == "perfect_match"
+      relation.where(
+        "posts.place_name = ? OR posts.address = ? OR users.name = ?",
+        word, word, word
+      )
+
+    elsif search == "forward_match"
+      relation.where(
+        "posts.place_name LIKE ? OR posts.address LIKE ? OR users.name LIKE ?",
+        "#{word}%", "#{word}%", "#{word}%"
+      )
+
+    elsif search == "backward_match"
+      relation.where(
+        "posts.place_name LIKE ? OR posts.address LIKE ? OR users.name LIKE ?",
+        "%#{word}", "%#{word}", "%#{word}"
+      )
+
+    else
+      relation.where(
+        "posts.place_name LIKE ? OR posts.address LIKE ? OR users.name LIKE ?",
+        "%#{word}%", "%#{word}%", "%#{word}%"
+      )
+    end
+  end
+
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
   end
