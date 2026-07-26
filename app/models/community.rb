@@ -4,8 +4,17 @@ class Community < ApplicationRecord
   has_many :community_users, dependent: :destroy
   has_many :users, through: :community_users
 
-  has_many :community_user_dogs, through: :community_users
-  has_many :participating_dogs, through: :community_user_dogs, source: :dog
+  has_many :approved_community_users,
+            -> { approved },
+            class_name: "CommunityUser"
+
+  has_many :approved_community_user_dogs,
+            through: :approved_community_users,
+            source: :community_user_dogs
+
+  has_many :participating_dogs,
+            through: :approved_community_user_dogs,
+            source: :dog
 
   has_many :notifications, dependent: :destroy
 
