@@ -26,7 +26,7 @@
       </div>
 
       <% if show_actions %>
-        <div class="col-md-2 text-end">
+        <div class="col-md-2 text-end ps-md-4">
           <div class="d-grid gap-2">
             <%= link_to "編集",  edit_dog_path(dog), class: "btn btn-asobow btn-sm w-100 rounded-pill fw-bold" %>
             <%= link_to "削除", dog_path(dog), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" }, class: "btn btn-outline-danger btn-sm rounded-pill" %>
