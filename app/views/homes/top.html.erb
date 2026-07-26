@@ -60,7 +60,8 @@
             rating: post.rating,
             image_url: post.images.attached? ? url_for(post.images.first) : nil,
             favorites_count: post.favorites.count,
-            comments_count: post.comments.count
+            comments_count: post.comments.count,
+            user_name: post.user.name
           }
         }.to_json %>'
         <% if logged_in? %>

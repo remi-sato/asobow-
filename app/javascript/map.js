@@ -225,6 +225,10 @@ function buildPostInfoHtml(post) {
         ${escapeHtml(post.title || "")}
       </div>
 
+      <div class="map-info-user">
+        投稿者：${escapeHtml(post.user_name || "")}
+      </div>
+
       <div class="map-info-rating">
         ${ratingHtml}
       </div>
