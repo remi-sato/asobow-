@@ -28,8 +28,8 @@ users = [
 users.each do |user_data|
   User.find_or_create_by!(email_address: user_data[:email_address]) do |user|
     user.name = user_data[:name]
-    user.password = "password"
-    user.password_confirmation = "password"
+    user.password = "demo-password"
+    user.password_confirmation = "demo-password"
   end
 end
 
