@@ -26,11 +26,14 @@ users = [
 ]
 
 users.each do |user_data|
-  User.find_or_create_by!(email_address: user_data[:email_address]) do |user|
-    user.name = user_data[:name]
-    user.password = "demo-password"
-    user.password_confirmation = "demo-password"
-  end
+  user = User.find_or_initialize_by(
+    email_address: user_data[:email_address]
+  )
+
+  user.name = user_data[:name]
+  user.password = "demo-password"
+  user.password_confirmation = "demo-password"
+  user.save!
 end
 
 puts "ユーザー5人の作成完了"
