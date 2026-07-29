@@ -523,16 +523,18 @@ function showSelectedLocationInfo({
   const mapElement = document.getElementById("map");
   const newPostUrl = mapElement?.dataset.newPostUrl;
 
-  if (!newPostUrl) return;
+  let postUrl = "";
 
-  const params = new URLSearchParams({
-    place_name: placeName || "",
-    address: address || "",
-    latitude: latitude,
-    longitude: longitude
-  });
+  if (newPostUrl) {
+    const params = new URLSearchParams({
+      place_name: placeName || "",
+      address: address || "",
+      latitude: latitude,
+      longitude: longitude
+    });
 
-  const postUrl = `${newPostUrl}?${params.toString()}`;
+    postUrl = `${newPostUrl}?${params.toString()}`;
+  }
 
   closeSelectedLocationInfoWindow();
 
@@ -546,6 +548,20 @@ function showSelectedLocationInfo({
     ? `
       <div class="map-info-location">
         📍 ${escapeHtml(placeName)}
+      </div>
+    `
+    : "";
+
+  const newPostLinkHtml = postUrl
+    ? `
+      <div class="map-info-new-post">
+        <a
+          href="${postUrl}"
+          data-turbo="false"
+          class="btn btn-asobow rounded-pill fw-bold w-100"
+        >
+          この地点を投稿する
+        </a>
       </div>
     `
     : "";
@@ -576,17 +592,7 @@ function showSelectedLocationInfo({
     content: `
       <div class="map-select-window">
         ${placeNameHtml}
-
-        <div class="map-info-new-post">
-          <a
-            href="${postUrl}"
-            data-turbo="false"
-            class="btn btn-asobow rounded-pill fw-bold w-100"
-          >
-            この地点を投稿する
-          </a>
-        </div>
-
+        ${newPostLinkHtml}
         ${nearbyPostsHtml}
       </div>
     `
