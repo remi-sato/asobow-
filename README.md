@@ -30,7 +30,10 @@
 - 犬を連れていきたい場所が決まっているが、その場所の情報を知りたい時
 ​
 ## 設計書
-後ほど作成予定
+- 画面遷移図：https://drive.google.com/file/d/1RQ6i3qD9dv4i9g0bF2ZRu3XQJ3NOB8QV/view?usp=sharing
+- ER図：https://drive.google.com/file/d/1sdSNvegZ-sz4aZC_IY5-o_uaPFL3vReV/view?usp=sharing
+- テーブル定義書：https://docs.google.com/spreadsheets/d/1fhwyQLNrAW3GQhSqUHTqa40e0c9_MyJPub8PLkthQ4A/edit?usp=sharing
+- アプリケーション詳細設計書：https://docs.google.com/spreadsheets/d/1EoO0s41RcAOh0sdBFEw6KhW_ZFMcIqxQijwOF5yKdCQ/edit?usp=sharing
 ​
 ## 開発環境
 - OS：Windows
